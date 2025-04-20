@@ -440,47 +440,6 @@ export class PlayerSetup extends HTMLElement {
 				this.state.availableAvatars.length;
 		}
 
-		// Check if this avatar is already selected by another player
-		let avatarAlreadyTaken = false;
-		let attempts = 0;
-		const maxAttempts = this.state.availableAvatars.length;
-
-		while (attempts < maxAttempts) {
-			const newAvatarId = this.state.availableAvatars[newIndex].id;
-
-			// Check if this avatar is selected by another player
-			avatarAlreadyTaken = this.state.selectedAvatars.some(
-				(id, idx) => id === newAvatarId && idx !== playerIndex
-			);
-
-			if (!avatarAlreadyTaken) break;
-
-			// Move to the next/prev avatar
-			if (direction === "next") {
-				newIndex = (newIndex + 1) % this.state.availableAvatars.length;
-			} else {
-				newIndex =
-					(newIndex - 1 + this.state.availableAvatars.length) %
-					this.state.availableAvatars.length;
-			}
-
-			attempts++;
-		}
-
-		// If all avatars are taken, show a message
-		if (avatarAlreadyTaken) {
-			const takenMessage = this.shadowRoot.getElementById(
-				`avatar-taken-message-${playerIndex}`
-			);
-			if (takenMessage) {
-				takenMessage.classList.add("visible");
-				setTimeout(() => {
-					takenMessage.classList.remove("visible");
-				}, 2000);
-			}
-			return;
-		}
-
 		// Update avatar
 		const newAvatar = this.state.availableAvatars[newIndex];
 		this.state.selectedAvatars[playerIndex] = newAvatar.id;
@@ -581,6 +540,40 @@ export class PlayerSetup extends HTMLElement {
 			if (errorMessage) {
 				errorMessage.textContent = "All player names must be unique";
 				errorMessage.classList.add("visible");
+			}
+			return false;
+		}
+
+		// Check for duplicate avatars
+		const avatarIds = new Set();
+		const duplicateAvatars = [];
+
+		for (let i = 0; i < this.state.playerCount; i++) {
+			const avatarId = this.state.selectedAvatars[i];
+			if (avatarIds.has(avatarId)) {
+				duplicateAvatars.push(i);
+			} else {
+				avatarIds.add(avatarId);
+			}
+		}
+
+		if (duplicateAvatars.length > 0) {
+			if (errorMessage) {
+				errorMessage.textContent = "Players cannot use the same avatar";
+				errorMessage.classList.add("visible");
+
+				// Highlight the duplicates
+				duplicateAvatars.forEach((playerIndex) => {
+					const preview = this.shadowRoot.getElementById(
+						`avatar-preview-${playerIndex}`
+					);
+					if (preview) {
+						preview.classList.add("avatar-taken");
+						setTimeout(() => {
+							preview.classList.remove("avatar-taken");
+						}, 2000);
+					}
+				});
 			}
 			return false;
 		}

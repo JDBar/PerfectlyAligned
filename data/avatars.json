@@ -7,48 +7,8 @@
 		},
 		{
 			"id": "dadskeleton",
-			"filename": "dadskeletonts_avatar.png",
+			"filename": "dadskeleton_avatar.png",
 			"name": "Dad Skeleton"
-		},
-		{
-			"id": "horse",
-			"filename": "horse_avatar.png",
-			"name": "Horse"
-		},
-		{
-			"id": "lizard",
-			"filename": "lizard_avatar.png",
-			"name": "Lizard"
-		},
-		{
-			"id": "ninjatp",
-			"filename": "ninjatp_avatar.png",
-			"name": "Ninja"
-		},
-		{
-			"id": "robotp",
-			"filename": "robotp_avatar.png",
-			"name": "Robot"
-		},
-		{
-			"id": "glitchkitty",
-			"filename": "glitchkitty_avatar.png",
-			"name": "Glitch Kitty"
-		},
-		{
-			"id": "mushgun",
-			"filename": "mushgun.png",
-			"name": "Mush Gun"
-		},
-		{
-			"id": "pirateghost",
-			"filename": "pirateghost2_avatar.png",
-			"name": "Pirate Ghost"
-		},
-		{
-			"id": "vampiregirl",
-			"filename": "vampiregirl_avatar.png",
-			"name": "Vampire Girl"
 		},
 		{
 			"id": "chessqueen",

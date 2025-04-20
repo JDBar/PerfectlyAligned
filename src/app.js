@@ -28,13 +28,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 		const soundsPromise = loadSounds("/data/sounds.json");
 		const decksPromise = loadDecks("/data/decks.json");
 		const tokensPromise = loadTokenData("/data/tokens.json");
+		const avatarsPromise = fetch("/data/avatars.json").then((response) => {
+			if (!response.ok) {
+				throw new Error("Failed to load avatar data");
+			}
+			return response.json();
+		});
+		const alignmentsPromise = fetch("/data/alignments.json").then(
+			(response) => {
+				if (!response.ok) {
+					throw new Error("Failed to load alignment data");
+				}
+				return response.json();
+			}
+		);
 
 		// Wait for all data to load
-		const [soundsLoaded, decksLoaded, tokensLoaded] = await Promise.all([
-			soundsPromise,
-			decksPromise,
-			tokensPromise,
-		]);
+		const [soundsLoaded, decksLoaded, tokensLoaded, avatarData, alignmentData] =
+			await Promise.all([
+				soundsPromise,
+				decksPromise,
+				tokensPromise,
+				avatarsPromise,
+				alignmentsPromise,
+			]);
 
 		// Check if all data loaded successfully
 		if (!soundsLoaded || !decksLoaded || !tokensLoaded) {
@@ -44,24 +61,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 		// Preload audio assets
 		await preloadAllSounds();
 
-		// Initialize components with alignment grid data
-		const alignmentGrids = document.querySelectorAll("alignment-grid");
-		alignmentGrids.forEach(async (grid) => {
-			await grid.loadAlignmentExamples("/data/alignments.json");
-		});
-
-		// Initialize player setup with avatars
-		const playerSetups = document.querySelectorAll("player-setup");
-		playerSetups.forEach(async (setup) => {
-			// Fetch avatar data
-			const response = await fetch("/data/avatars.json");
-			if (!response.ok) {
-				throw new Error("Failed to load avatar data");
+		// Initialize components with data
+		const mainGame = document.querySelector("main-game");
+		if (mainGame && mainGame.shadowRoot) {
+			// Set up alignment grid
+			const alignmentGrid =
+				mainGame.shadowRoot.querySelector("#alignment-grid");
+			if (alignmentGrid) {
+				alignmentGrid.setAlignmentData(alignmentData);
 			}
 
-			const avatarData = await response.json();
-			setup.setAvatarData(avatarData);
-		});
+			// Set up player setup
+			const playerSetup = mainGame.shadowRoot.querySelector("#player-setup");
+			if (playerSetup) {
+				playerSetup.setAvatarData(avatarData);
+			}
+		}
 
 		logInfo("Game initialized successfully!");
 	} catch (error) {

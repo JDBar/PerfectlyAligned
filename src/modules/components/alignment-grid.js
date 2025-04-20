@@ -561,6 +561,24 @@ export class AlignmentGrid extends HTMLElement {
 		// Update game state
 		setCurrentAlignment(alignment);
 	}
+
+	/**
+	 * Sets the alignment data from a pre-loaded JSON object
+	 * @param {Object} data - The alignment data object
+	 * @returns {boolean} - Whether setting the data was successful
+	 */
+	setAlignmentData(data) {
+		try {
+			if (data && data.alignmentExamples) {
+				this.alignmentExamples = data.alignmentExamples;
+				return true;
+			}
+			return false;
+		} catch (error) {
+			logError(`Error setting alignment data: ${error.message}`);
+			return false;
+		}
+	}
 }
 
 // Define the custom element
