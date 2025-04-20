@@ -88,6 +88,12 @@ export class MainGame extends ComponentBase {
 				}
 			}
 		});
+
+		// Listen for player count changes
+		playerSetup.addEventListener("player-count-changed", (event) => {
+			// Update any necessary game state based on player count
+			Logger.logInfo(`Player count changed to ${event.detail.count}`);
+		});
 	}
 
 	/**

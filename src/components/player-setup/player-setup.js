@@ -27,6 +27,8 @@ export class PlayerSetup extends ComponentBase {
 			availableAvatars: [],
 			selectedAvatars: [],
 			playerCount: 3,
+			minPlayers: 3,
+			maxPlayers: 8,
 			avatarBasePath: "/assets/images/avatars/",
 		};
 	}
@@ -36,8 +38,77 @@ export class PlayerSetup extends ComponentBase {
 	 * Overrides the afterRender method from ComponentBase
 	 */
 	afterRender() {
+		// Set up player count controls
+		this.setupPlayerCountControls();
+
 		// Initial update of player inputs
 		this.updatePlayerInputs();
+	}
+
+	/**
+	 * Set up player count controls
+	 * @private
+	 */
+	setupPlayerCountControls() {
+		const decreaseBtn = this.shadowRoot.getElementById("decrease-player-count");
+		const increaseBtn = this.shadowRoot.getElementById("increase-player-count");
+		const countDisplay = this.shadowRoot.getElementById("player-count-display");
+
+		if (decreaseBtn && increaseBtn && countDisplay) {
+			// Update display
+			countDisplay.textContent = this.state.playerCount;
+
+			// Add event listeners
+			decreaseBtn.addEventListener("click", () => {
+				if (this.state.playerCount > this.state.minPlayers) {
+					this.state.playerCount--;
+					countDisplay.textContent = this.state.playerCount;
+					this.updatePlayerInputs();
+
+					// Enable increase button if it was disabled
+					increaseBtn.disabled = false;
+
+					// Disable decrease button if at minimum
+					if (this.state.playerCount <= this.state.minPlayers) {
+						decreaseBtn.disabled = true;
+					}
+
+					// Dispatch event for player count change
+					this.dispatchEvent(
+						new CustomEvent("player-count-changed", {
+							detail: { count: this.state.playerCount },
+						})
+					);
+				}
+			});
+
+			increaseBtn.addEventListener("click", () => {
+				if (this.state.playerCount < this.state.maxPlayers) {
+					this.state.playerCount++;
+					countDisplay.textContent = this.state.playerCount;
+					this.updatePlayerInputs();
+
+					// Enable decrease button if it was disabled
+					decreaseBtn.disabled = false;
+
+					// Disable increase button if at maximum
+					if (this.state.playerCount >= this.state.maxPlayers) {
+						increaseBtn.disabled = true;
+					}
+
+					// Dispatch event for player count change
+					this.dispatchEvent(
+						new CustomEvent("player-count-changed", {
+							detail: { count: this.state.playerCount },
+						})
+					);
+				}
+			});
+
+			// Initial button state
+			decreaseBtn.disabled = this.state.playerCount <= this.state.minPlayers;
+			increaseBtn.disabled = this.state.playerCount >= this.state.maxPlayers;
+		}
 	}
 
 	/**
@@ -371,6 +442,13 @@ export class PlayerSetup extends ComponentBase {
 			errorMessage.textContent = "";
 			errorMessage.classList.remove("visible");
 		}
+
+		// Dispatch player-setup-complete event when validation passes
+		this.dispatchEvent(
+			new CustomEvent("player-setup-complete", {
+				detail: { players: this.getPlayerData() },
+			})
+		);
 
 		return true;
 	}
