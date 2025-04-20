@@ -6,25 +6,26 @@
  * @module components/prompt-card
  */
 
-import { logError } from "../logger.js";
-import { playSound } from "../audio.js";
-import { drawRandomPrompts, returnPromptsToDeck } from "../deck.js";
-import { setDisplayedPrompts, setChosenPrompt } from "../gameState.js";
-import { canAffordAction, deductActionCost } from "../tokens.js";
+import * as Logger from "../../lib/logger.js";
+import * as Audio from "../../lib/audio.js";
+import * as Deck from "../../lib/deck.js";
+import * as GameState from "../../lib/gameState.js";
+import * as Tokens from "../../lib/tokens.js";
+import { ComponentBase } from "../component-base.js";
 
 /**
  * Prompt Card Web Component
- * @extends HTMLElement
+ * @extends ComponentBase
  */
-export class PromptCard extends HTMLElement {
+export class PromptCard extends ComponentBase {
 	/**
 	 * Create a new PromptCard component
 	 */
 	constructor() {
-		super();
-
-		// Create shadow DOM
-		this.attachShadow({ mode: "open" });
+		super(
+			"./components/prompt-card/prompt-card.template.html",
+			"./components/prompt-card/prompt-card.styles.css"
+		);
 
 		// Initialize state
 		this.state = {
@@ -34,15 +35,13 @@ export class PromptCard extends HTMLElement {
 			canReroll: false,
 			judgePlayerIndex: -1,
 		};
-
-		// Build component
-		this.render();
 	}
 
 	/**
-	 * Called when the element is added to the DOM
+	 * Called after the component is rendered
+	 * Overrides the afterRender method from ComponentBase
 	 */
-	connectedCallback() {
+	afterRender() {
 		// Add event listeners
 		this.addEventListeners();
 
@@ -110,160 +109,6 @@ export class PromptCard extends HTMLElement {
 	}
 
 	/**
-	 * Render the component
-	 * @private
-	 */
-	render() {
-		this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-          font-family: var(--pixel-font, 'Press Start 2P', cursive);
-        }
-        
-        .prompt-section {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin: 20px 0;
-        }
-        
-        #draw-prompts-button,
-        #redraw-prompts-button {
-          background-color: #0d0517;
-          color: #ffff00;
-          border: 2px solid #00ffff;
-          padding: 10px 20px;
-          font-family: var(--pixel-font, 'Press Start 2P', cursive);
-          font-size: 1em;
-          margin-bottom: 15px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        
-        #draw-prompts-button:hover,
-        #redraw-prompts-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
-        }
-        
-        #draw-prompts-button:active,
-        #redraw-prompts-button:active {
-          transform: translateY(0);
-        }
-        
-        #redraw-prompts-button {
-          background-color: #1a0a2e;
-          color: #ff00ff;
-        }
-        
-        .prompt-display-area {
-          width: 100%;
-          max-width: 600px;
-          margin: 0 auto;
-        }
-        
-        .instructions {
-          color: #00ffff;
-          text-align: center;
-          margin-bottom: 15px;
-          font-size: 0.9em;
-        }
-        
-        #prompt-list {
-          list-style: none;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-        }
-        
-        .prompt-choice {
-          background-color: #1a0a2e;
-          border: 2px solid #333333;
-          border-radius: 5px;
-          padding: 15px;
-          cursor: pointer;
-          color: #ffffff;
-          transition: all 0.3s ease;
-          position: relative;
-          font-family: var(--readable-font, 'Courier New', monospace);
-          font-size: 1.1em;
-        }
-        
-        .prompt-choice:hover {
-          border-color: #00ffff;
-          box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-          transform: translateY(-2px);
-        }
-        
-        .prompt-choice.selected {
-          border-color: #ff00ff;
-          box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
-          background-color: #34145a;
-          font-weight: bold;
-        }
-        
-        .prompt-choice.disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-          border-color: #333333;
-          box-shadow: none;
-          transform: none;
-        }
-        
-        @keyframes dealPromptCard {
-          0% {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .prompt-choice.deal-animation {
-          animation: dealPromptCard 0.3s ease-out forwards;
-        }
-        
-        @media (max-width: 768px) {
-          #prompt-list {
-            gap: 10px;
-          }
-          
-          .prompt-choice {
-            padding: 10px;
-            font-size: 1em;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .prompt-choice {
-            padding: 8px;
-            font-size: 0.9em;
-          }
-        }
-      </style>
-      
-      <div class="prompt-section">
-        <button id="draw-prompts-button" type="button">Draw Prompts!</button>
-        <button id="redraw-prompts-button" type="button" style="display: none;">Re-draw Prompts (Cost: 1 Token)</button>
-        
-        <div class="prompt-display-area">
-          <p class="instructions" id="prompt-instructions">Judge: Click "Draw Prompts" or lock it in!</p>
-          <ul id="prompt-list">
-            <!-- Prompts will be populated here -->
-            <li class="prompt-choice">-</li>
-            <li class="prompt-choice">-</li>
-            <li class="prompt-choice">-</li>
-          </ul>
-        </div>
-      </div>
-    `;
-	}
-
-	/**
 	 * Updates the visibility of buttons based on state
 	 * @private
 	 */
@@ -301,10 +146,10 @@ export class PromptCard extends HTMLElement {
 		if (!this.state.isJudge) return;
 
 		// Draw 3 random prompts
-		const prompts = drawRandomPrompts(3, true);
+		const prompts = Deck.drawRandomPrompts(3, true);
 
 		if (prompts.length === 0) {
-			logError("Failed to draw prompts - deck may be empty");
+			Logger.logError("Failed to draw prompts - deck may be empty");
 			return;
 		}
 
@@ -313,13 +158,13 @@ export class PromptCard extends HTMLElement {
 		this.state.selectedPromptIndex = null;
 
 		// Play sound
-		playSound("draw_prompts");
+		Audio.playSound("draw_prompts");
 
 		// Update the UI with animations
 		this.updatePromptList(true);
 
 		// Update game state
-		setDisplayedPrompts(prompts);
+		GameState.setDisplayedPrompts(prompts);
 
 		// Update button visibility
 		this.updateButtonVisibility();
@@ -346,7 +191,7 @@ export class PromptCard extends HTMLElement {
 		if (!this.state.isJudge) return;
 
 		// Check if player can afford reroll
-		if (!canAffordAction(this.state.judgePlayerIndex, "reroll")) {
+		if (!Tokens.canAffordAction(this.state.judgePlayerIndex, "reroll")) {
 			const instructions = this.shadowRoot.getElementById(
 				"prompt-instructions"
 			);
@@ -362,18 +207,18 @@ export class PromptCard extends HTMLElement {
 		}
 
 		// Deduct token
-		if (!deductActionCost(this.state.judgePlayerIndex, "reroll")) {
+		if (!Tokens.deductActionCost(this.state.judgePlayerIndex, "reroll")) {
 			return;
 		}
 
 		// Return current prompts to the deck
-		returnPromptsToDeck(this.state.prompts);
+		Deck.returnPromptsToDeck(this.state.prompts);
 
 		// Draw new prompts
-		const prompts = drawRandomPrompts(3, true);
+		const prompts = Deck.drawRandomPrompts(3, true);
 
 		if (prompts.length === 0) {
-			logError("Failed to redraw prompts - deck may be empty");
+			Logger.logError("Failed to redraw prompts - deck may be empty");
 			return;
 		}
 
@@ -382,13 +227,13 @@ export class PromptCard extends HTMLElement {
 		this.state.selectedPromptIndex = null;
 
 		// Play sound
-		playSound("draw_prompts");
+		Audio.playSound("draw_prompts");
 
 		// Update the UI with animations
 		this.updatePromptList(true);
 
 		// Update game state
-		setDisplayedPrompts(prompts);
+		GameState.setDisplayedPrompts(prompts);
 
 		// Dispatch event
 		this.dispatchEvent(
@@ -425,7 +270,7 @@ export class PromptCard extends HTMLElement {
 		this.updateButtonVisibility();
 
 		// Update game state
-		setChosenPrompt(this.state.prompts[promptIndex]);
+		GameState.setChosenPrompt(this.state.prompts[promptIndex]);
 
 		// Update instructions
 		const instructions = this.shadowRoot.getElementById("prompt-instructions");

@@ -1,0 +1,271 @@
+:host {
+	display: block;
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+	color: #ffffff;
+	--section-spacing: 20px;
+}
+
+.game-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.view {
+	display: none;
+}
+
+.view.active {
+	display: block;
+}
+
+.game-title {
+	text-align: center;
+	color: #ff00ff;
+	text-shadow: 3px 3px 0px #00ffff;
+	font-size: 2.5em;
+	margin-bottom: 20px;
+}
+
+.setup-view {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.play-view {
+	display: flex;
+	flex-direction: column;
+	gap: var(--section-spacing);
+}
+
+.game-section {
+	margin-bottom: var(--section-spacing);
+}
+
+.round-info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 15px;
+	background-color: #1a0a2e;
+	border: 2px solid #00ffff;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+
+.round-number {
+	color: #ffff00;
+	font-size: 1.1em;
+}
+
+.current-judge {
+	color: #ff00ff;
+}
+
+.action-buttons {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	margin: 20px 0;
+}
+
+button {
+	background-color: #1a0a2e;
+	border: 2px solid #00ffff;
+	color: #00ffff;
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+	padding: 10px 20px;
+	font-size: 1em;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
+}
+
+button:active {
+	transform: translateY(0);
+}
+
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: none;
+}
+
+.primary-button {
+	background-color: #003300;
+	color: #39ff14;
+	border-color: #39ff14;
+}
+
+.secondary-button {
+	background-color: #1a0a2e;
+	color: #ffff00;
+	border-color: #ffff00;
+}
+
+.danger-button {
+	background-color: #330000;
+	color: #ff3333;
+	border-color: #ff3333;
+}
+
+.results-view {
+	text-align: center;
+}
+
+.winner-display {
+	padding: 30px;
+	background-color: #1a0a2e;
+	border: 2px solid #ff00ff;
+	border-radius: 5px;
+	margin: 20px 0;
+	animation: winnerGlow 2s infinite;
+}
+
+@keyframes winnerGlow {
+	0% {
+		box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+	}
+	50% {
+		box-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
+	}
+	100% {
+		box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+	}
+}
+
+.winner-name {
+	font-size: 2em;
+	color: #ffff00;
+	margin: 10px 0;
+}
+
+.trophy-icon {
+	font-size: 3em;
+	margin: 20px 0;
+}
+
+.game-controls {
+	margin-top: 30px;
+}
+
+.sketch-phase-container,
+.judging-phase-container {
+	padding: 15px;
+	background-color: #1a0a2e;
+	border: 2px solid #00ffff;
+	border-radius: 5px;
+}
+
+.phase-heading {
+	color: #ff00ff;
+	margin-top: 0;
+	margin-bottom: 15px;
+}
+
+.sketch-instructions,
+.judging-instructions {
+	background-color: #0d0517;
+	padding: 15px;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	color: #ffffff;
+	font-family: var(--readable-font, "Courier New", monospace);
+	font-size: 1.1em;
+	line-height: 1.5;
+}
+
+.token-award-section {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.token-award-heading {
+	color: #ffff00;
+	margin-bottom: 10px;
+}
+
+.token-award-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+}
+
+.token-award-button {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 8px 12px;
+	font-size: 0.8em;
+}
+
+.player-selection {
+	margin-top: 20px;
+}
+
+.player-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+.player-option {
+	background-color: #0d0517;
+	border: 2px solid #333333;
+	border-radius: 5px;
+	padding: 10px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.player-option:hover {
+	border-color: #00ffff;
+	box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.player-option.selected {
+	border-color: #ff00ff;
+	box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.player-option-avatar {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background-size: cover;
+	background-position: center;
+	border: 2px solid #00ffff;
+}
+
+.player-option-name {
+	color: #ffffff;
+	font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+	.game-title {
+		font-size: 2em;
+	}
+
+	.action-buttons {
+		flex-direction: column;
+	}
+
+	button {
+		width: 100%;
+	}
+}

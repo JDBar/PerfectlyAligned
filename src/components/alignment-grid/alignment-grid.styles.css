@@ -1,0 +1,145 @@
+:host {
+	display: block;
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+}
+
+.alignment-roll-area {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+#roll-button {
+	background-color: #0d0517;
+	color: #ffff00;
+	border: 2px solid #00ffff;
+	padding: 10px 15px;
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+	font-size: 1em;
+	margin-bottom: 10px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+#roll-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
+}
+
+#roll-button:active {
+	transform: translateY(0);
+}
+
+#die-display {
+	font-size: 2em;
+	font-weight: bold;
+	color: #00ffff;
+	background-color: #1a0a2e;
+	border: 2px solid #00ffff;
+	width: 60px;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0;
+	border-radius: 5px;
+	text-shadow: 0 0 5px #00ffff;
+}
+
+#die-display.rolling {
+	animation: rollAnim 0.2s ease-in-out infinite;
+}
+
+@keyframes rollAnim {
+	0% {
+		transform: translateY(-2px) rotate(-5deg);
+	}
+	50% {
+		transform: translateY(2px) rotate(5deg);
+	}
+	100% {
+		transform: translateY(-2px) rotate(-5deg);
+	}
+}
+
+#alignment-chart-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	gap: 5px;
+	max-width: 300px;
+	margin: 0 auto;
+}
+
+.alignment-cell {
+	background-color: #1a0a2e;
+	border: 2px solid #333333;
+	padding: 15px 10px;
+	text-align: center;
+	font-size: 1.2em;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	user-select: none;
+}
+
+.alignment-cell:hover {
+	border-color: #00ffff;
+	box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.alignment-cell.highlighted {
+	border-color: #ff00ff;
+	box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+	transform: scale(1.05);
+}
+
+.alignment-good {
+	color: #ffff00;
+}
+
+.alignment-neutral-row {
+	color: #00ffff;
+}
+
+.alignment-evil {
+	color: #ff00ff;
+}
+
+.alignment-lawful,
+.alignment-neutral-col,
+.alignment-chaotic {
+	font-weight: bold;
+}
+
+.alignment-examples {
+	margin-top: 20px;
+	font-size: 0.9em;
+	padding: 10px;
+	background-color: #0d0517;
+	border: 1px solid #00ffff;
+	border-radius: 5px;
+	color: #ffffff;
+}
+
+@media (max-width: 768px) {
+	#alignment-chart-grid {
+		max-width: 220px;
+	}
+
+	.alignment-cell {
+		font-size: 1.1em;
+		padding: 8px 4px;
+	}
+}
+
+@media (max-width: 480px) {
+	#alignment-chart-grid {
+		max-width: 180px;
+	}
+
+	.alignment-cell {
+		font-size: 0.9em;
+		padding: 5px 2px;
+	}
+}

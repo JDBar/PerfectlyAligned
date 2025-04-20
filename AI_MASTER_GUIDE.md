@@ -85,7 +85,7 @@ export function rollAlignment() { ... }
 
 ---
 
-## 🧩 Module Responsibilities
+## 🧩 Module Responsibilities (in `/lib`)
 
 - **gameState.js**
   - Centralized game state management (scores, players, rounds).
@@ -105,7 +105,7 @@ export function rollAlignment() { ... }
 - **logger.js**
   - Simple error logging and reporting.
 
-### Web Components (in `/modules/components`)
+### Web Components (in `/components`)
 
 - **alignment-grid.js**: Rolls and displays alignments.
 - **player-setup.js**: Handles player name input and avatar selection.

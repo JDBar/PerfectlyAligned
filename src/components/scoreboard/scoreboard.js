@@ -6,41 +6,40 @@
  * @module components/scoreboard
  */
 
-import { logError } from "../logger.js";
-import { gameState } from "../gameState.js";
-import { getTokenTypes } from "../tokens.js";
+import { ComponentBase } from "../component-base.js";
 
 /**
  * Scoreboard Web Component
- * @extends HTMLElement
+ * @extends ComponentBase
  */
-export class Scoreboard extends HTMLElement {
+export class Scoreboard extends ComponentBase {
 	/**
 	 * Create a new Scoreboard
 	 */
 	constructor() {
-		super();
-
-		// Create shadow DOM
-		this.attachShadow({ mode: "open" });
+		super(
+			"./components/scoreboard/scoreboard.template.html",
+			"./components/scoreboard/scoreboard.styles.css"
+		);
 
 		// Initialize state
 		this.state = {
 			targetScore: 5,
 			players: [],
 			currentJudgeIndex: 0,
-			avatarBasePath: "/assets/images/avatars/",
+			avatarBasePath: "assets/images/avatars/",
 			tokenTypes: {},
 		};
-
-		// Build component
-		this.render();
 	}
 
 	/**
-	 * Called when the element is added to the DOM
+	 * Called after the component is rendered
+	 * Overrides the afterRender method from ComponentBase
 	 */
-	connectedCallback() {
+	afterRender() {
+		// Initialize target score display
+		this.updateTargetScoreDisplay();
+
 		// Dispatch connected event
 		this.dispatchEvent(new CustomEvent("scoreboard-connected"));
 	}
@@ -80,235 +79,6 @@ export class Scoreboard extends HTMLElement {
 		this.state.currentJudgeIndex = judgeIndex;
 
 		this.renderScoreboard();
-	}
-
-	/**
-	 * Render the initial component
-	 * @private
-	 */
-	render() {
-		this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-          font-family: var(--pixel-font, 'Press Start 2P', cursive);
-        }
-        
-        .scoreboard-section {
-          margin: 20px 0;
-        }
-        
-        .scoreboard-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 15px;
-        }
-        
-        h3 {
-          margin: 0;
-          color: #00ffff;
-          text-shadow: 1px 1px 0px #ff00ff;
-          font-size: 1.4em;
-        }
-        
-        #target-score-display {
-          color: #ffff00;
-        }
-        
-        #scoreboard-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-        
-        .player-score-item {
-          display: flex;
-          align-items: center;
-          background-color: #1a0a2e;
-          border: 2px solid #333333;
-          border-radius: 5px;
-          padding: 10px;
-          margin-bottom: 10px;
-          transition: all 0.3s ease;
-          position: relative;
-        }
-        
-        .player-score-item.current-judge {
-          border-color: #ff00ff;
-          box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
-        }
-        
-        .avatar-display-small {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background-size: cover;
-          background-position: center;
-          border: 2px solid #00ffff;
-          margin-right: 10px;
-          flex-shrink: 0;
-        }
-        
-        .player-info {
-          flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-        }
-        
-        .player-name-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-        
-        .player-name-display {
-          font-size: 1.1em;
-          color: #ffffff;
-          margin-right: 10px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 150px;
-        }
-        
-        .player-score {
-          font-size: 1.2em;
-          color: #ffff00;
-          font-weight: bold;
-          margin-left: auto;
-          padding: 0 10px;
-        }
-        
-        .token-display {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 5px;
-          font-size: 0.8em;
-        }
-        
-        .token-display.no-tokens {
-          color: #777777;
-          font-style: italic;
-        }
-        
-        .token-icon {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          height: 20px;
-          padding: 2px 5px;
-          border-radius: 10px;
-          margin-right: 3px;
-          font-size: 0.8em;
-          color: #000000;
-          font-weight: bold;
-        }
-        
-        .token-mindReader {
-          background-color: #00ffff;
-        }
-        
-        .token-artBro {
-          background-color: #ffff00;
-        }
-        
-        .token-perfectlyAligned {
-          background-color: #39ff14;
-        }
-        
-        .token-psychopath {
-          background-color: #ff00ff;
-          color: #ffffff;
-        }
-        
-        .judge-indicator {
-          position: absolute;
-          top: 5px;
-          right: 5px;
-          font-size: 0.7em;
-          color: #ff00ff;
-          background-color: #1a0a2e;
-          padding: 2px 5px;
-          border-radius: 5px;
-          border: 1px solid #ff00ff;
-        }
-        
-        .point-animation {
-          animation: pointGainPulse 0.5s ease-out;
-        }
-        
-        @keyframes pointGainPulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-          100% { transform: scale(1); }
-        }
-        
-        @media (max-width: 768px) {
-          .player-name-display {
-            font-size: 1em;
-            max-width: 120px;
-          }
-          
-          .avatar-display-small {
-            width: 30px;
-            height: 30px;
-          }
-          
-          .token-display {
-            font-size: 0.7em;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .player-score-item {
-            padding: 8px;
-          }
-          
-          .player-name-display {
-            font-size: 0.9em;
-            max-width: 100px;
-          }
-          
-          .avatar-display-small {
-            width: 25px;
-            height: 25px;
-          }
-          
-          .token-display {
-            font-size: 0.7em;
-          }
-          
-          .token-icon {
-            height: 16px;
-            padding: 1px 4px;
-          }
-        }
-      </style>
-      
-      <div class="scoreboard-section">
-        <div class="scoreboard-header">
-          <h3>Scoreboard (Target: <span id="target-score-display">5</span>)</h3>
-        </div>
-        <ul id="scoreboard-list" aria-live="polite">
-          <!-- Player scores will be populated here -->
-          <li class="player-score-item">
-            <div class="avatar-display-small"></div>
-            <div class="player-info">
-              <div class="player-name-row">
-                <span class="player-name-display">Loading...</span>
-                <span class="player-score">0</span>
-              </div>
-              <div class="token-display no-tokens">No tokens yet</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    `;
-
-		// Initialize target score display
-		this.updateTargetScoreDisplay();
 	}
 
 	/**

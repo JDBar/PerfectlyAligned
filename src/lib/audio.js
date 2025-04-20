@@ -6,7 +6,7 @@
  * @module audio
  */
 
-import { logError, logWarning } from "./logger.js";
+import { logError, logWarning } from "../lib/logger.js";
 
 /**
  * Map of loaded audio objects

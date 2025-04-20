@@ -7,23 +7,24 @@
  * @module components/alignment-grid
  */
 
-import { logError } from "../logger.js";
-import { playSound } from "../audio.js";
-import { setCurrentAlignment } from "../gameState.js";
+import * as Logger from "../../lib/logger.js";
+import * as Audio from "../../lib/audio.js";
+import * as GameState from "../../lib/gameState.js";
+import { ComponentBase } from "../component-base.js";
 
 /**
  * Alignment Grid Web Component
- * @extends HTMLElement
+ * @extends ComponentBase
  */
-export class AlignmentGrid extends HTMLElement {
+export class AlignmentGrid extends ComponentBase {
 	/**
 	 * Create a new AlignmentGrid
 	 */
 	constructor() {
-		super();
-
-		// Create shadow DOM
-		this.attachShadow({ mode: "open" });
+		super(
+			"./components/alignment-grid/alignment-grid.template.html",
+			"./components/alignment-grid/alignment-grid.styles.css"
+		);
 
 		// Initialize state
 		this.state = {
@@ -35,27 +36,14 @@ export class AlignmentGrid extends HTMLElement {
 
 		// Alignment data
 		this.alignments = ["LG", "NG", "CG", "LN", "TN", "CN", "LE", "NE", "CE"];
-
-		// Build component
-		this.render();
 	}
 
 	/**
-	 * Called when the element is added to the DOM
+	 * Called after the component is rendered
+	 * Overrides the afterRender method from ComponentBase
 	 */
-	connectedCallback() {
-		// Add event listeners
+	afterRender() {
 		this.addEventListeners();
-
-		// Dispatch connected event
-		this.dispatchEvent(new CustomEvent("alignment-grid-connected"));
-	}
-
-	/**
-	 * Called when the element is removed from the DOM
-	 */
-	disconnectedCallback() {
-		// Clean up event listeners if necessary
 	}
 
 	/**
@@ -97,175 +85,6 @@ export class AlignmentGrid extends HTMLElement {
 	}
 
 	/**
-	 * Renders the component
-	 * @private
-	 */
-	render() {
-		this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-          font-family: var(--pixel-font, 'Press Start 2P', cursive);
-        }
-        
-        .alignment-roll-area {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-bottom: 15px;
-        }
-        
-        #roll-button {
-          background-color: #0d0517;
-          color: #ffff00;
-          border: 2px solid #00ffff;
-          padding: 10px 15px;
-          font-family: var(--pixel-font, 'Press Start 2P', cursive);
-          font-size: 1em;
-          margin-bottom: 10px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        
-        #roll-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
-        }
-        
-        #roll-button:active {
-          transform: translateY(0);
-        }
-        
-        #die-display {
-          font-size: 2em;
-          font-weight: bold;
-          color: #00ffff;
-          background-color: #1a0a2e;
-          border: 2px solid #00ffff;
-          width: 60px;
-          height: 60px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 10px 0;
-          border-radius: 5px;
-          text-shadow: 0 0 5px #00ffff;
-        }
-        
-        #die-display.rolling {
-          animation: rollAnim 0.2s ease-in-out infinite;
-        }
-        
-        @keyframes rollAnim {
-          0% { transform: translateY(-2px) rotate(-5deg); }
-          50% { transform: translateY(2px) rotate(5deg); }
-          100% { transform: translateY(-2px) rotate(-5deg); }
-        }
-        
-        #alignment-chart-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          grid-template-rows: repeat(3, 1fr);
-          gap: 5px;
-          max-width: 300px;
-          margin: 0 auto;
-        }
-        
-        .alignment-cell {
-          background-color: #1a0a2e;
-          border: 2px solid #333333;
-          padding: 15px 10px;
-          text-align: center;
-          font-size: 1.2em;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          user-select: none;
-        }
-        
-        .alignment-cell:hover {
-          border-color: #00ffff;
-          box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-        
-        .alignment-cell.highlighted {
-          border-color: #ff00ff;
-          box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
-          transform: scale(1.05);
-        }
-        
-        .alignment-good {
-          color: #ffff00;
-        }
-        
-        .alignment-neutral-row {
-          color: #00ffff;
-        }
-        
-        .alignment-evil {
-          color: #ff00ff;
-        }
-        
-        .alignment-lawful, .alignment-neutral-col, .alignment-chaotic {
-          font-weight: bold;
-        }
-        
-        .alignment-examples {
-          margin-top: 20px;
-          font-size: 0.9em;
-          padding: 10px;
-          background-color: #0d0517;
-          border: 1px solid #00ffff;
-          border-radius: 5px;
-          color: #ffffff;
-        }
-        
-        @media (max-width: 768px) {
-          #alignment-chart-grid {
-            max-width: 220px;
-          }
-          
-          .alignment-cell {
-            font-size: 1.1em;
-            padding: 8px 4px;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          #alignment-chart-grid {
-            max-width: 180px;
-          }
-          
-          .alignment-cell {
-            font-size: 0.9em;
-            padding: 5px 2px;
-          }
-        }
-      </style>
-      
-      <div class="alignment-roll-area">
-        <button id="roll-button" type="button">Roll Alignment!</button>
-        <div id="die-display" aria-live="polite">?</div>
-      </div>
-      
-      <div id="alignment-chart-grid" role="grid">
-        <div class="alignment-cell alignment-good" data-alignment="LG" role="gridcell" tabindex="0" title="Lawful Good">LG</div>
-        <div class="alignment-cell alignment-good" data-alignment="NG" role="gridcell" tabindex="0" title="Neutral Good">NG</div>
-        <div class="alignment-cell alignment-good" data-alignment="CG" role="gridcell" tabindex="0" title="Chaotic Good">CG</div>
-        <div class="alignment-cell alignment-neutral-row" data-alignment="LN" role="gridcell" tabindex="0" title="Lawful Neutral">LN</div>
-        <div class="alignment-cell alignment-neutral-row" data-alignment="TN" role="gridcell" tabindex="0" title="True Neutral">TN</div>
-        <div class="alignment-cell alignment-neutral-row" data-alignment="CN" role="gridcell" tabindex="0" title="Chaotic Neutral">CN</div>
-        <div class="alignment-cell alignment-evil" data-alignment="LE" role="gridcell" tabindex="0" title="Lawful Evil">LE</div>
-        <div class="alignment-cell alignment-evil" data-alignment="NE" role="gridcell" tabindex="0" title="Neutral Evil">NE</div>
-        <div class="alignment-cell alignment-evil" data-alignment="CE" role="gridcell" tabindex="0" title="Chaotic Evil">CE</div>
-      </div>
-      
-      <div class="alignment-examples" id="alignment-examples">
-        <p><em>Hover over grid or wait for roll...</em></p>
-      </div>
-    `;
-	}
-
-	/**
 	 * Loads alignment examples from JSON
 	 * @param {string} url - URL to the alignments.json file
 	 * @returns {Promise<boolean>} - Promise resolving to whether loading was successful
@@ -288,7 +107,7 @@ export class AlignmentGrid extends HTMLElement {
 
 			return false;
 		} catch (error) {
-			logError(`Error loading alignment examples: ${error.message}`);
+			Logger.logError(`Error loading alignment examples: ${error.message}`);
 			return false;
 		}
 	}
@@ -327,7 +146,7 @@ export class AlignmentGrid extends HTMLElement {
 		if (this.state.isRolling) return;
 
 		this.state.isRolling = true;
-		playSound("roll");
+		Audio.playSound("roll");
 
 		// Update die display
 		const dieDisplay = this.shadowRoot.getElementById("die-display");
@@ -378,7 +197,7 @@ export class AlignmentGrid extends HTMLElement {
 		this.trackRecentAlignment(alignment);
 
 		// Update game state
-		setCurrentAlignment(alignment);
+		GameState.setCurrentAlignment(alignment);
 
 		// Show examples
 		this.showAlignmentExample(alignment);
@@ -479,7 +298,7 @@ export class AlignmentGrid extends HTMLElement {
 
 		// Track this alignment and update game state
 		this.trackRecentAlignment(alignment);
-		setCurrentAlignment(alignment);
+		GameState.setCurrentAlignment(alignment);
 
 		// Show examples
 		this.showAlignmentExample(alignment);
@@ -539,7 +358,7 @@ export class AlignmentGrid extends HTMLElement {
 	 */
 	setAlignment(alignment) {
 		if (!this.alignments.includes(alignment)) {
-			logError(`Invalid alignment: ${alignment}`);
+			Logger.logError(`Invalid alignment: ${alignment}`);
 			return;
 		}
 
@@ -559,7 +378,7 @@ export class AlignmentGrid extends HTMLElement {
 		this.showAlignmentExample(alignment);
 
 		// Update game state
-		setCurrentAlignment(alignment);
+		GameState.setCurrentAlignment(alignment);
 	}
 
 	/**
@@ -575,8 +394,37 @@ export class AlignmentGrid extends HTMLElement {
 			}
 			return false;
 		} catch (error) {
-			logError(`Error setting alignment data: ${error.message}`);
+			Logger.logError(`Error setting alignment data: ${error.message}`);
 			return false;
+		}
+	}
+
+	/**
+	 * Reset the component to initial state
+	 */
+	reset() {
+		// Clear state
+		this.state.currentAlignment = null;
+		this.state.recentAlignments = [];
+		this.state.isRolling = false;
+
+		// Update UI
+		const dieDisplay = this.shadowRoot.getElementById("die-display");
+		if (dieDisplay) {
+			dieDisplay.textContent = "?";
+			dieDisplay.classList.remove("rolling");
+		}
+
+		// Clear highlight
+		const cells = this.shadowRoot.querySelectorAll(".alignment-cell");
+		cells.forEach((cell) => cell.classList.remove("highlighted"));
+
+		// Reset examples
+		const examplesElement =
+			this.shadowRoot.getElementById("alignment-examples");
+		if (examplesElement) {
+			examplesElement.innerHTML =
+				"<p><em>Hover over grid or wait for roll...</em></p>";
 		}
 	}
 }

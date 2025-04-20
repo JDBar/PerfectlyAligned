@@ -1,0 +1,122 @@
+<div class="game-container">
+	<h1 class="game-title">Perfectly Aligned™</h1>
+
+	<!-- SETUP VIEW -->
+	<div id="setup-view" class="view setup-view active">
+		<div class="setup-section">
+			<player-setup id="player-setup"></player-setup>
+		</div>
+
+		<div class="setup-section">
+			<div class="action-buttons">
+				<button id="start-game-button" class="primary-button">
+					Start Game
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- PLAY VIEW -->
+	<div id="play-view" class="view play-view">
+		<div class="game-section">
+			<div class="round-info">
+				<div class="round-number">Round <span id="round-number">1</span></div>
+				<div class="current-judge">Judge: <span id="judge-name">-</span></div>
+			</div>
+
+			<game-scoreboard id="scoreboard"></game-scoreboard>
+		</div>
+
+		<div class="game-section">
+			<alignment-grid id="alignment-grid"></alignment-grid>
+		</div>
+
+		<div class="game-section">
+			<prompt-card id="prompt-card"></prompt-card>
+		</div>
+
+		<div class="game-section">
+			<div id="sketch-phase-container" class="sketch-phase-container">
+				<h3 class="phase-heading">Sketching Phase</h3>
+
+				<div class="sketch-instructions">
+					<div id="sketch-instructions-text">
+						Waiting for the judge to select a prompt and roll the alignment...
+					</div>
+				</div>
+
+				<sketch-timer id="sketch-timer"></sketch-timer>
+			</div>
+		</div>
+
+		<div class="game-section">
+			<div
+				id="judging-phase-container"
+				class="judging-phase-container"
+				style="display: none"
+			>
+				<h3 class="phase-heading">Judging Phase</h3>
+
+				<div class="judging-instructions">
+					<div id="judging-instructions-text">
+						Time to judge! Look at everyone's sketches and select a winner for
+						this round.
+					</div>
+				</div>
+
+				<div class="player-selection">
+					<h4>Select Round Winner:</h4>
+					<div id="player-selection-list" class="player-list">
+						<!-- Player options will be dynamically added here -->
+					</div>
+				</div>
+
+				<div class="token-award-section">
+					<h4 class="token-award-heading">Award Bonus Tokens (Optional):</h4>
+					<div class="token-award-buttons" id="token-award-buttons">
+						<!-- Token award buttons will be dynamically added here -->
+					</div>
+				</div>
+
+				<div class="action-buttons">
+					<button id="confirm-winner-button" class="primary-button" disabled>
+						Confirm Winner
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="action-buttons">
+			<button
+				id="next-round-button"
+				class="primary-button"
+				style="display: none"
+			>
+				Next Round
+			</button>
+			<button id="end-game-button" class="danger-button">End Game</button>
+		</div>
+	</div>
+
+	<!-- RESULTS VIEW -->
+	<div id="results-view" class="view results-view">
+		<h2>Game Over!</h2>
+
+		<div class="winner-display">
+			<div class="trophy-icon">🏆</div>
+			<h3>Winner:</h3>
+			<div class="winner-name" id="winner-name">Player 1</div>
+		</div>
+
+		<game-scoreboard id="final-scoreboard"></game-scoreboard>
+
+		<div class="game-controls">
+			<div class="action-buttons">
+				<button id="new-game-button" class="primary-button">New Game</button>
+				<button id="reset-game-button" class="secondary-button">
+					Reset Game
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

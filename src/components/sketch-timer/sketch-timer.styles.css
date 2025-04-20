@@ -1,0 +1,100 @@
+:host {
+	display: block;
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+}
+
+.timer-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+}
+
+.timer-display {
+	font-size: 2.5em;
+	color: #00ffff;
+	background-color: #1a0a2e;
+	border: 2px solid #00ffff;
+	padding: 10px 20px;
+	border-radius: 5px;
+	text-shadow: 0 0 5px #00ffff;
+	min-width: 160px;
+	text-align: center;
+}
+
+.timer-controls {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.timer-button {
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+	padding: 10px 15px;
+	border: 2px solid;
+	background-color: #1a0a2e;
+	color: #ffffff;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: all 0.2s ease;
+}
+
+.timer-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
+}
+
+.timer-button:active {
+	transform: translateY(0);
+}
+
+.timer-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: none;
+}
+
+.start-button {
+	color: #39ff14;
+	border-color: #39ff14;
+}
+
+.stop-button {
+	color: #ff3333;
+	border-color: #ff3333;
+}
+
+.reset-button {
+	color: #ffff00;
+	border-color: #ffff00;
+}
+
+@media (max-width: 768px) {
+	.timer-display {
+		font-size: 2em;
+		min-width: 130px;
+	}
+
+	.timer-button {
+		padding: 8px 12px;
+		font-size: 0.9em;
+	}
+}
+
+@media (max-width: 480px) {
+	.timer-display {
+		font-size: 1.7em;
+		min-width: 110px;
+	}
+
+	.timer-controls {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.timer-button {
+		width: 100%;
+	}
+}

@@ -1,0 +1,170 @@
+:host {
+	display: block;
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+}
+
+.player-names-area {
+	margin: 15px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.player-names-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px 30px;
+	justify-content: center;
+}
+
+.player-name-entry {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #1a0a2e;
+	border: 2px solid #00ffff;
+	border-radius: 8px;
+	padding: 15px;
+	width: 220px;
+	position: relative;
+}
+
+.player-name-entry label {
+	font-size: 0.9em;
+	margin-bottom: 10px;
+	color: #00ffff;
+	text-align: center;
+}
+
+.avatar-selection-area {
+	display: flex;
+	align-items: center;
+	margin: 10px 0;
+	position: relative;
+}
+
+.avatar-preview {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-size: cover;
+	background-position: center;
+	border: 2px solid #ff00ff;
+	margin: 0 5px;
+	position: relative;
+}
+
+.avatar-preview.avatar-taken {
+	filter: grayscale(100%);
+	opacity: 0.5;
+	border-color: #777777;
+}
+
+.avatar-cycle-button {
+	background-color: #0d0517;
+	color: #00ffff;
+	border: 1px solid #00ffff;
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	font-size: 14px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	line-height: 1;
+}
+
+.avatar-cycle-button:hover {
+	background-color: #1a0a2e;
+	box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.avatar-cycle-button:active {
+	transform: scale(0.95);
+}
+
+.avatar-cycle-button.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.avatar-taken-message {
+	position: absolute;
+	bottom: -20px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	color: #ff3333;
+	font-size: 0.8em;
+	visibility: hidden;
+}
+
+.avatar-taken-message.visible {
+	visibility: visible;
+}
+
+input[type="text"] {
+	background-color: #0d0517;
+	border: 2px solid #00ffff;
+	padding: 8px 12px;
+	color: #ffffff;
+	font-family: var(--readable-font, "Courier New", monospace);
+	font-size: 1em;
+	width: 80%;
+	border-radius: 4px;
+	margin-top: 10px;
+}
+
+input[type="text"]:focus {
+	outline: none;
+	box-shadow: 0 0 5px #00ffff;
+}
+
+input[type="text"]:invalid {
+	border-color: #ff3333;
+	box-shadow: 0 0 5px #ff3333;
+}
+
+.error-message {
+	color: #ff3333;
+	font-size: 0.8em;
+	margin-top: 5px;
+	display: none;
+}
+
+.error-message.visible {
+	display: block;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+	.player-name-entry {
+		width: 180px;
+		padding: 10px;
+	}
+
+	.avatar-preview {
+		width: 40px;
+		height: 40px;
+	}
+
+	input[type="text"] {
+		font-size: 0.9em;
+		padding: 6px 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.player-names-row {
+		flex-direction: column;
+		align-items: center;
+		gap: 15px;
+	}
+
+	.player-name-entry {
+		width: 90%;
+		max-width: 280px;
+	}
+}

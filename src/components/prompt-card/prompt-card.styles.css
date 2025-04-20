@@ -1,0 +1,128 @@
+:host {
+	display: block;
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+}
+
+.prompt-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 20px 0;
+}
+
+#draw-prompts-button,
+#redraw-prompts-button {
+	background-color: #0d0517;
+	color: #ffff00;
+	border: 2px solid #00ffff;
+	padding: 10px 20px;
+	font-family: var(--pixel-font, "Press Start 2P", cursive);
+	font-size: 1em;
+	margin-bottom: 15px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+#draw-prompts-button:hover,
+#redraw-prompts-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
+}
+
+#draw-prompts-button:active,
+#redraw-prompts-button:active {
+	transform: translateY(0);
+}
+
+#redraw-prompts-button {
+	background-color: #1a0a2e;
+	color: #ff00ff;
+}
+
+.prompt-display-area {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.instructions {
+	color: #00ffff;
+	text-align: center;
+	margin-bottom: 15px;
+	font-size: 0.9em;
+}
+
+#prompt-list {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.prompt-choice {
+	background-color: #1a0a2e;
+	border: 2px solid #333333;
+	border-radius: 5px;
+	padding: 15px;
+	cursor: pointer;
+	color: #ffffff;
+	transition: all 0.3s ease;
+	position: relative;
+	font-family: var(--readable-font, "Courier New", monospace);
+	font-size: 1.1em;
+}
+
+.prompt-choice:hover {
+	border-color: #00ffff;
+	box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+	transform: translateY(-2px);
+}
+
+.prompt-choice.selected {
+	border-color: #ff00ff;
+	box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+	background-color: #34145a;
+	font-weight: bold;
+}
+
+.prompt-choice.disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	border-color: #333333;
+	box-shadow: none;
+	transform: none;
+}
+
+@keyframes dealPromptCard {
+	0% {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.prompt-choice.deal-animation {
+	animation: dealPromptCard 0.3s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+	#prompt-list {
+		gap: 10px;
+	}
+
+	.prompt-choice {
+		padding: 10px;
+		font-size: 1em;
+	}
+}
+
+@media (max-width: 480px) {
+	.prompt-choice {
+		padding: 8px;
+		font-size: 0.9em;
+	}
+}

@@ -6,21 +6,21 @@
  * @module components/player-setup
  */
 
-import { logError, displayError, clearError } from "../logger.js";
+import { ComponentBase } from "../component-base.js";
 
 /**
  * Player Setup Web Component
- * @extends HTMLElement
+ * @extends ComponentBase
  */
-export class PlayerSetup extends HTMLElement {
+export class PlayerSetup extends ComponentBase {
 	/**
 	 * Create a new PlayerSetup
 	 */
 	constructor() {
-		super();
-
-		// Create shadow DOM
-		this.attachShadow({ mode: "open" });
+		super(
+			"./components/player-setup/player-setup.template.html",
+			"./components/player-setup/player-setup.styles.css"
+		);
 
 		// Initialize state
 		this.state = {
@@ -29,27 +29,15 @@ export class PlayerSetup extends HTMLElement {
 			playerCount: 3,
 			avatarBasePath: "/assets/images/avatars/",
 		};
-
-		// Build component
-		this.render();
 	}
 
 	/**
-	 * Called when the element is added to the DOM
+	 * Called after the component is rendered
+	 * Overrides the afterRender method from ComponentBase
 	 */
-	connectedCallback() {
-		// Add event listeners
-		this.addEventListeners();
-
-		// Dispatch connected event
-		this.dispatchEvent(new CustomEvent("player-setup-connected"));
-	}
-
-	/**
-	 * Called when the element is removed from the DOM
-	 */
-	disconnectedCallback() {
-		// Clean up event listeners if necessary
+	afterRender() {
+		// Initial update of player inputs
+		this.updatePlayerInputs();
 	}
 
 	/**
@@ -76,206 +64,6 @@ export class PlayerSetup extends HTMLElement {
 	setPlayerCount(count) {
 		this.state.playerCount = count;
 		this.updatePlayerInputs();
-	}
-
-	/**
-	 * Render the initial component
-	 * @private
-	 */
-	render() {
-		this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-          font-family: var(--pixel-font, 'Press Start 2P', cursive);
-        }
-        
-        .player-names-area {
-          margin: 15px 0;
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-        }
-        
-        .player-names-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 20px 30px;
-          justify-content: center;
-        }
-        
-        .player-name-entry {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          background-color: #1a0a2e;
-          border: 2px solid #00ffff;
-          border-radius: 8px;
-          padding: 15px;
-          width: 220px;
-          position: relative;
-        }
-        
-        .player-name-entry label {
-          font-size: 0.9em;
-          margin-bottom: 10px;
-          color: #00ffff;
-          text-align: center;
-        }
-        
-        .avatar-selection-area {
-          display: flex;
-          align-items: center;
-          margin: 10px 0;
-          position: relative;
-        }
-        
-        .avatar-preview {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background-size: cover;
-          background-position: center;
-          border: 2px solid #ff00ff;
-          margin: 0 5px;
-          position: relative;
-        }
-        
-        .avatar-preview.avatar-taken {
-          filter: grayscale(100%);
-          opacity: 0.5;
-          border-color: #777777;
-        }
-        
-        .avatar-cycle-button {
-          background-color: #0d0517;
-          color: #00ffff;
-          border: 1px solid #00ffff;
-          border-radius: 50%;
-          width: 24px;
-          height: 24px;
-          font-size: 14px;
-          cursor: pointer;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 0;
-          line-height: 1;
-        }
-        
-        .avatar-cycle-button:hover {
-          background-color: #1a0a2e;
-          box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-        }
-        
-        .avatar-cycle-button:active {
-          transform: scale(0.95);
-        }
-        
-        .avatar-cycle-button.disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-        
-        .avatar-taken-message {
-          position: absolute;
-          bottom: -20px;
-          left: 0;
-          right: 0;
-          text-align: center;
-          color: #ff3333;
-          font-size: 0.8em;
-          visibility: hidden;
-        }
-        
-        .avatar-taken-message.visible {
-          visibility: visible;
-        }
-        
-        input[type="text"] {
-          background-color: #0d0517;
-          border: 2px solid #00ffff;
-          padding: 8px 12px;
-          color: #ffffff;
-          font-family: var(--readable-font, 'Courier New', monospace);
-          font-size: 1em;
-          width: 80%;
-          border-radius: 4px;
-          margin-top: 10px;
-        }
-        
-        input[type="text"]:focus {
-          outline: none;
-          box-shadow: 0 0 5px #00ffff;
-        }
-        
-        input[type="text"]:invalid {
-          border-color: #ff3333;
-          box-shadow: 0 0 5px #ff3333;
-        }
-        
-        .error-message {
-          color: #ff3333;
-          font-size: 0.8em;
-          margin-top: 5px;
-          display: none;
-        }
-        
-        .error-message.visible {
-          display: block;
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 768px) {
-          .player-name-entry {
-            width: 180px;
-            padding: 10px;
-          }
-          
-          .avatar-preview {
-            width: 40px;
-            height: 40px;
-          }
-          
-          input[type="text"] {
-            font-size: 0.9em;
-            padding: 6px 10px;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .player-names-row {
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-          }
-          
-          .player-name-entry {
-            width: 90%;
-            max-width: 280px;
-          }
-        }
-      </style>
-      
-      <div class="player-names-area">
-        <div class="player-names-row" id="player-inputs-container">
-          <!-- Player inputs will be dynamically generated here -->
-        </div>
-        <div class="error-message" id="players-error-message"></div>
-      </div>
-    `;
-
-		// Initial update of player inputs
-		this.updatePlayerInputs();
-	}
-
-	/**
-	 * Add event listeners to the component
-	 * @private
-	 */
-	addEventListeners() {
-		// No global event listeners needed initially
-		// Individual input event listeners are added when inputs are created
 	}
 
 	/**
@@ -620,6 +408,17 @@ export class PlayerSetup extends HTMLElement {
 		});
 
 		return players;
+	}
+
+	/**
+	 * Reset the component
+	 */
+	reset() {
+		// Reset state
+		this.state.selectedAvatars = [];
+
+		// Update UI
+		this.updatePlayerInputs();
 	}
 }
 

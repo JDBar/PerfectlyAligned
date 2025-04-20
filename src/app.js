@@ -4,18 +4,18 @@
  * Initializes all game components and loads necessary data.
  */
 
-import { logError, logInfo } from "./modules/logger.js";
-import { loadSounds, preloadAllSounds } from "./modules/audio.js";
-import { loadDecks } from "./modules/deck.js";
-import { loadTokenData } from "./modules/tokens.js";
+import { logError, logInfo } from "./lib/logger.js";
+import { loadSounds, preloadAllSounds } from "./lib/audio.js";
+import { loadDecks } from "./lib/deck.js";
+import { loadTokenData } from "./lib/tokens.js";
 
 // Import components
-import "./modules/components/alignment-grid.js";
-import "./modules/components/player-setup.js";
-import "./modules/components/prompt-card.js";
-import "./modules/components/scoreboard.js";
-import "./modules/components/sketch-timer.js";
-import "./modules/components/main-game.js";
+import "./components/alignment-grid/alignment-grid.js";
+import "./components/player-setup/player-setup.js";
+import "./components/prompt-card/prompt-card.js";
+import "./components/scoreboard/scoreboard.js";
+import "./components/sketch-timer/sketch-timer.js";
+import "./components/main-game/main-game.js";
 
 /**
  * Initialize the application once DOM is loaded

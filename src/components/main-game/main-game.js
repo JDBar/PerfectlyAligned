@@ -7,35 +7,26 @@
  * @module components/main-game
  */
 
-import { logError, logWarning } from "../logger.js";
-import { playSound } from "../audio.js";
-import {
-	gameState,
-	getCurrentJudge,
-	getContestants,
-	advanceToNextJudge,
-	setRoundWinner,
-	awardPoint,
-	checkForWinner,
-	setGameStarted,
-	resetGame,
-} from "../gameState.js";
-import { createActiveDeck } from "../deck.js";
-import { getTokenTypes, awardToken } from "../tokens.js";
+import * as Logger from "../../lib/logger.js";
+import * as Audio from "../../lib/audio.js";
+import * as GameState from "../../lib/gameState.js";
+import * as Deck from "../../lib/deck.js";
+import * as Tokens from "../../lib/tokens.js";
+import { ComponentBase } from "../component-base.js";
 
 /**
  * Main Game Web Component
- * @extends HTMLElement
+ * @extends ComponentBase
  */
-export class MainGame extends HTMLElement {
+export class MainGame extends ComponentBase {
 	/**
 	 * Create a new MainGame component
 	 */
 	constructor() {
-		super();
-
-		// Create shadow DOM
-		this.attachShadow({ mode: "open" });
+		super(
+			"./components/main-game/main-game.template.html",
+			"./components/main-game/main-game.styles.css"
+		);
 
 		// Initialize state
 		this.state = {
@@ -45,15 +36,13 @@ export class MainGame extends HTMLElement {
 			roundActive: false,
 			timerRunning: false,
 		};
-
-		// Build component
-		this.render();
 	}
 
 	/**
-	 * Called when the element is added to the DOM
+	 * Called after the component is rendered
+	 * Overrides the afterRender method from ComponentBase
 	 */
-	connectedCallback() {
+	afterRender() {
 		// Add event listeners
 		this.setupEventListeners();
 
@@ -75,388 +64,6 @@ export class MainGame extends HTMLElement {
 			this.setupScoreboardListeners();
 			this.setupButtonListeners();
 		}, 0);
-	}
-
-	/**
-	 * Render the component
-	 * @private
-	 */
-	render() {
-		this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-          font-family: var(--pixel-font, 'Press Start 2P', cursive);
-          color: #ffffff;
-          --section-spacing: 20px;
-        }
-        
-        .game-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 20px;
-        }
-        
-        .view {
-          display: none;
-        }
-        
-        .view.active {
-          display: block;
-        }
-        
-        .game-title {
-          text-align: center;
-          color: #ff00ff;
-          text-shadow: 3px 3px 0px #00ffff;
-          font-size: 2.5em;
-          margin-bottom: 20px;
-        }
-        
-        .setup-view {
-          display: flex;
-          flex-direction: column;
-          gap: 30px;
-        }
-        
-        .play-view {
-          display: flex;
-          flex-direction: column;
-          gap: var(--section-spacing);
-        }
-        
-        .game-section {
-          margin-bottom: var(--section-spacing);
-        }
-        
-        .round-info {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 10px 15px;
-          background-color: #1a0a2e;
-          border: 2px solid #00ffff;
-          border-radius: 5px;
-          margin-bottom: 15px;
-        }
-        
-        .round-number {
-          color: #ffff00;
-          font-size: 1.1em;
-        }
-        
-        .current-judge {
-          color: #ff00ff;
-        }
-        
-        .action-buttons {
-          display: flex;
-          gap: 10px;
-          justify-content: center;
-          margin: 20px 0;
-        }
-        
-        button {
-          background-color: #1a0a2e;
-          border: 2px solid #00ffff;
-          color: #00ffff;
-          font-family: var(--pixel-font, 'Press Start 2P', cursive);
-          padding: 10px 20px;
-          font-size: 1em;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        
-        button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
-        }
-        
-        button:active {
-          transform: translateY(0);
-        }
-        
-        button:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-          transform: none;
-          box-shadow: none;
-        }
-        
-        .primary-button {
-          background-color: #003300;
-          color: #39ff14;
-          border-color: #39ff14;
-        }
-        
-        .secondary-button {
-          background-color: #1a0a2e;
-          color: #ffff00;
-          border-color: #ffff00;
-        }
-        
-        .danger-button {
-          background-color: #330000;
-          color: #ff3333;
-          border-color: #ff3333;
-        }
-        
-        .results-view {
-          text-align: center;
-        }
-        
-        .winner-display {
-          padding: 30px;
-          background-color: #1a0a2e;
-          border: 2px solid #ff00ff;
-          border-radius: 5px;
-          margin: 20px 0;
-          animation: winnerGlow 2s infinite;
-        }
-        
-        @keyframes winnerGlow {
-          0% { box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
-          50% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.7); }
-          100% { box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
-        }
-        
-        .winner-name {
-          font-size: 2em;
-          color: #ffff00;
-          margin: 10px 0;
-        }
-        
-        .trophy-icon {
-          font-size: 3em;
-          margin: 20px 0;
-        }
-        
-        .game-controls {
-          margin-top: 30px;
-        }
-        
-        .sketch-phase-container,
-        .judging-phase-container {
-          padding: 15px;
-          background-color: #1a0a2e;
-          border: 2px solid #00ffff;
-          border-radius: 5px;
-        }
-        
-        .phase-heading {
-          color: #ff00ff;
-          margin-top: 0;
-          margin-bottom: 15px;
-        }
-        
-        .sketch-instructions,
-        .judging-instructions {
-          background-color: #0d0517;
-          padding: 15px;
-          border-radius: 5px;
-          margin-bottom: 15px;
-          color: #ffffff;
-          font-family: var(--readable-font, 'Courier New', monospace);
-          font-size: 1.1em;
-          line-height: 1.5;
-        }
-        
-        .token-award-section {
-          margin-top: 20px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-        
-        .token-award-heading {
-          color: #ffff00;
-          margin-bottom: 10px;
-        }
-        
-        .token-award-buttons {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-          justify-content: center;
-        }
-        
-        .token-award-button {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          padding: 8px 12px;
-          font-size: 0.8em;
-        }
-        
-        .player-selection {
-          margin-top: 20px;
-        }
-        
-        .player-list {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-          justify-content: center;
-          margin-top: 15px;
-        }
-        
-        .player-option {
-          background-color: #0d0517;
-          border: 2px solid #333333;
-          border-radius: 5px;
-          padding: 10px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-        
-        .player-option:hover {
-          border-color: #00ffff;
-          box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-        }
-        
-        .player-option.selected {
-          border-color: #ff00ff;
-          box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-        }
-        
-        .player-option-avatar {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          background-size: cover;
-          background-position: center;
-          border: 2px solid #00ffff;
-        }
-        
-        .player-option-name {
-          color: #ffffff;
-          font-size: 0.9em;
-        }
-        
-        @media (max-width: 768px) {
-          .game-title {
-            font-size: 2em;
-          }
-          
-          .action-buttons {
-            flex-direction: column;
-          }
-          
-          button {
-            width: 100%;
-          }
-        }
-      </style>
-      
-      <div class="game-container">
-        <h1 class="game-title">Perfectly Aligned™</h1>
-        
-        <!-- SETUP VIEW -->
-        <div id="setup-view" class="view setup-view active">
-          <div class="setup-section">
-            <player-setup id="player-setup"></player-setup>
-          </div>
-          
-          <div class="setup-section">
-            <div class="action-buttons">
-              <button id="start-game-button" class="primary-button">Start Game</button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- PLAY VIEW -->
-        <div id="play-view" class="view play-view">
-          <div class="game-section">
-            <div class="round-info">
-              <div class="round-number">Round <span id="round-number">1</span></div>
-              <div class="current-judge">Judge: <span id="judge-name">-</span></div>
-            </div>
-            
-            <game-scoreboard id="scoreboard"></game-scoreboard>
-          </div>
-          
-          <div class="game-section">
-            <alignment-grid id="alignment-grid"></alignment-grid>
-          </div>
-          
-          <div class="game-section">
-            <prompt-card id="prompt-card"></prompt-card>
-          </div>
-          
-          <div class="game-section">
-            <div id="sketch-phase-container" class="sketch-phase-container">
-              <h3 class="phase-heading">Sketching Phase</h3>
-              
-              <div class="sketch-instructions">
-                <div id="sketch-instructions-text">
-                  Waiting for the judge to select a prompt and roll the alignment...
-                </div>
-              </div>
-              
-              <sketch-timer id="sketch-timer"></sketch-timer>
-            </div>
-          </div>
-          
-          <div class="game-section">
-            <div id="judging-phase-container" class="judging-phase-container" style="display: none;">
-              <h3 class="phase-heading">Judging Phase</h3>
-              
-              <div class="judging-instructions">
-                <div id="judging-instructions-text">
-                  Time to judge! Look at everyone's sketches and select a winner for this round.
-                </div>
-              </div>
-              
-              <div class="player-selection">
-                <h4>Select Round Winner:</h4>
-                <div id="player-selection-list" class="player-list">
-                  <!-- Player options will be dynamically added here -->
-                </div>
-              </div>
-              
-              <div class="token-award-section">
-                <h4 class="token-award-heading">Award Bonus Tokens (Optional):</h4>
-                <div class="token-award-buttons" id="token-award-buttons">
-                  <!-- Token award buttons will be dynamically added here -->
-                </div>
-              </div>
-              
-              <div class="action-buttons">
-                <button id="confirm-winner-button" class="primary-button" disabled>Confirm Winner</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="action-buttons">
-            <button id="next-round-button" class="primary-button" style="display: none;">Next Round</button>
-            <button id="end-game-button" class="danger-button">End Game</button>
-          </div>
-        </div>
-        
-        <!-- RESULTS VIEW -->
-        <div id="results-view" class="view results-view">
-          <h2>Game Over!</h2>
-          
-          <div class="winner-display">
-            <div class="trophy-icon">🏆</div>
-            <h3>Winner:</h3>
-            <div class="winner-name" id="winner-name">Player 1</div>
-          </div>
-          
-          <game-scoreboard id="final-scoreboard"></game-scoreboard>
-          
-          <div class="game-controls">
-            <div class="action-buttons">
-              <button id="new-game-button" class="primary-button">New Game</button>
-              <button id="reset-game-button" class="secondary-button">Reset Game</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
 	}
 
 	/**
@@ -627,37 +234,37 @@ export class MainGame extends HTMLElement {
 		// Get player setup component and validate inputs
 		const playerSetup = this.shadowRoot.getElementById("player-setup");
 		if (!playerSetup || !playerSetup.validateAllInputs()) {
-			logWarning("Player setup is not valid");
+			Logger.logWarning("Player setup is not valid");
 			return;
 		}
 
 		// Get player data
 		const playerData = playerSetup.getPlayerData();
 		if (!playerData || playerData.length < 3) {
-			logWarning("Need at least 3 players to start");
+			Logger.logWarning("Need at least 3 players to start");
 			return;
 		}
 
 		// Set up initial game state
-		setGameStarted(true);
+		GameState.setGameStarted(true);
 
 		// Create the active deck from selected decks
-		createActiveDeck(gameState.selectedDecks);
+		Deck.createActiveDeck(GameState.gameState.selectedDecks);
 
 		// Update scoreboard
 		const scoreboard = this.shadowRoot.getElementById("scoreboard");
 		if (scoreboard) {
-			scoreboard.setTokenTypes(getTokenTypes());
+			scoreboard.setTokenTypes(Tokens.getTokenTypes());
 			scoreboard.updateScoreboard(
-				gameState.players,
-				gameState.currentPlayerIndex
+				GameState.gameState.players,
+				GameState.gameState.currentPlayerIndex
 			);
 		}
 
 		// Set up prompt card with initial judge
 		const promptCard = this.shadowRoot.getElementById("prompt-card");
 		if (promptCard) {
-			promptCard.setIsJudge(true, gameState.currentPlayerIndex);
+			promptCard.setIsJudge(true, GameState.gameState.currentPlayerIndex);
 		}
 
 		// Update judge display
@@ -666,7 +273,7 @@ export class MainGame extends HTMLElement {
 		// Update round number
 		const roundNumber = this.shadowRoot.getElementById("round-number");
 		if (roundNumber) {
-			roundNumber.textContent = gameState.currentRound.toString();
+			roundNumber.textContent = GameState.gameState.currentRound.toString();
 		}
 
 		// Switch to play view
@@ -686,7 +293,7 @@ export class MainGame extends HTMLElement {
 		const judgeName = this.shadowRoot.getElementById("judge-name");
 		if (!judgeName) return;
 
-		const currentJudge = getCurrentJudge();
+		const currentJudge = GameState.getCurrentJudge();
 		if (currentJudge) {
 			judgeName.textContent = currentJudge.name;
 		} else {
@@ -719,7 +326,7 @@ export class MainGame extends HTMLElement {
 		const prompt = promptCard ? promptCard.getSelectedPrompt() : null;
 
 		if (!prompt) {
-			logWarning("No prompt selected when alignment was rolled");
+			Logger.logWarning("No prompt selected when alignment was rolled");
 			return;
 		}
 
@@ -812,7 +419,7 @@ export class MainGame extends HTMLElement {
 		playerSelectionList.innerHTML = "";
 
 		// Add each contestant (non-judge player)
-		const contestants = getContestants();
+		const contestants = GameState.getContestants();
 
 		contestants.forEach((player, index) => {
 			const playerOption = document.createElement("div");
@@ -822,7 +429,7 @@ export class MainGame extends HTMLElement {
 			// Add avatar
 			const avatarDisplay = document.createElement("div");
 			avatarDisplay.className = "player-option-avatar";
-			avatarDisplay.style.backgroundImage = `url('/assets/images/avatars/${player.avatar}')`;
+			avatarDisplay.style.backgroundImage = `url('assets/images/avatars/${player.avatar}')`;
 
 			// Add name
 			const nameDisplay = document.createElement("div");
@@ -855,7 +462,7 @@ export class MainGame extends HTMLElement {
 		tokenAwardButtons.innerHTML = "";
 
 		// Get token types
-		const tokenTypes = getTokenTypes();
+		const tokenTypes = Tokens.getTokenTypes();
 
 		// Add a button for each token type
 		for (const [tokenId, tokenData] of Object.entries(tokenTypes)) {
@@ -930,28 +537,28 @@ export class MainGame extends HTMLElement {
 		const playerIndexAttr = parseInt(selectedOption.dataset.playerIndex, 10);
 
 		// Convert contestant index to actual player index (skipping the judge)
-		const contestants = getContestants();
+		const contestants = GameState.getContestants();
 		const actualPlayerIndex = contestants[playerIndexAttr]
-			? gameState.players.indexOf(contestants[playerIndexAttr])
+			? GameState.gameState.players.indexOf(contestants[playerIndexAttr])
 			: -1;
 
 		if (actualPlayerIndex === -1) {
-			logError("Could not find player to award token to");
+			Logger.logError("Could not find player to award token to");
 			return;
 		}
 
 		// Award token
-		awardToken(actualPlayerIndex, tokenType);
+		Tokens.awardToken(actualPlayerIndex, tokenType);
 
 		// Play sound
-		playSound("token_gain");
+		Audio.playSound("token_gain");
 
 		// Update scoreboard
 		const scoreboard = this.shadowRoot.getElementById("scoreboard");
 		if (scoreboard) {
 			scoreboard.updatePlayerTokens(
 				actualPlayerIndex,
-				gameState.players[actualPlayerIndex].tokens
+				GameState.gameState.players[actualPlayerIndex].tokens
 			);
 		}
 
@@ -986,34 +593,34 @@ export class MainGame extends HTMLElement {
 		const playerIndexAttr = parseInt(selectedOption.dataset.playerIndex, 10);
 
 		// Convert contestant index to actual player index (skipping the judge)
-		const contestants = getContestants();
+		const contestants = GameState.getContestants();
 		const actualPlayerIndex = contestants[playerIndexAttr]
-			? gameState.players.indexOf(contestants[playerIndexAttr])
+			? GameState.gameState.players.indexOf(contestants[playerIndexAttr])
 			: -1;
 
 		if (actualPlayerIndex === -1) {
-			logError("Could not find winning player");
+			Logger.logError("Could not find winning player");
 			return;
 		}
 
 		// Set round winner
-		setRoundWinner(actualPlayerIndex);
+		GameState.setRoundWinner(actualPlayerIndex);
 
 		// Award point
-		awardPoint(actualPlayerIndex);
+		GameState.awardPoint(actualPlayerIndex);
 
 		// Play sound
-		playSound("point_gain");
+		Audio.playSound("point_gain");
 
 		// Update scoreboard
 		const scoreboard = this.shadowRoot.getElementById("scoreboard");
 		if (scoreboard) {
-			const player = gameState.players[actualPlayerIndex];
+			const player = GameState.gameState.players[actualPlayerIndex];
 			scoreboard.updatePlayerScore(actualPlayerIndex, player.score, true);
 		}
 
 		// Check for game winner
-		const winner = checkForWinner();
+		const winner = GameState.checkForWinner();
 		if (winner) {
 			// Game is over, switch to results
 			this.state.winner = winner;
@@ -1042,7 +649,7 @@ export class MainGame extends HTMLElement {
 	 */
 	handleNextRound() {
 		// Advance to next judge
-		advanceToNextJudge();
+		GameState.advanceToNextJudge();
 
 		// Reset components for new round
 		this.resetForNewRound();
@@ -1060,7 +667,7 @@ export class MainGame extends HTMLElement {
 		const promptCard = this.shadowRoot.getElementById("prompt-card");
 		if (promptCard) {
 			promptCard.reset();
-			promptCard.setIsJudge(true, gameState.currentPlayerIndex);
+			promptCard.setIsJudge(true, GameState.gameState.currentPlayerIndex);
 		}
 
 		// Reset alignment grid
@@ -1126,15 +733,15 @@ export class MainGame extends HTMLElement {
 		// Switch to results view without declaring winner
 		const finalScoreboard = this.shadowRoot.getElementById("final-scoreboard");
 		if (finalScoreboard) {
-			finalScoreboard.setTokenTypes(getTokenTypes());
+			finalScoreboard.setTokenTypes(Tokens.getTokenTypes());
 			finalScoreboard.updateScoreboard(
-				gameState.players,
-				gameState.currentPlayerIndex
+				GameState.gameState.players,
+				GameState.gameState.currentPlayerIndex
 			);
 		}
 
 		// Find player with highest score to display as "winner"
-		const highestScorePlayer = [...gameState.players].sort(
+		const highestScorePlayer = [...GameState.gameState.players].sort(
 			(a, b) => b.score - a.score
 		)[0];
 		if (highestScorePlayer) {
@@ -1154,7 +761,7 @@ export class MainGame extends HTMLElement {
 	 */
 	handleNewGame() {
 		// Reset game state but keep players
-		resetGame(true);
+		GameState.resetGame(true);
 
 		// Reset UI
 		this.resetGameUI();
@@ -1178,7 +785,7 @@ export class MainGame extends HTMLElement {
 		}
 
 		// Reset game state and clear players
-		resetGame(false);
+		GameState.resetGame(false);
 
 		// Reset UI
 		this.resetGameUI();
@@ -1271,7 +878,7 @@ export class MainGame extends HTMLElement {
 		// Update round number
 		const roundNumber = this.shadowRoot.getElementById("round-number");
 		if (roundNumber) {
-			roundNumber.textContent = gameState.currentRound.toString();
+			roundNumber.textContent = GameState.gameState.currentRound.toString();
 		}
 
 		// Update judge name
@@ -1281,8 +888,8 @@ export class MainGame extends HTMLElement {
 		const scoreboard = this.shadowRoot.getElementById("scoreboard");
 		if (scoreboard) {
 			scoreboard.updateScoreboard(
-				gameState.players,
-				gameState.currentPlayerIndex
+				GameState.gameState.players,
+				GameState.gameState.currentPlayerIndex
 			);
 		}
 	}
@@ -1293,7 +900,7 @@ export class MainGame extends HTMLElement {
 	 */
 	handleGameEnd() {
 		// Play win sound
-		playSound("win");
+		Audio.playSound("win");
 
 		// Update winner display
 		const winnerName = this.shadowRoot.getElementById("winner-name");
@@ -1304,10 +911,10 @@ export class MainGame extends HTMLElement {
 		// Update final scoreboard
 		const finalScoreboard = this.shadowRoot.getElementById("final-scoreboard");
 		if (finalScoreboard) {
-			finalScoreboard.setTokenTypes(getTokenTypes());
+			finalScoreboard.setTokenTypes(Tokens.getTokenTypes());
 			finalScoreboard.updateScoreboard(
-				gameState.players,
-				gameState.currentPlayerIndex
+				GameState.gameState.players,
+				GameState.gameState.currentPlayerIndex
 			);
 		}
 
