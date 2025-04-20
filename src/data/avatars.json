@@ -1,0 +1,61 @@
+{
+	"avatars": [
+		{
+			"id": "alienlady",
+			"filename": "alienlady_avatar.png",
+			"name": "Alien Lady"
+		},
+		{
+			"id": "dadskeleton",
+			"filename": "dadskeletonts_avatar.png",
+			"name": "Dad Skeleton"
+		},
+		{
+			"id": "horse",
+			"filename": "horse_avatar.png",
+			"name": "Horse"
+		},
+		{
+			"id": "lizard",
+			"filename": "lizard_avatar.png",
+			"name": "Lizard"
+		},
+		{
+			"id": "ninjatp",
+			"filename": "ninjatp_avatar.png",
+			"name": "Ninja"
+		},
+		{
+			"id": "robotp",
+			"filename": "robotp_avatar.png",
+			"name": "Robot"
+		},
+		{
+			"id": "glitchkitty",
+			"filename": "glitchkitty_avatar.png",
+			"name": "Glitch Kitty"
+		},
+		{
+			"id": "mushgun",
+			"filename": "mushgun.png",
+			"name": "Mush Gun"
+		},
+		{
+			"id": "pirateghost",
+			"filename": "pirateghost2_avatar.png",
+			"name": "Pirate Ghost"
+		},
+		{
+			"id": "vampiregirl",
+			"filename": "vampiregirl_avatar.png",
+			"name": "Vampire Girl"
+		},
+		{
+			"id": "chessqueen",
+			"filename": "chessqueen_avatar.png",
+			"name": "Chess Queen"
+		}
+	],
+	"defaultAvatar": "alienlady_avatar.png",
+	"basePath": "assets/images/avatars/"
+}

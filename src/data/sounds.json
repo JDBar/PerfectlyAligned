@@ -1,0 +1,40 @@
+{
+	"sounds": [
+		{
+			"id": "point_gain",
+			"filename": "point_gain.wav",
+			"description": "Sound for when a player gains a point"
+		},
+		{
+			"id": "roll",
+			"filename": "roll.wav",
+			"description": "Sound for rolling the alignment die"
+		},
+		{
+			"id": "steal",
+			"filename": "steal.wav",
+			"description": "Sound for stealing a point"
+		},
+		{
+			"id": "timer_end",
+			"filename": "timer_end.wav",
+			"description": "Sound for when the timer ends"
+		},
+		{
+			"id": "token_gain",
+			"filename": "token_gain.wav",
+			"description": "Sound for when a player gains a token"
+		},
+		{
+			"id": "win",
+			"filename": "win.wav",
+			"description": "Sound for when a player wins the game"
+		},
+		{
+			"id": "draw_prompts",
+			"filename": "draw_prompts.wav",
+			"description": "Sound for drawing prompt cards"
+		}
+	],
+	"basePath": "assets/audio/"
+}

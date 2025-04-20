@@ -1,0 +1,14 @@
+{
+	"alignmentExamples": {
+		"LG": "<strong>Lawful Good:</strong> Superman, Captain America, Brienne of Tarth",
+		"NG": "<strong>Neutral Good:</strong> Spider-Man, Wonder Woman, Luke Skywalker (early)",
+		"CG": "<strong>Chaotic Good:</strong> Robin Hood, Han Solo (later), The Doctor (Doctor Who)",
+		"LN": "<strong>Lawful Neutral:</strong> Judge Dredd, James Bond (often), A typical soldier",
+		"TN": "<strong>True Neutral:</strong> The Watcher (Marvel), Tom Bombadil, Druids (often)",
+		"CN": "<strong>Chaotic Neutral:</strong> Jack Sparrow, Deadpool, Loki (sometimes)",
+		"LE": "<strong>Lawful Evil:</strong> Darth Vader, Dolores Umbridge, A corrupt politician",
+		"NE": "<strong>Neutral Evil:</strong> Lord Voldemort, Sauron, A purely self-serving mercenary",
+		"CE": "<strong>Chaotic Evil:</strong> The Joker, Cthulhu, Carnage (Marvel)",
+		"U": "<strong>Judge's Choice:</strong> The Judge picks the alignment!"
+	}
+}
