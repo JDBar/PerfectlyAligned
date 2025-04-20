@@ -36,5 +36,5 @@
 			"description": "Sound for drawing prompt cards"
 		}
 	],
-	"basePath": "assets/audio/"
+	"basePath": "/assets/audio/"
 }

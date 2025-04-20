@@ -53,7 +53,7 @@ const availableAvatars = [
     // Add others as needed, ensure they exist in constants.js and the assets folder
 ];
 const defaultAvatar = availableAvatars[0]; // Default if needed
-const avatarBasePath = 'assets/images/avatars/';
+const avatarBasePath = '/assets/images/avatars/';
 
 // --- Card Deck Data ---
 const themedDecks = {

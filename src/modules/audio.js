@@ -18,7 +18,7 @@ const audioMap = {};
  * Base path for audio files
  * @type {string}
  */
-let audioBasePath = "assets/audio/";
+let audioBasePath = "/assets/audio/";
 
 /**
  * Whether audio is currently muted

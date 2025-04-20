@@ -8,7 +8,6 @@
  */
 
 import { logError, logWarning } from "./logger.js";
-import { gameState } from "./gameState.js";
 
 /**
  * All loaded decks from the JSON file

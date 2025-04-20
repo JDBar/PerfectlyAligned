@@ -29,7 +29,7 @@ export class Scoreboard extends HTMLElement {
 			targetScore: 5,
 			players: [],
 			currentJudgeIndex: 0,
-			avatarBasePath: "assets/images/avatars/",
+			avatarBasePath: "/assets/images/avatars/",
 			tokenTypes: {},
 		};
 

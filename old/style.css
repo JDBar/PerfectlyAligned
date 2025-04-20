@@ -1,357 +1,364 @@
 /* --- 90s Arcade Style Makeover --- */
 
 :root {
-    /* Color Palette */
-    --bg-color: #1a0a2e;
-    --panel-bg: #0d0517;
-    --text-color: #ffffff;
-    --neon-pink: #ff00ff;
-    --neon-blue: #00ffff;
-    --neon-green: #39ff14;
-    --neon-yellow: #ffff00;
-    --dark-grey: #333333;
-    --medium-grey: #555555;
-    --light-grey: #aaaaaa;
-    --border-color: var(--neon-blue);
+	/* Color Palette */
+	--bg-color: #1a0a2e;
+	--panel-bg: #0d0517;
+	--text-color: #ffffff;
+	--neon-pink: #ff00ff;
+	--neon-blue: #00ffff;
+	--neon-green: #39ff14;
+	--neon-yellow: #ffff00;
+	--dark-grey: #333333;
+	--medium-grey: #555555;
+	--light-grey: #aaaaaa;
+	--border-color: var(--neon-blue);
 
-    /* Fonts */
-    --pixel-font: 'Press Start 2P', cursive;
-    --readable-font: 'Courier New', Courier, monospace;
+	/* Fonts */
+	--pixel-font: "Press Start 2P", cursive;
+	--readable-font: "Courier New", Courier, monospace;
 }
 /* let rows behave like rows */
-.player-names-row{
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px 30px;
-    justify-content:center;
+.player-names-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px 30px;
+	justify-content: center;
 }
-
 
 body {
-    font-family: var(--pixel-font);
-    background-color: var(--bg-color);
-    color: var (--text-color);
-    padding: 20px;
-    line-height: 1.6;
-    font-size: 14px;
+	font-family: var(--pixel-font);
+	background-color: var(--bg-color);
+	color: var (--text-color);
+	padding: 20px;
+	line-height: 1.6;
+	font-size: 14px;
 }
 
-h1, h2, h3, h4, h5 {
-    color: var(--neon-yellow);
-    text-shadow: 2px 2px 0px var(--neon-pink);
-    margin-bottom: 1em;
-    text-transform: uppercase;
+h1,
+h2,
+h3,
+h4,
+h5 {
+	color: var(--neon-yellow);
+	text-shadow: 2px 2px 0px var(--neon-pink);
+	margin-bottom: 1em;
+	text-transform: uppercase;
 }
 
 h1 {
-    font-size: 2.5em;
-    text-align: center;
-    margin-bottom: 0.5em; /* Reduced margin */
+	font-size: 2.5em;
+	text-align: center;
+	margin-bottom: 0.5em; /* Reduced margin */
 }
-.subtitle { /* Style for the subtitle paragraph */
-    font-family: var(--pixel-font);
-    text-align: center;
-    color: var(--neon-green); /* Moved from inline style, adjusted color */
-    font-size: 1.1em;
-    margin-bottom: 1.5em;
-    text-shadow: 1px 1px 0px #000000; /* Changed shadow color to black */
+.subtitle {
+	/* Style for the subtitle paragraph */
+	font-family: var(--pixel-font);
+	text-align: center;
+	color: var(--neon-green); /* Moved from inline style, adjusted color */
+	font-size: 1.1em;
+	margin-bottom: 1.5em;
+	text-shadow: 1px 1px 0px #000000; /* Changed shadow color to black */
 }
 
 h2 {
-    font-size: 1.8em;
+	font-size: 1.8em;
 }
 
 h3 {
-    font-size: 1.4em;
-    color: var(--neon-blue);
-    text-shadow: 1px 1px 0px var(--neon-pink);
+	font-size: 1.4em;
+	color: var(--neon-blue);
+	text-shadow: 1px 1px 0px var(--neon-pink);
 }
 
 h4 {
-    font-size: 1.2em;
-    color: var(--neon-green);
+	font-size: 1.2em;
+	color: var(--neon-green);
 }
 
-h5 { /* Added style for h5 */
-    font-size: 1.1em;
-    color: var(--neon-yellow);
-    text-shadow: 1px 1px 0px var(--neon-pink);
+h5 {
+	/* Added style for h5 */
+	font-size: 1.1em;
+	color: var(--neon-yellow);
+	text-shadow: 1px 1px 0px var(--neon-pink);
 }
 
 /* --- Rules Link --- */
 .rules-link-area {
-    text-align: center; /* Center the box */
-    margin-bottom: 20px;
+	text-align: center; /* Center the box */
+	margin-bottom: 20px;
 }
 
 .rules-link-box {
-    border: 2px solid black;
-    padding: 10px;
-    display: inline-block;
-    background-color: #eb0dd8; /* Specific magenta */
-    border-radius: 5px;
-    box-shadow: 3px 3px 0px var(--medium-grey);
-    transition: transform 0.1s, box-shadow 0.1s;
+	border: 2px solid black;
+	padding: 10px;
+	display: inline-block;
+	background-color: #eb0dd8; /* Specific magenta */
+	border-radius: 5px;
+	box-shadow: 3px 3px 0px var(--medium-grey);
+	transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .rules-link-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 3px 5px 0px var(--medium-grey);
+	transform: translateY(-2px);
+	box-shadow: 3px 5px 0px var(--medium-grey);
 }
 
 #main-rules-link {
-    color: var(--text-color);
-    text-decoration: none;
-    font-family: var(--pixel-font);
-    font-size: 1em;
+	color: var(--text-color);
+	text-decoration: none;
+	font-family: var(--pixel-font);
+	font-size: 1em;
 }
 
 /* --- General Containers --- */
 #setup-area {
-    display: flex;
-    flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 }
 #game-area {
-    background-color: var(--panel-bg);
-    padding: 20px;
-    border: 3px solid var(--border-color);
-    box-shadow: 5px 5px 0px var(--neon-pink);
-    margin-bottom: 30px;
-    color: var(--text-color); /* Moved from inline style */
-    position: relative; /* Needed for absolute positioning of children like judge avatar */
+	background-color: var(--panel-bg);
+	padding: 20px;
+	border: 3px solid var(--border-color);
+	box-shadow: 5px 5px 0px var(--neon-pink);
+	margin-bottom: 30px;
+	color: var(--text-color); /* Moved from inline style */
+	position: relative; /* Needed for absolute positioning of children like judge avatar */
 }
 
 /* --- NEW: Game Header Layout --- */
 .game-header {
-    position: relative; /* Establish positioning context for avatar */
-    padding-right: 260px; /* Increased padding to accommodate larger avatar + button */
-    padding-bottom: 10px; /* Add some space below */
-    margin-bottom: 15px;
-    min-height: 250px; /* Ensure enough height for avatar */
+	position: relative; /* Establish positioning context for avatar */
+	padding-right: 260px; /* Increased padding to accommodate larger avatar + button */
+	padding-bottom: 10px; /* Add some space below */
+	margin-bottom: 15px;
+	min-height: 250px; /* Ensure enough height for avatar */
 }
 
 .game-header h2 {
-    margin-bottom: 10px; /* Space below judge name */
+	margin-bottom: 10px; /* Space below judge name */
 }
 
 /* --- NEW/MODIFIED: Judge Avatar Display --- */
 #judge-avatar-display {
-    display: block; /* Ensure it's treated as a block */
-    width: 240px; /* Set width (tripled from 80px) */
-    height: 240px; /* Set height (tripled from 80px) */
-    background-size: cover; /* Cover the area */
-    background-position: center; /* Center the image */
-    border: 3px solid var(--neon-blue); /* Add border */
-    border-radius: 50%; /* Make it circular */
-    box-shadow: 0 0 10px var(--neon-blue), inset 0 0 5px rgba(0, 255, 255, 0.5); /* Add glow */
-    position: absolute; /* Position relative to game-header */
-    top: 10px; /* Adjust positioning slightly */
-    right: 10px; /* Adjust positioning slightly */
-    background-color: var(--panel-bg); /* Background in case image fails */
+	display: block; /* Ensure it's treated as a block */
+	width: 240px; /* Set width (tripled from 80px) */
+	height: 240px; /* Set height (tripled from 80px) */
+	background-size: cover; /* Cover the area */
+	background-position: center; /* Center the image */
+	border: 3px solid var(--neon-blue); /* Add border */
+	border-radius: 50%; /* Make it circular */
+	box-shadow: 0 0 10px var(--neon-blue), inset 0 0 5px rgba(0, 255, 255, 0.5); /* Add glow */
+	position: absolute; /* Position relative to game-header */
+	top: 10px; /* Adjust positioning slightly */
+	right: 10px; /* Adjust positioning slightly */
+	background-color: var(--panel-bg); /* Background in case image fails */
 }
 
 /* --- Setup Area Specific --- */
-.subtitle { /* Style for the subtitle paragraph */
-    font-family: var(--pixel-font);
-    text-align: center;
-    color: var(--neon-green); /* Moved from inline style, adjusted color */
-    font-size: 1.1em;
-    margin-bottom: 1.5em;
-    text-shadow: 1px 1px 0px #000000; /* Changed shadow color to black */
+.subtitle {
+	/* Style for the subtitle paragraph */
+	font-family: var(--pixel-font);
+	text-align: center;
+	color: var(--neon-green); /* Moved from inline style, adjusted color */
+	font-size: 1.1em;
+	margin-bottom: 1.5em;
+	text-shadow: 1px 1px 0px #000000; /* Changed shadow color to black */
 }
 
 /* Party size controls with plus/minus buttons */
 .party-size-control {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 10px;
 }
 
 .party-count-display {
-    font-family: var(--pixel-font);
-    color: var(--neon-yellow);
-    background-color: var(--panel-bg);
-    border: 2px solid var(--neon-blue);
-    padding: 8px 15px;
-    margin: 0 5px;
-    min-width: 30px;
-    text-align: center;
-    font-size: 1.2em;
+	font-family: var(--pixel-font);
+	color: var(--neon-yellow);
+	background-color: var(--panel-bg);
+	border: 2px solid var(--neon-blue);
+	padding: 8px 15px;
+	margin: 0 5px;
+	min-width: 30px;
+	text-align: center;
+	font-size: 1.2em;
 }
 
 .player-count-btn {
-    font-family: var(--pixel-font);
-    background-color: var(--panel-bg);
-    color: var(--neon-pink);
-    border: 2px solid var(--neon-blue);
-    width: 36px;
-    height: 36px;
-    font-size: 1.4em;
-    line-height: 1;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.1s ease-in-out;
+	font-family: var(--pixel-font);
+	background-color: var(--panel-bg);
+	color: var(--neon-pink);
+	border: 2px solid var(--neon-blue);
+	width: 36px;
+	height: 36px;
+	font-size: 1.4em;
+	line-height: 1;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.1s ease-in-out;
 }
 
 .player-count-btn:hover {
-    background-color: var(--neon-blue);
-    color: var(--panel-bg);
+	background-color: var(--neon-blue);
+	color: var(--panel-bg);
 }
 
 .player-count-btn:disabled {
-    color: var(--medium-grey);
-    border-color: var(--medium-grey);
-    cursor: not-allowed;
+	color: var(--medium-grey);
+	border-color: var(--medium-grey);
+	cursor: not-allowed;
 }
 
 .error-message {
-    color: var(--neon-pink);
-    font-size: 0.9em;
-    display: block; /* Ensure it takes its own line */
-    margin-top: 5px;
-    min-height: 1em; /* Prevent layout shifts */
-    font-family: var(--readable-font);
+	color: var(--neon-pink);
+	font-size: 0.9em;
+	display: block; /* Ensure it takes its own line */
+	margin-top: 5px;
+	min-height: 1em; /* Prevent layout shifts */
+	font-family: var(--readable-font);
 }
 
-input:invalid { /* Style for invalid inputs */
-  border-color: var(--neon-pink);
-  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.5), 0 0 8px var(--neon-pink);
+input:invalid {
+	/* Style for invalid inputs */
+	border-color: var(--neon-pink);
+	box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.5), 0 0 8px var(--neon-pink);
 }
 
 input[type="number"] {
-    width: 70px;
+	width: 70px;
 }
 
 /* Switch player setup to allow wrapping */
 #player-setup-area {
-    display: flex; /* Use flexbox */
-    flex-wrap: wrap; /* Allow items to wrap */
-    gap: 20px 30px; /* Vertical and horizontal gap */
-    justify-content: center; /* Center items horizontally */
-    align-items: flex-start; /* Align items to the top */
-    padding: 15px 10px;
-    width: 100%;
-    box-sizing: border-box;
-    /* Remove fixed height/overflow if previously set */
-    /* height: auto; */
-    /* overflow-x: visible; */
+	display: flex; /* Use flexbox */
+	flex-wrap: wrap; /* Allow items to wrap */
+	gap: 20px 30px; /* Vertical and horizontal gap */
+	justify-content: center; /* Center items horizontally */
+	align-items: flex-start; /* Align items to the top */
+	padding: 15px 10px;
+	width: 100%;
+	box-sizing: border-box;
+	/* Remove fixed height/overflow if previously set */
+	/* height: auto; */
+	/* overflow-x: visible; */
 }
 
 /* Adjust player entry block for wrapping */
 .player-name-entry {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-basis: 160px; /* Set a base width, items will wrap if needed */
-    flex-grow: 0; /* Don't allow items to grow */
-    box-sizing: border-box;
-    /* Remove margin if previously set, use gap in parent */
-    /* margin: 10px; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-basis: 160px; /* Set a base width, items will wrap if needed */
+	flex-grow: 0; /* Don't allow items to grow */
+	box-sizing: border-box;
+	/* Remove margin if previously set, use gap in parent */
+	/* margin: 10px; */
 }
 
 .player-name-entry label {
-    /* Hide the label visually but keep for accessibility */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: normal;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    border-width: 0;
-    flex-wrap: wrap;
+	/* Hide the label visually but keep for accessibility */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: normal;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	border-width: 0;
+	flex-wrap: wrap;
 }
 
 .avatar-selection-area {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Ensure preview and buttons are centered */
-    margin-bottom: 10px; /* Add space between avatar and input below */
-    gap: 8px; /* Gap between buttons and preview */
-    position: relative; /* For potential button overlay if desired */
-    /* REMOVED height: 150px; Let content determine height */
-    flex-shrink: 0; /* Prevent this area from shrinking within player-name-entry */
+	display: flex;
+	align-items: center;
+	justify-content: center; /* Ensure preview and buttons are centered */
+	margin-bottom: 10px; /* Add space between avatar and input below */
+	gap: 8px; /* Gap between buttons and preview */
+	position: relative; /* For potential button overlay if desired */
+	/* REMOVED height: 150px; Let content determine height */
+	flex-shrink: 0; /* Prevent this area from shrinking within player-name-entry */
 }
 
 .avatar-preview {
-    /* Make avatar larger */
-    width: 150px;
-    height: 150px;
-    aspect-ratio: 1 / 1; /* Ensure perfect circle */
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%; /* ENSURE circular */
-    border: 3px solid var(--neon-blue);
-    box-shadow: 0 0 8px var(--neon-blue), 0 0 0 2px var(--panel-bg) inset;
-    background-color: var(--panel-bg);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box; /* Include border/padding in element's total width/height */
-    /* Ensure it's in the center if buttons are flanking */
-    order: 1; /* Place preview between buttons */
-    flex-shrink: 0; /* Prevent preview from shrinking */
+	/* Make avatar larger */
+	width: 150px;
+	height: 150px;
+	aspect-ratio: 1 / 1; /* Ensure perfect circle */
+	background-size: cover;
+	background-position: center;
+	border-radius: 50%; /* ENSURE circular */
+	border: 3px solid var(--neon-blue);
+	box-shadow: 0 0 8px var(--neon-blue), 0 0 0 2px var(--panel-bg) inset;
+	background-color: var(--panel-bg);
+	transition: border-color 0.2s, box-shadow 0.2s;
+	box-sizing: border-box; /* Include border/padding in element's total width/height */
+	/* Ensure it's in the center if buttons are flanking */
+	order: 1; /* Place preview between buttons */
+	flex-shrink: 0; /* Prevent preview from shrinking */
 }
 
 .avatar-preview.avatar-taken {
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 12px var(--neon-pink), 0 0 0 2px var(--panel-bg) inset;
+	border-color: var(--neon-pink);
+	box-shadow: 0 0 12px var(--neon-pink), 0 0 0 2px var(--panel-bg) inset;
 }
 
 .avatar-cycle-button {
-    font-family: var(--pixel-font);
-    font-size: 2.2em; /* INCREASED arrow size */
-    padding: 0 5px;
-    background: none;
-    color: var(--neon-blue);
-    border: none;
-    box-shadow: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: color 0.2s, transform 0.1s;
-    line-height: 1;
-    /* NEW: Set order for buttons */
-    order: 0; /* Default order for previous button */
-    flex-shrink: 0; /* Prevent button from shrinking */
+	font-family: var(--pixel-font);
+	font-size: 2.2em; /* INCREASED arrow size */
+	padding: 0 5px;
+	background: none;
+	color: var(--neon-blue);
+	border: none;
+	box-shadow: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: color 0.2s, transform 0.1s;
+	line-height: 1;
+	/* NEW: Set order for buttons */
+	order: 0; /* Default order for previous button */
+	flex-shrink: 0; /* Prevent button from shrinking */
 }
 /* NEW: Specific style for the next button */
 .avatar-cycle-button.next {
-    order: 2; /* Place next button after preview */
+	order: 2; /* Place next button after preview */
 }
 
 .player-name-entry input[type="text"] {
-    font-family: var(--pixel-font); /* Use pixel font for name */
-    font-size: 1em; /* Adjust size as needed */
-    padding: 6px 10px;
-    background-color: var(--panel-bg);
-    color: var(--neon-green); /* Match scoreboard name color */
-    border: 2px solid var(--neon-blue);
-    border-radius: 5px;
-    margin-bottom: 0; /* Remove bottom margin */
-    margin-top: 0; /* Remove top margin */
-    /* MODIFIED: Adjust width properties */
-    /* width: 100%; */ /* REMOVED: Let max-width control size */
-    max-width: 100%; /* Allow input to take full width of its container */
-    width: 140px; /* Set a specific width */
-    box-sizing: border-box; /* Include padding/border in width calculation */
-    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.6);
-    transition: border-color 0.2s, box-shadow 0.2s, width 0.2s; /* Added width transition */
-    text-align: center; /* Center the text within the input */
-    text-shadow: 1px 1px 0 var(--panel-bg);
-    flex-grow: 0; /* Do not allow input to grow */
-    flex-shrink: 0; /* Do not allow input to shrink (width is controlled by max-width) */
-    flex-basis: auto; /* Base size on content/max-width */
+	font-family: var(--pixel-font); /* Use pixel font for name */
+	font-size: 1em; /* Adjust size as needed */
+	padding: 6px 10px;
+	background-color: var(--panel-bg);
+	color: var(--neon-green); /* Match scoreboard name color */
+	border: 2px solid var(--neon-blue);
+	border-radius: 5px;
+	margin-bottom: 0; /* Remove bottom margin */
+	margin-top: 0; /* Remove top margin */
+	/* MODIFIED: Adjust width properties */
+	/* width: 100%; */ /* REMOVED: Let max-width control size */
+	max-width: 100%; /* Allow input to take full width of its container */
+	width: 140px; /* Set a specific width */
+	box-sizing: border-box; /* Include padding/border in width calculation */
+	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.6);
+	transition: border-color 0.2s, box-shadow 0.2s, width 0.2s; /* Added width transition */
+	text-align: center; /* Center the text within the input */
+	text-shadow: 1px 1px 0 var(--panel-bg);
+	flex-grow: 0; /* Do not allow input to grow */
+	flex-shrink: 0; /* Do not allow input to shrink (width is controlled by max-width) */
+	flex-basis: auto; /* Base size on content/max-width */
 }
 
 .player-name-entry input[type="text"]:focus {
-    border-color: var(--neon-yellow);
-    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.6), 0 0 8px var(--neon-yellow);
-    outline: none;
+	border-color: var(--neon-yellow);
+	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.6), 0 0 8px var(--neon-yellow);
+	outline: none;
 }
 
 /* Remove player-name-display styles as input is now the display */
@@ -359,280 +366,298 @@ input[type="number"] {
 
 /* Responsive adjustments might need tweaking */
 @media (max-width: 700px) {
-    #player-setup-area {
-        flex-direction: row;
-        gap: 10px;
-        max-width: 350px; /* Set a max width for rows */
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .avatar-preview {
-        width: 105px;
-        height: 105px;
-        border-radius: 50%; /* Ensure circular */
-    }
-    .avatar-selection-area {
-        height: 105px; /* Match avatar height */
-    }
-    .avatar-cycle-button {
-        font-size: 1.8em; /* Adjust arrow size */
-    }
-    .player-name-entry input[type="text"] {
-        font-size: 0.9em;
-        max-width: 10ch; /* Apply max-width here too */
-        text-align: center; /* Ensure centering */
-    }
+	#player-setup-area {
+		flex-direction: row;
+		gap: 10px;
+		max-width: 350px; /* Set a max width for rows */
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.avatar-preview {
+		width: 105px;
+		height: 105px;
+		border-radius: 50%; /* Ensure circular */
+	}
+	.avatar-selection-area {
+		height: 105px; /* Match avatar height */
+	}
+	.avatar-cycle-button {
+		font-size: 1.8em; /* Adjust arrow size */
+	}
+	.player-name-entry input[type="text"] {
+		font-size: 0.9em;
+		max-width: 10ch; /* Apply max-width here too */
+		text-align: center; /* Ensure centering */
+	}
 }
 
 @media (max-width: 480px) {
-    #player-setup-area {
-        /* Can keep grid or switch to flex column */
-        /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */ /* REMOVED */
-        /* gap: 15px; */ /* REMOVED */
-        gap: 10px; /* ADJUSTED gap for flex */
-        padding: 10px;
-    }
-    }
-    .avatar-preview {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%; /* Ensure circular */
-    }
-     .avatar-selection-area {
-        /* REMOVED fixed width */
-        height: 90px; /* Match avatar height */
-        gap: 5px;
-    }
-    .avatar-cycle-button {
-        font-size: 1.5em;
-    }
-    .player-name-entry input[type="text"] {
-        max-width: 10ch; /* Apply max-width here too */
-        width: 100%;
-        text-align: center;
-        /* existing styles remain */
-        font-size: 0.85em; /* Ensure font size is set */
-        padding: 5px 8px; /* Ensure padding is set */
-    }
-        /* max-width: 90px; */ /* REMOVED max-width */
-        /* Removed invalid CSS properties that were outside of a selector */
-    
+	#player-setup-area {
+		/* Can keep grid or switch to flex column */
+		/* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */ /* REMOVED */
+		/* gap: 15px; */ /* REMOVED */
+		gap: 10px; /* ADJUSTED gap for flex */
+		padding: 10px;
+	}
+}
+.avatar-preview {
+	width: 90px;
+	height: 90px;
+	border-radius: 50%; /* Ensure circular */
+}
+.avatar-selection-area {
+	/* REMOVED fixed width */
+	height: 90px; /* Match avatar height */
+	gap: 5px;
+}
+.avatar-cycle-button {
+	font-size: 1.5em;
+}
+.player-name-entry input[type="text"] {
+	max-width: 10ch; /* Apply max-width here too */
+	width: 100%;
+	text-align: center;
+	/* existing styles remain */
+	font-size: 0.85em; /* Ensure font size is set */
+	padding: 5px 8px; /* Ensure padding is set */
+}
+/* max-width: 90px; */ /* REMOVED max-width */
+/* Removed invalid CSS properties that were outside of a selector */
 
 /* Adjust scoreboard list item for better alignment with wrapped names */
 #scoreboard-list li {
-    display: flex;
-    align-items: center; /* Vertically align items in the list item */
-    margin-bottom: 8px;
-    padding: 5px;
-    border-bottom: 1px dashed #eee;
+	display: flex;
+	align-items: center; /* Vertically align items in the list item */
+	margin-bottom: 8px;
+	padding: 5px;
+	border-bottom: 1px dashed #eee;
 }
 
 #scoreboard-list .avatar-display-small {
-    margin-right: 8px;
-    flex-shrink: 0; /* Prevent avatar from shrinking */
+	margin-right: 8px;
+	flex-shrink: 0; /* Prevent avatar from shrinking */
 }
 
 #scoreboard-list .player-name-display {
-    flex-grow: 1; /* Allow name/score to take available space */
-    margin-right: 8px;
+	flex-grow: 1; /* Allow name/score to take available space */
+	margin-right: 8px;
 }
 
 #scoreboard-list .token-display {
-    margin-left: auto; /* Push tokens to the right */
-    margin-right: 8px;
-    flex-shrink: 0;
-    font-size: 0.9em;
-    display: flex;
-    align-items: center;
-    gap: 3px; /* Space between token icons */
+	margin-left: auto; /* Push tokens to the right */
+	margin-right: 8px;
+	flex-shrink: 0;
+	font-size: 0.9em;
+	display: flex;
+	align-items: center;
+	gap: 3px; /* Space between token icons */
 }
 #scoreboard-list .token-display .token-icon {
-    display: inline-block;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-weight: bold;
-    color: white;
-    min-width: 18px; /* Ensure single-digit tokens look okay */
-    text-align: center;
+	display: inline-block;
+	padding: 2px 4px;
+	border-radius: 3px;
+	font-weight: bold;
+	color: white;
+	min-width: 18px; /* Ensure single-digit tokens look okay */
+	text-align: center;
 }
 /* Add specific token background colors if desired */
-.token-mindReader { background-color: #8e44ad; } /* Purple */
-.token-technicalMerit { background-color: #2980b9; } /* Blue */
-.token-perfectAlignment { background-color: #27ae60; } /* Green */
-.token-plotTwist { background-color: #f39c12; } /* Orange */
+.token-mindReader {
+	background-color: #8e44ad;
+} /* Purple */
+.token-technicalMerit {
+	background-color: #2980b9;
+} /* Blue */
+.token-perfectAlignment {
+	background-color: #27ae60;
+} /* Green */
+.token-plotTwist {
+	background-color: #f39c12;
+} /* Orange */
 
 #scoreboard-list .steal-button-area {
-    margin-left: 10px; /* Space before steal button */
-    flex-shrink: 0;
+	margin-left: 10px; /* Space before steal button */
+	flex-shrink: 0;
 }
 #scoreboard-list .steal-target-area {
-    /* Style the steal target area if needed, e.g., margin-top */
-    margin-top: 5px;
-    margin-left: 60px; /* Indent under the player name/score */
-    padding: 5px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
+	/* Style the steal target area if needed, e.g., margin-top */
+	margin-top: 5px;
+	margin-left: 60px; /* Indent under the player name/score */
+	padding: 5px;
+	background-color: #f0f0f0;
+	border-radius: 4px;
 }
 .steal-target-button {
-    margin-left: 5px;
-    padding: 2px 6px;
-    font-size: 0.9em;
+	margin-left: 5px;
+	padding: 2px 6px;
+	font-size: 0.9em;
 }
 
 /* Scoreboard Tokens */
 .token-display {
-    font-size: 0.8em;
-    color: var(--light-grey);
-    margin-left: auto; /* Push tokens to the right */
-    margin-right: 8px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 4px; /* Space between token icons */
+	font-size: 0.8em;
+	color: var(--light-grey);
+	margin-left: auto; /* Push tokens to the right */
+	margin-right: 8px;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	gap: 4px; /* Space between token icons */
 }
 
 .token-display.no-tokens {
-    font-style: italic;
-    color: var(--medium-grey); /* Make "No tokens" less prominent */
+	font-style: italic;
+	color: var(--medium-grey); /* Make "No tokens" less prominent */
 }
 
 .token-display .token-icon {
-    display: inline-block;
-    padding: 2px 5px; /* Adjusted padding */
-    border-radius: 3px;
-    font-weight: bold;
-    color: white;
-    min-width: 20px; /* Ensure single-digit tokens look okay */
-    text-align: center;
-    font-family: var(--readable-font); /* Use readable font for count */
-    font-size: 0.9em;
-    line-height: 1.2;
+	display: inline-block;
+	padding: 2px 5px; /* Adjusted padding */
+	border-radius: 3px;
+	font-weight: bold;
+	color: white;
+	min-width: 20px; /* Ensure single-digit tokens look okay */
+	text-align: center;
+	font-family: var(--readable-font); /* Use readable font for count */
+	font-size: 0.9em;
+	line-height: 1.2;
 }
 /* Token background colors - Use the keys from TOKEN_TYPES */
-.token-mindReader { background-color: var(--neon-blue); } /* Mind Reader */
-.token-artBro { background-color: var(--neon-yellow); color: var(--panel-bg); } /* Art Bro - Ensure contrast */
-.token-perfectlyAligned { background-color: var(--neon-green); } /* Perfectly Aligned (TM) */
-.token-psychopath { background-color: var(--neon-pink); } /* Psychopath */
+.token-mindReader {
+	background-color: var(--neon-blue);
+} /* Mind Reader */
+.token-artBro {
+	background-color: var(--neon-yellow);
+	color: var(--panel-bg);
+} /* Art Bro - Ensure contrast */
+.token-perfectlyAligned {
+	background-color: var(--neon-green);
+} /* Perfectly Aligned (TM) */
+.token-psychopath {
+	background-color: var(--neon-pink);
+} /* Psychopath */
 
 /* --- Buttons --- */
 button {
-    font-family: var(--pixel-font);
-    font-size: 1em;
-    padding: 10px 18px;
-    background-color: var (--neon-pink);
-    color: var(--panel-bg);
-    border: 2px solid var(--text-color);
-    box-shadow: 3px 3px 0px var(--medium-grey);
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.1s ease-in-out;
-    margin: 5px;
+	font-family: var(--pixel-font);
+	font-size: 1em;
+	padding: 10px 18px;
+	background-color: var (--neon-pink);
+	color: var(--panel-bg);
+	border: 2px solid var(--text-color);
+	box-shadow: 3px 3px 0px var(--medium-grey);
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: all 0.1s ease-in-out;
+	margin: 5px;
 }
 
 /* NEW: Specific style for Set Players button */
 #set-players-button {
-    background-color: var(--neon-pink);
-    color: var(--panel-bg); /* Ensure contrast */
+	background-color: var(--neon-pink);
+	color: var(--panel-bg); /* Ensure contrast */
 }
 #set-players-button:hover {
-    background-color: var(--neon-yellow); /* Keep hover consistent or change if desired */
-    color: var(--panel-bg);
-    box-shadow: 3px 3px 0px var(--neon-pink);
+	background-color: var(
+		--neon-yellow
+	); /* Keep hover consistent or change if desired */
+	color: var(--panel-bg);
+	box-shadow: 3px 3px 0px var(--neon-pink);
 }
 
 button:hover {
-    background-color: var(--neon-yellow);
-    color: var(--panel-bg);
-    box-shadow: 3px 3px 0px var (--neon-pink);
-    transform: translateY(-2px);
+	background-color: var(--neon-yellow);
+	color: var(--panel-bg);
+	box-shadow: 3px 3px 0px var (--neon-pink);
+	transform: translateY(-2px);
 }
 
 button:active {
-    transform: translateY(1px);
-    box-shadow: 1px 1px 0px var(--medium-grey);
+	transform: translateY(1px);
+	box-shadow: 1px 1px 0px var(--medium-grey);
 }
 
 button:disabled {
-    background-color: var(--dark-grey);
-    color: var(--medium-grey);
-    border-color: var(--medium-grey);
-    box-shadow: 1px 1px 0px var(--dark-grey);
-    cursor: not-allowed;
-    transform: none;
-    opacity: 0.7;
+	background-color: var(--dark-grey);
+	color: var(--medium-grey);
+	border-color: var(--medium-grey);
+	box-shadow: 1px 1px 0px var(--dark-grey);
+	cursor: not-allowed;
+	transform: none;
+	opacity: 0.7;
 }
 
 /* Specific Button Colors */
 #start-game-button,
 #award-button {
-    background-color: var(--neon-green);
-    color: #000000; /* Black text */
+	background-color: var(--neon-green);
+	color: #000000; /* Black text */
 }
 #start-game-button:hover,
 #award-button:hover {
-    background-color: var(--neon-yellow);
-    color: #000000; /* Black text */
-    box-shadow: 3px 3px 0px var(--neon-green);
+	background-color: var(--neon-yellow);
+	color: #000000; /* Black text */
+	box-shadow: 3px 3px 0px var(--neon-green);
 }
 
 #play-again-button {
-    background-color: var(--neon-blue);
-    color: var(--panel-bg);
+	background-color: var(--neon-blue);
+	color: var(--panel-bg);
 }
 #play-again-button:hover {
-    background-color: var(--neon-yellow);
-    color: var (--panel-bg);
-    box-shadow: 3px 3px 0px var(--neon-blue);
+	background-color: var(--neon-yellow);
+	color: var (--panel-bg);
+	box-shadow: 3px 3px 0px var(--neon-blue);
 }
 
 /* Focus State */
 button:focus-visible {
-    outline: 3px solid var(--neon-blue);
-    outline-offset: 2px;
-    box-shadow: 0 0 10px var(--neon-blue);
+	outline: 3px solid var(--neon-blue);
+	outline-offset: 2px;
+	box-shadow: 0 0 10px var(--neon-blue);
 }
 
 /* --- Forms & Inputs --- */
 label {
-    color: var(--neon-blue);
-    margin-right: 10px;
-    margin-bottom: 5px;
-    font-size: 0.9em;
+	color: var(--neon-blue);
+	margin-right: 10px;
+	margin-bottom: 5px;
+	font-size: 0.9em;
 }
 
 input[type="number"],
 input[type="text"] {
-    font-family: var(--readable-font);
-    font-size: 1.1em;
-    padding: 8px 12px;
-    background-color: var(--panel-bg);
-    color: var(--text-color);
-    border: 2px solid var(--neon-blue);
-    margin-right: 5px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    box-shadow: inset 2px 2px 0px rgba(0,0,0,0.5);
-    transition: border-color 0.2s, box-shadow 0.2s;
+	font-family: var(--readable-font);
+	font-size: 1.1em;
+	padding: 8px 12px;
+	background-color: var(--panel-bg);
+	color: var(--text-color);
+	border: 2px solid var(--neon-blue);
+	margin-right: 5px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.5);
+	transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input[type="number"]:focus,
 input[type="text"]:focus {
-    outline: none;
-    border-color: var(--neon-yellow);
-    box-shadow: inset 2px 2px 0px rgba(0,0,0,0.5), 0 0 8px var(--neon-yellow);
+	outline: none;
+	border-color: var(--neon-yellow);
+	box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.5), 0 0 8px var(--neon-yellow);
 }
 
 input[type="number"] {
-    width: 70px;
+	width: 70px;
 }
 
 #player-names-input-area {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px 20px;
-    justify-content: flex-start;
-    margin-bottom: 18px;
-    width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px 20px;
+	justify-content: flex-start;
+	margin-bottom: 18px;
+	width: 100%;
 }
 
 /* --- Specific Sections --- */
@@ -640,1076 +665,1223 @@ input[type="number"] {
 #prompt-section,
 #round-actions-section,
 #scoreboard-section {
-    margin-top: 25px;
-    padding: 15px;
-    /* Removed dashed border */
-    background-color: rgba(0, 0, 0, 0.2);
+	margin-top: 25px;
+	padding: 15px;
+	/* Removed dashed border */
+	background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* --- Scoreboard --- */
 #scoreboard-list {
-    list-style: none;
-    padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 #scoreboard-list li {
-    font-size: 1.2em;
-    color: var(--text-color);
-    margin-bottom: 8px;
-    padding-left: 15px;
-    position: relative;
+	font-size: 1.2em;
+	color: var(--text-color);
+	margin-bottom: 8px;
+	padding-left: 15px;
+	position: relative;
 }
 #scoreboard-list li::before {
-    content: '>';
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--neon-pink);
-    font-weight: bold;
+	content: ">";
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: var(--neon-pink);
+	font-weight: bold;
 }
 
 .token-display {
-    font-size: 0.8em;
-    color: var(--light-grey);
-    margin-left: 10px; /* Reduced margin */
-    display: inline; /* Keep on same line */
+	font-size: 0.8em;
+	color: var(--light-grey);
+	margin-left: 10px; /* Reduced margin */
+	display: inline; /* Keep on same line */
 }
 
-.token-display span[title] { /* Style the token icons/counts */
-    margin-left: 5px;
+.token-display span[title] {
+	/* Style the token icons/counts */
+	margin-left: 5px;
 }
 
 .token-display.no-tokens {
-    font-style: italic;
+	font-style: italic;
 }
 
 .steal-button,
 .steal-target-button {
-    /* Inherit base button styles but make smaller */
-    font-size: 0.8em !important; /* Override base */
-    padding: 4px 8px !important;
-    margin-left: 10px !important;
+	/* Inherit base button styles but make smaller */
+	font-size: 0.8em !important; /* Override base */
+	padding: 4px 8px !important;
+	margin-left: 10px !important;
 }
 
 /* --- Winner Area --- */
 #winner-area {
-    background-color: var(--panel-bg);
-    padding: 30px;
-    border: 4px solid var(--neon-yellow);
-    box-shadow: 0 0 15px var(--neon-yellow), 0 0 5px var(--text-color) inset;
-    text-align: center;
-    margin-top: 30px;
+	background-color: var(--panel-bg);
+	padding: 30px;
+	border: 4px solid var(--neon-yellow);
+	box-shadow: 0 0 15px var(--neon-yellow), 0 0 5px var(--text-color) inset;
+	text-align: center;
+	margin-top: 30px;
 }
 
 #winner-area h2 {
-    color: var(--neon-green);
-    font-size: 3em;
-    text-shadow: 3px 3px 0px var(--neon-pink), -3px -3px 0px var(--neon-blue);
+	color: var(--neon-green);
+	font-size: 3em;
+	text-shadow: 3px 3px 0px var(--neon-pink), -3px -3px 0px var(--neon-blue);
 }
 
 #winner-area p {
-    color: var(--neon-blue);
-    font-size: 1.4em;
-    text-transform: uppercase;
+	color: var(--neon-blue);
+	font-size: 1.4em;
+	text-transform: uppercase;
 }
 
 #winner-area p #winner-name {
-    color: var(--neon-yellow);
-    font-size: 1.8em;
-    display: block;
-    margin: 10px 0;
-    text-transform: none;
+	color: var(--neon-yellow);
+	font-size: 1.8em;
+	display: block;
+	margin: 10px 0;
+	text-transform: none;
 }
 
 /* --- Deck Selection Styles --- */
 #deck-selection-area {
-    margin-top: 25px;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 2px dotted var(--neon-blue);
-    background-color: rgba(0,0,0, 0.1);
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    gap: 8px; /* Adjust gap for vertical layout */
-    justify-content: flex-start;
-    align-items: flex-start; /* Align items to the left */
+	margin-top: 25px;
+	margin-bottom: 20px;
+	padding: 15px;
+	border: 2px dotted var(--neon-blue);
+	background-color: rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column; /* Stack items vertically */
+	gap: 8px; /* Adjust gap for vertical layout */
+	justify-content: flex-start;
+	align-items: flex-start; /* Align items to the left */
 }
 
 #deck-selection-area h4 {
-    width: auto; /* Reset width if previously set to 100% */
-    margin-top: 0;
-    margin-bottom: 10px; /* Adjust margin */
+	width: auto; /* Reset width if previously set to 100% */
+	margin-top: 0;
+	margin-bottom: 10px; /* Adjust margin */
 }
 
 /* NEW: Style for the div containing each deck label */
 .deck-option {
-    width: 100%; /* Make each option take full width */
-    box-sizing: border-box;
+	width: 100%; /* Make each option take full width */
+	box-sizing: border-box;
 }
 
 .deck-label {
-    font-family: var(--pixel-font);
-    color: var(--text-color);
-    font-size: 1em;
-    cursor: pointer;
-    padding: 5px 8px;
-    border: 1px solid transparent;
-    transition: color 0.2s, opacity 0.2s, border-color 0.2s;
-    display: block; /* Make label fill the container */
-    width: 100%;
-    box-sizing: border-box;
-    text-align: left; /* Align text left */
-    padding: 8px 12px; /* Adjust padding */
-    border: 2px solid transparent; /* Add border space */
+	font-family: var(--pixel-font);
+	color: var(--text-color);
+	font-size: 1em;
+	cursor: pointer;
+	padding: 5px 8px;
+	border: 1px solid transparent;
+	transition: color 0.2s, opacity 0.2s, border-color 0.2s;
+	display: block; /* Make label fill the container */
+	width: 100%;
+	box-sizing: border-box;
+	text-align: left; /* Align text left */
+	padding: 8px 12px; /* Adjust padding */
+	border: 2px solid transparent; /* Add border space */
 }
 /* Deck colors */
-.deck-label[data-deck-key="core_white"] { 
-    color: #ffffff; 
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Moved from inline style */
+.deck-label[data-deck-key="core_white"] {
+	color: #ffffff;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+		1px 1px 0 #000; /* Moved from inline style */
 }
-.deck-label[data-deck-key="dilemmas_green"] { color: var(--neon-green); }
-.deck-label[data-deck-key="popculture_purple"] { color: #d500f9; }
-.deck-label[data-deck-key="historical_brown"] { color: #f4a460; }
-.deck-label[data-deck-key="taboo_red"] { color: #ff1744; }
-.deck-label[data-deck-key="local_blue"] { color: var(--neon-blue); }
-.deck-label[data-deck-key="creative_cyan"] { color: #00e5ff; }
-.deck-label[data-deck-key="hypothetical_magenta"] { color: var(--neon-pink); }
+.deck-label[data-deck-key="dilemmas_green"] {
+	color: var(--neon-green);
+}
+.deck-label[data-deck-key="popculture_purple"] {
+	color: #d500f9;
+}
+.deck-label[data-deck-key="historical_brown"] {
+	color: #f4a460;
+}
+.deck-label[data-deck-key="taboo_red"] {
+	color: #ff1744;
+}
+.deck-label[data-deck-key="local_blue"] {
+	color: var(--neon-blue);
+}
+.deck-label[data-deck-key="creative_cyan"] {
+	color: #00e5ff;
+}
+.deck-label[data-deck-key="hypothetical_magenta"] {
+	color: var(--neon-pink);
+}
 
 .deck-label:hover {
-    border-color: var(--light-grey);
+	border-color: var(--light-grey);
 }
 
 .deck-label.deselected {
-    color: var(--medium-grey);
-    opacity: 0.6;
-    border-color: transparent; /* Ensure deselected has no border highlight */
-    background-color: transparent; /* Ensure deselected has no background */
+	color: var(--medium-grey);
+	opacity: 0.6;
+	border-color: transparent; /* Ensure deselected has no border highlight */
+	background-color: transparent; /* Ensure deselected has no background */
 }
 .deck-label.deselected:hover {
-    border-color: var(--medium-grey);
+	border-color: var(--medium-grey);
 }
 
-.deck-label.selected { /* Added selected style */
-    border-color: var(--neon-yellow);
-    background-color: rgba(255, 255, 0, 0.1); /* Slight yellow background when selected */
+.deck-label.selected {
+	/* Added selected style */
+	border-color: var(--neon-yellow);
+	background-color: rgba(
+		255,
+		255,
+		0,
+		0.1
+	); /* Slight yellow background when selected */
 }
 
 /* Style the (17+) warning */
 .deck-label[data-deck-key="taboo_red"]::after {
-    content: ' (17+)';
-    color: inherit; /* Inherit color from label */
-    font-size: 0.8em;
-    margin-left: 5px;
-    font-style: italic;
-    font-family: var(--readable-font);
+	content: " (17+)";
+	color: inherit; /* Inherit color from label */
+	font-size: 0.8em;
+	margin-left: 5px;
+	font-style: italic;
+	font-family: var(--readable-font);
 }
 
 /* --- Prompt Display --- */
 #prompt-display-area {
-    margin-top: 15px;
-    perspective: 1000px;
-    min-height: 150px;
-    position: relative;
-    margin-bottom: 25px; /* Increased margin-bottom */
+	margin-top: 15px;
+	perspective: 1000px;
+	min-height: 150px;
+	position: relative;
+	margin-bottom: 25px; /* Increased margin-bottom */
 }
 
 #prompt-display-area p {
-    font-family: var(--pixel-font);
-    font-size: 0.9em;
-    color: var(--light-grey);
-    margin-bottom: 10px;
-    text-align: center;
+	font-family: var(--pixel-font);
+	font-size: 0.9em;
+	color: var(--light-grey);
+	margin-bottom: 10px;
+	text-align: center;
 }
 
 #prompt-list-clickable {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	flex-wrap: wrap;
 }
 
 .prompt-choice {
-    font-family: var(--readable-font);
-    font-size: 1.3em;
-    font-weight: bold;
-    line-height: 1.4;
-    color: var(--neon-yellow);
-    background-color: var(--panel-bg); /* Added fallback background color */
-    border: 3px solid var(--medium-grey);
-    border-radius: 10px;
-    padding: 18px 15px;
-    cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s, transform 0.2s ease-out, box-shadow 0.2s, opacity 0.5s ease-out;
-    min-width: 200px;
-    max-width: 240px;
-    min-height: 120px;
-    box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    opacity: 1;
-    transform: translateY(0);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+	font-family: var(--readable-font);
+	font-size: 1.3em;
+	font-weight: bold;
+	line-height: 1.4;
+	color: var(--neon-yellow);
+	background-color: var(--panel-bg); /* Added fallback background color */
+	border: 3px solid var(--medium-grey);
+	border-radius: 10px;
+	padding: 18px 15px;
+	cursor: pointer;
+	transition: background-color 0.2s, border-color 0.2s, transform 0.2s ease-out,
+		box-shadow 0.2s, opacity 0.5s ease-out;
+	min-width: 200px;
+	max-width: 240px;
+	min-height: 120px;
+	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	opacity: 1;
+	transform: translateY(0);
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 @keyframes dealPromptCard {
-    0% {
-        opacity: 0;
-        transform: translateY(-150%) rotateX(30deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0deg);
-    }
+	0% {
+		opacity: 0;
+		transform: translateY(-150%) rotateX(30deg);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) rotateX(0deg);
+	}
 }
 
 .prompt-choice.deal-animation {
-    opacity: 0;
-    transform: translateY(-150%);
-    animation: dealPromptCard 0.5s ease-out forwards;
+	opacity: 0;
+	transform: translateY(-150%);
+	animation: dealPromptCard 0.5s ease-out forwards;
 }
-.prompt-choice.deal-animation:nth-child(1) { animation-delay: 0.1s; }
-.prompt-choice.deal-animation:nth-child(2) { animation-delay: 0.2s; }
-.prompt-choice.deal-animation:nth-child(3) { animation-delay: 0.3s; }
+.prompt-choice.deal-animation:nth-child(1) {
+	animation-delay: 0.1s;
+}
+.prompt-choice.deal-animation:nth-child(2) {
+	animation-delay: 0.2s;
+}
+.prompt-choice.deal-animation:nth-child(3) {
+	animation-delay: 0.3s;
+}
 
 .prompt-choice:hover {
-    border-color: var(--neon-yellow); /* Change border color on hover */
-    transform: translateY(-6px) scale(1.05); /* Enhanced hover effect */
-    box-shadow: 6px 10px 12px rgba(0,0,0,0.4), inset 0 0 8px rgba(255, 255, 0, 0.4); /* Re-add inset shadow for hover */
+	border-color: var(--neon-yellow); /* Change border color on hover */
+	transform: translateY(-6px) scale(1.05); /* Enhanced hover effect */
+	box-shadow: 6px 10px 12px rgba(0, 0, 0, 0.4),
+		inset 0 0 8px rgba(255, 255, 0, 0.4); /* Re-add inset shadow for hover */
 }
 
 .prompt-choice.selected,
-.prompt-choice[aria-selected="true"] { /* Style for selected prompt */
-    background-color: #1a2a3a; /* Added distinct selected background color */
-    color: var(--neon-green);
-    border-color: var(--neon-green);
-    cursor: default;
-    transform: scale(1.08);
-    box-shadow: 0 0 20px var(--neon-green), inset 0 0 10px rgba(57, 255, 20, 0.5);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
-    padding-bottom: 30px;
+.prompt-choice[aria-selected="true"] {
+	/* Style for selected prompt */
+	background-color: #1a2a3a; /* Added distinct selected background color */
+	color: var(--neon-green);
+	border-color: var(--neon-green);
+	cursor: default;
+	transform: scale(1.08);
+	box-shadow: 0 0 20px var(--neon-green), inset 0 0 10px rgba(57, 255, 20, 0.5);
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+	padding-bottom: 30px;
 }
 
-.prompt-choice.disabled { /* Style for non-selected prompts after selection */
-     opacity: 0.5;
-     cursor: default;
-     background-color: var(--dark-grey); /* Added disabled background color */
-     border-color: var(--medium-grey);
-     box-shadow: 3px 3px 5px rgba(0,0,0,0.4);
-     transform: none;
-     color: var(--light-grey);
-     text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+.prompt-choice.disabled {
+	/* Style for non-selected prompts after selection */
+	opacity: 0.5;
+	cursor: default;
+	background-color: var(--dark-grey); /* Added disabled background color */
+	border-color: var(--medium-grey);
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+	transform: none;
+	color: var(--light-grey);
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 /* --- Winner Selection Area --- */
 #winner-selection-area {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 #winner-selection-area h5 {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 #winner-button-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+	margin-top: 15px;
 }
 
 #winner-button-container p {
-    color: var(--light-grey);
-    font-style: italic;
+	color: var(--light-grey);
+	font-style: italic;
 }
 
 button.winner-button {
-    background-color: var(--dark-grey);
-    color: var(--neon-blue);
-    border: 2px solid var(--neon-blue);
-    box-shadow: 2px 2px 0px var(--medium-grey);
-    padding: 8px 15px;
-    font-size: 1em;
-    flex-grow: 1;
-    min-width: 120px;
-    transition: all 0.1s ease-in-out, background-color 0.2s, border-color 0.2s, color 0.2s;
+	background-color: var(--dark-grey);
+	color: var(--neon-blue);
+	border: 2px solid var(--neon-blue);
+	box-shadow: 2px 2px 0px var(--medium-grey);
+	padding: 8px 15px;
+	font-size: 1em;
+	flex-grow: 1;
+	min-width: 120px;
+	transition: all 0.1s ease-in-out, background-color 0.2s, border-color 0.2s,
+		color 0.2s;
 }
 
 button.winner-button:hover {
-    background-color: var(--medium-grey);
-    color: var(--neon-yellow);
-    border-color: var(--neon-yellow);
-    box-shadow: 2px 2px 0px var(--neon-blue);
-    transform: translateY(-1px);
+	background-color: var(--medium-grey);
+	color: var(--neon-yellow);
+	border-color: var(--neon-yellow);
+	box-shadow: 2px 2px 0px var(--neon-blue);
+	transform: translateY(-1px);
 }
 
 button.winner-button:active {
-    transform: translateY(1px);
-    box-shadow: 1px 1px 0px var(--medium-grey);
+	transform: translateY(1px);
+	box-shadow: 1px 1px 0px var(--medium-grey);
 }
 
 button.winner-button.selected {
-    background-color: var(--neon-yellow);
-    color: var(--panel-bg);
-    border-color: var(--text-color);
-    box-shadow: 3px 3px 0px var(--neon-blue);
-    transform: translateY(-1px) scale(1.1); /* Added scale */
+	background-color: var(--neon-yellow);
+	color: var(--panel-bg);
+	border-color: var(--text-color);
+	box-shadow: 3px 3px 0px var(--neon-blue);
+	transform: translateY(-1px) scale(1.1); /* Added scale */
 }
 
 button.winner-button.selected:hover {
-    background-color: var(--neon-yellow);
-    filter: brightness(1.1);
-    /* Keep scale on hover */
-    transform: translateY(-1px) scale(1.1);
+	background-color: var(--neon-yellow);
+	filter: brightness(1.1);
+	/* Keep scale on hover */
+	transform: translateY(-1px) scale(1.1);
 }
 
 /* --- Token Award Area --- */
 #player-token-award-area {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 2px dashed var(--neon-pink);
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 15px;
+	border: 2px dashed var(--neon-pink);
 }
 
 #player-token-award-area h5 {
-     margin-top: 0;
-     margin-bottom: 15px;
+	margin-top: 0;
+	margin-bottom: 15px;
 }
 
 .player-token-row {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px dotted var(--medium-grey);
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+	border-bottom: 1px dotted var(--medium-grey);
 }
 .player-token-row:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 
 .player-token-name {
-    color: var(--text-color);
-    font-size: 1.1em;
-    margin-bottom: 8px;
-    display: inline;         /* Allow name to wrap naturally within container */
-    white-space: normal;     /* Allow wrapping */
-    word-break: break-word;  /* Break long names if needed */
-    overflow-wrap: anywhere; /* Encourage wrapping at any point if needed */
+	color: var(--text-color);
+	font-size: 1.1em;
+	margin-bottom: 8px;
+	display: inline; /* Allow name to wrap naturally within container */
+	white-space: normal; /* Allow wrapping */
+	word-break: break-word; /* Break long names if needed */
+	overflow-wrap: anywhere; /* Encourage wrapping at any point if needed */
 }
 
 .token-choices-container {
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
 .token-award-choice {
-    display: inline-block;
-    font-family: var(--pixel-font);
-    font-size: 0.9em;
-    border: 1px solid var(--medium-grey);
-    padding: 4px 8px;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    transition: color 0.2s, background-color 0.2s, border-color 0.2s, opacity 0.2s;
-    border-radius: 3px;
+	display: inline-block;
+	font-family: var(--pixel-font);
+	font-size: 0.9em;
+	border: 1px solid var(--medium-grey);
+	padding: 4px 8px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	cursor: pointer;
+	transition: color 0.2s, background-color 0.2s, border-color 0.2s, opacity 0.2s;
+	border-radius: 3px;
 }
 
 .token-award-choice .token-tooltip {
-    font-family: var(--readable-font);
-    font-size: 0.9em;
-    color: inherit;
-    margin-left: 4px;
-    font-style: italic;
-    opacity: 0.8;
+	font-family: var(--readable-font);
+	font-size: 0.9em;
+	color: inherit;
+	margin-left: 4px;
+	font-style: italic;
+	opacity: 0.8;
 }
 
 .token-award-choice.deselected {
-    color: var(--medium-grey);
-    background-color: transparent;
-    border-color: var(--dark-grey);
-    opacity: 0.7;
+	color: var(--medium-grey);
+	background-color: transparent;
+	border-color: var(--dark-grey);
+	opacity: 0.7;
 }
 .token-award-choice.deselected:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: var(--medium-grey);
+	background-color: rgba(255, 255, 255, 0.1);
+	border-color: var(--medium-grey);
 }
 
 .token-award-choice.selected {
-    color: var(--panel-bg);
-    opacity: 1;
-    /* Add glow effect - outer and inner */
-    box-shadow: 0 0 8px 2px var(--glow-color, var(--neon-yellow)), /* Outer glow */
-                inset 0 0 5px 1px var(--glow-color, var(--neon-yellow)); /* Inner glow */
+	color: var(--panel-bg);
+	opacity: 1;
+	/* Add glow effect - outer and inner */
+	box-shadow: 0 0 8px 2px var(--glow-color, var(--neon-yellow)),
+		/* Outer glow */ inset 0 0 5px 1px var(--glow-color, var(--neon-yellow)); /* Inner glow */
 }
 .token-award-choice.selected[data-token-type="mindReader"] {
-    background-color: var(--neon-blue);
-    border-color: var(--neon-blue);
-    --glow-color: var(--neon-blue); /* Set glow color */
+	background-color: var(--neon-blue);
+	border-color: var(--neon-blue);
+	--glow-color: var(--neon-blue); /* Set glow color */
 }
 .token-award-choice.selected[data-token-type="artBro"] {
-    background-color: var(--neon-yellow);
-    border-color: var(--neon-yellow);
-    color: var(--panel-bg); /* Ensure contrast */
-    --glow-color: var(--neon-yellow); /* Set glow color */
+	background-color: var(--neon-yellow);
+	border-color: var(--neon-yellow);
+	color: var(--panel-bg); /* Ensure contrast */
+	--glow-color: var(--neon-yellow); /* Set glow color */
 }
 .token-award-choice.selected[data-token-type="perfectlyAligned"] {
-    background-color: var(--neon-green);
-    border-color: var(--neon-green);
-    --glow-color: var(--neon-green); /* Set glow color */
+	background-color: var(--neon-green);
+	border-color: var(--neon-green);
+	--glow-color: var(--neon-green); /* Set glow color */
 }
 .token-award-choice.selected[data-token-type="psychopath"] {
-    background-color: var(--neon-pink);
-    border-color: var(--neon-pink);
-    --glow-color: var(--neon-pink); /* Set glow color */
+	background-color: var(--neon-pink);
+	border-color: var(--neon-pink);
+	--glow-color: var(--neon-pink); /* Set glow color */
 }
 
 .token-award-choice.selected:hover {
-    filter: brightness(1.2);
-    /* Enhance glow on hover */
-    box-shadow: 0 0 12px 3px var(--glow-color, var(--neon-yellow)), /* Outer glow */
-                inset 0 0 8px 2px var(--glow-color, var(--neon-yellow)); /* Inner glow */
+	filter: brightness(1.2);
+	/* Enhance glow on hover */
+	box-shadow: 0 0 12px 3px var(--glow-color, var(--neon-yellow)),
+		/* Outer glow */ inset 0 0 8px 2px var(--glow-color, var(--neon-yellow)); /* Inner glow */
 }
 
 /* --- Sketch Instruction & Timer Styles --- */
 #sketch-instruction-area {
-    margin-top: 25px;
-    padding: 20px;
-    border: 3px dashed var(--neon-pink);
-    background-color: rgba(0, 0, 0, 0.25);
-    text-align: center;
-    transition: box-shadow 0.5s ease-in-out; /* Add transition for glow */
+	margin-top: 25px;
+	padding: 20px;
+	border: 3px dashed var(--neon-pink);
+	background-color: rgba(0, 0, 0, 0.25);
+	text-align: center;
+	transition: box-shadow 0.5s ease-in-out; /* Add transition for glow */
 }
 
 /* NEW: Add pulsing glow animation for active timer with sunset colors */
 @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 0 10px 2px #FF8C00; } /* Dark Orange */
-    16.67% { box-shadow: 0 0 12px 3px #FF4500; } /* Orange Red */
-    33.33% { box-shadow: 0 0 14px 4px #FF69B4; } /* Hot Pink */
-    50% { box-shadow: 0 0 18px 6px #FF1493; } /* Deep Pink */
-    66.67% { box-shadow: 0 0 16px 5px #C71585; } /* Medium Violet Red */
-    83.33% { box-shadow: 0 0 14px 4px #9400D3; } /* Dark Violet */
-    /* Adjusted percentages for 6s duration */
+	0%,
+	100% {
+		box-shadow: 0 0 10px 2px #ff8c00;
+	} /* Dark Orange */
+	16.67% {
+		box-shadow: 0 0 12px 3px #ff4500;
+	} /* Orange Red */
+	33.33% {
+		box-shadow: 0 0 14px 4px #ff69b4;
+	} /* Hot Pink */
+	50% {
+		box-shadow: 0 0 18px 6px #ff1493;
+	} /* Deep Pink */
+	66.67% {
+		box-shadow: 0 0 16px 5px #c71585;
+	} /* Medium Violet Red */
+	83.33% {
+		box-shadow: 0 0 14px 4px #9400d3;
+	} /* Dark Violet */
+	/* Adjusted percentages for 6s duration */
 }
 
 #sketch-instruction-area.timer-active {
-    animation: pulseGlow 6s infinite ease-in-out; /* Changed duration to 6s */
+	animation: pulseGlow 6s infinite ease-in-out; /* Changed duration to 6s */
 }
 
 #sketch-instruction-area.h4 {
-    margin-top: 0;
-    margin-bottom: 15px;
+	margin-top: 0;
+	margin-bottom: 15px;
 }
 
 #sketch-instruction-text {
-    font-family: var(--readable-font);
-    font-size: 1.2em;
-    color: var(--text-color);
-    margin-bottom: 20px;
-    line-height: 1.5;
+	font-family: var(--readable-font);
+	font-size: 1.2em;
+	color: var(--text-color);
+	margin-bottom: 20px;
+	line-height: 1.5;
 }
 
 #sketch-instruction-text strong {
-    color: var(--neon-green);
-    /* font-size is applied inline via JS */
+	color: var(--neon-green);
+	/* font-size is applied inline via JS */
 }
 
 #sketch-timer {
-    font-family: var(--pixel-font);
-    color: var(--light-grey);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px 15px;
+	font-family: var(--pixel-font);
+	color: var(--light-grey);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 10px 15px;
 }
 
 .timer-label {
-    color: var(--neon-blue);
-    font-size: 0.9em;
+	color: var(--neon-blue);
+	font-size: 0.9em;
 }
 
 #timer-slider {
-    flex-grow: 1;
-    min-width: 150px;
-    max-width: 300px;
-    height: 10px;
-    cursor: pointer;
-    accent-color: var(--neon-yellow);
-    background: var(--dark-grey);
-    border-radius: 5px;
-    border: 1px solid var(--medium-grey);
-    margin: 0 5px;
+	flex-grow: 1;
+	min-width: 150px;
+	max-width: 300px;
+	height: 10px;
+	cursor: pointer;
+	accent-color: var(--neon-yellow);
+	background: var(--dark-grey);
+	border-radius: 5px;
+	border: 1px solid var(--medium-grey);
+	margin: 0 5px;
 }
 
 #timer-slider::-webkit-slider-thumb {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background: var(--neon-pink);
-  border-radius: 50%;
-  border: 2px solid var(--text-color);
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	background: var(--neon-pink);
+	border-radius: 50%;
+	border: 2px solid var(--text-color);
 }
 
 #timer-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: var(--neon-pink);
-  border-radius: 50%;
-  border: 2px solid var(--text-color);
+	width: 18px;
+	height: 18px;
+	background: var(--neon-pink);
+	border-radius: 50%;
+	border: 2px solid var(--text-color);
 }
 
 #timer-display {
-    font-size: 2.2em;
-    color: var(--neon-yellow);
-    text-shadow: 2px 2px 0px var(--neon-pink);
-    margin: 0 10px;
-    min-width: 80px;
-    display: inline-block;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 5px 10px;
-    border: 2px solid var(--neon-blue);
-    border-radius: 5px;
-    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.7);
-    order: 1;
+	font-size: 2.2em;
+	color: var(--neon-yellow);
+	text-shadow: 2px 2px 0px var(--neon-pink);
+	margin: 0 10px;
+	min-width: 80px;
+	display: inline-block;
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 5px 10px;
+	border: 2px solid var(--neon-blue);
+	border-radius: 5px;
+	box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.7);
+	order: 1;
 }
 
 #sketch-timer button {
-    font-size: 0.9em;
-    padding: 6px 12px;
-    margin-left: 8px;
-    order: 2;
+	font-size: 0.9em;
+	padding: 6px 12px;
+	margin-left: 8px;
+	order: 2;
 }
 
 #stop-timer-button {
-    background-color: var(--neon-pink);
+	background-color: var(--neon-pink);
 }
 #stop-timer-button:hover {
-    background-color: var(--neon-yellow);
+	background-color: var(--neon-yellow);
 }
 
 #reset-timer-button {
-    background-color: var(--medium-grey);
+	background-color: var(--medium-grey);
 }
 #reset-timer-button:hover {
-    background-color: var(--light-grey);
+	background-color: var(--light-grey);
 }
 
 /* --- Alignment Chart & Examples Styles --- */
 #alignment-section {
-    text-align: center;
-    /* Add transition for min-height */
-    transition: min-height 0.4s ease-in-out;
+	text-align: center;
+	/* Add transition for min-height */
+	transition: min-height 0.4s ease-in-out;
 }
 
 /* Add this new rule */
 #alignment-section.chart-is-zoomed {
-    min-height: 450px; /* Adjust this value as needed */
-    /* This holds the space open while the fixed-position chart is zoomed */
+	min-height: 450px; /* Adjust this value as needed */
+	/* This holds the space open while the fixed-position chart is zoomed */
 }
 
 .roll-controls {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 #die-display {
-    display: inline-block;
-    font-size: 1.5em;
-    color: var (--neon-yellow);
-    border: 2px solid var(--neon-blue);
-    padding: 5px 10px;
-    min-width: 30px;
-    text-align: center;
-    margin-left: 10px;
-    vertical-align: middle;
+	display: inline-block;
+	font-size: 1.5em;
+	color: var (--neon-yellow);
+	border: 2px solid var(--neon-blue);
+	padding: 5px 10px;
+	min-width: 30px;
+	text-align: center;
+	margin-left: 10px;
+	vertical-align: middle;
 }
 
 #die-display.rolling {
-    animation: rollAnim 0.1s infinite alternate;
+	animation: rollAnim 0.1s infinite alternate;
 }
 
 @keyframes rollAnim {
-    from { transform: scale(1.0); }
-    to { transform: scale(1.1); }
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(1.1);
+	}
 }
 
 #alignment-chart-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 250px;
-    aspect-ratio: 1 / 1; /* ADDED: Make it square */
-    gap: 5px;
-    margin: 20px auto 30px auto; /* INCREASED bottom margin */
-    border: 2px solid var(--medium-grey);
-    padding: 5px;
-    transition: all 0.4s ease-in-out, border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for zoom */
-    position: relative; /* Keep in flow unless zoomed */
-    z-index: 10; /* Base z-index */
-    background-color: var(--panel-bg); /* Ensure background during transition */
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	max-width: 250px;
+	aspect-ratio: 1 / 1; /* ADDED: Make it square */
+	gap: 5px;
+	margin: 20px auto 30px auto; /* INCREASED bottom margin */
+	border: 2px solid var(--medium-grey);
+	padding: 5px;
+	transition: all 0.4s ease-in-out, border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for zoom */
+	position: relative; /* Keep in flow unless zoomed */
+	z-index: 10; /* Base z-index */
+	background-color: var(--panel-bg); /* Ensure background during transition */
 }
 
 /* --- NEW: Zoomed Alignment Chart Styles --- */
 #alignment-chart-grid.alignment-chart-zoomed {
-    position: fixed; /* Take out of flow */
-    top: 50%;
-    left: 50%;
-    width: 42vw; /* Reduced width (approx 60vw * 0.7) */
-    max-width: 315px; /* Reduced max width (approx 450px * 0.7) */
-    height: auto; /* Adjust height based on content */
-    aspect-ratio: 1 / 1; /* Make it square */
-    transform: translate(-50%, -50%) scale(0.84); /* Center and reduced scale (approx 1.2 * 0.7) */
-    padding: 10px; /* Reduced padding (approx 15px * 0.7) */
-    gap: 7px; /* Reduced gap (approx 10px * 0.7) */
-    border-width: 2px; /* Slightly reduced border */
-    box-shadow: 0 0 14px 6px var(--neon-blue), 0 0 0 100vmax rgba(0, 0, 0, 0.7); /* Reduced glow/overlay */
-    z-index: 1001; /* Above tutorial overlay background */
+	position: fixed; /* Take out of flow */
+	top: 50%;
+	left: 50%;
+	width: 42vw; /* Reduced width (approx 60vw * 0.7) */
+	max-width: 315px; /* Reduced max width (approx 450px * 0.7) */
+	height: auto; /* Adjust height based on content */
+	aspect-ratio: 1 / 1; /* Make it square */
+	transform: translate(-50%, -50%) scale(0.84); /* Center and reduced scale (approx 1.2 * 0.7) */
+	padding: 10px; /* Reduced padding (approx 15px * 0.7) */
+	gap: 7px; /* Reduced gap (approx 10px * 0.7) */
+	border-width: 2px; /* Slightly reduced border */
+	box-shadow: 0 0 14px 6px var(--neon-blue), 0 0 0 100vmax rgba(0, 0, 0, 0.7); /* Reduced glow/overlay */
+	z-index: 1001; /* Above tutorial overlay background */
 }
 
 #alignment-chart-grid.alignment-chart-zoomed .alignment-cell {
-    font-size: 1.75em; /* Reduced font size (approx 2.5em * 0.7) */
-    padding: 10px 6px; /* Reduced padding (approx 15px * 0.7) */
-    line-height: 1.1;
+	font-size: 1.75em; /* Reduced font size (approx 2.5em * 0.7) */
+	padding: 10px 6px; /* Reduced padding (approx 15px * 0.7) */
+	line-height: 1.1;
 }
 /* --- END: Zoomed Alignment Chart Styles --- */
 
 #alignment-chart-grid.judge-choice-highlight {
-    border-color: var(--neon-yellow);
-    box-shadow: 0 0 10px var(--neon-yellow);
+	border-color: var(--neon-yellow);
+	box-shadow: 0 0 10px var(--neon-yellow);
 }
 
 /* Apply zoomed glow/border too if judge's choice */
 #alignment-chart-grid.alignment-chart-zoomed.judge-choice-highlight {
-     box-shadow: 0 0 30px 10px var(--neon-yellow), 0 0 0 100vmax rgba(0, 0, 0, 0.7);
-     border-color: var(--neon-yellow);
+	box-shadow: 0 0 30px 10px var(--neon-yellow), 0 0 0 100vmax rgba(0, 0, 0, 0.7);
+	border-color: var(--neon-yellow);
 }
 
 .alignment-cell {
-    background-color: var(--panel-bg);
-    color: var(--light-grey);
-    border: 1px solid var(--dark-grey);
-    padding: 10px 5px;
-    font-family: var(--pixel-font);
-    font-size: 1.2em;
-    text-align: center;
-    line-height: 1;
-    transition: all 0.1s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, font-size 0.4s ease-in-out, padding 0.4s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	background-color: var(--panel-bg);
+	color: var(--light-grey);
+	border: 1px solid var(--dark-grey);
+	padding: 10px 5px;
+	font-family: var(--pixel-font);
+	font-size: 1.2em;
+	text-align: center;
+	line-height: 1;
+	transition: all 0.1s ease, background-color 0.3s ease, color 0.3s ease,
+		border-color 0.3s ease, box-shadow 0.3s ease, font-size 0.4s ease-in-out,
+		padding 0.4s ease-in-out;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* --- NEW: Flicker Style --- */
 .alignment-cell.flicker-blue {
-    background-color: var(--neon-blue) !important; /* Use important to override base */
-    color: var(--panel-bg) !important;
-    border-color: var(--text-color) !important;
-    box-shadow: 0 0 8px var(--neon-blue);
+	background-color: var(
+		--neon-blue
+	) !important; /* Use important to override base */
+	color: var(--panel-bg) !important;
+	border-color: var(--text-color) !important;
+	box-shadow: 0 0 8px var(--neon-blue);
 }
 
 .alignment-cell:focus {
-    outline: 2px solid var(--neon-yellow);
-    outline-offset: 1px;
-    box-shadow: 0 0 8px var(--neon-yellow);
+	outline: 2px solid var(--neon-yellow);
+	outline-offset: 1px;
+	box-shadow: 0 0 8px var(--neon-yellow);
 }
 
 /* Highlight Colors & Glow */
 /* Highlight Colors & Glow - Neon Version */
 .alignment-cell.highlighted {
-    color: var(--panel-bg) !important; /* Dark text for contrast on neon */
-    border-width: 2px;
-    border-style: solid;
-    transform: scale(1.08); /* Slightly larger pop */
-    box-shadow: 0 0 12px var(--highlight-glow-color), 0 0 5px var(--highlight-glow-color); /* Use variable for glow */
+	color: var(--panel-bg) !important; /* Dark text for contrast on neon */
+	border-width: 2px;
+	border-style: solid;
+	transform: scale(1.08); /* Slightly larger pop */
+	box-shadow: 0 0 12px var(--highlight-glow-color),
+		0 0 5px var(--highlight-glow-color); /* Use variable for glow */
 }
 
 .alignment-cell.highlighted[data-alignment="LG"],
 .alignment-cell.highlighted[data-alignment="NG"],
 .alignment-cell.highlighted[data-alignment="CG"] {
-    background-color: var(--neon-green) !important;
-    border-color: var(--text-color) !important;
-    --highlight-glow-color: var(--neon-green);
+	background-color: var(--neon-green) !important;
+	border-color: var(--text-color) !important;
+	--highlight-glow-color: var(--neon-green);
 }
 
 .alignment-cell.highlighted[data-alignment="LN"],
 .alignment-cell.highlighted[data-alignment="CN"] {
-    background-color: var(--neon-blue) !important;
-    border-color: var(--text-color) !important;
-    --highlight-glow-color: var(--neon-blue);
+	background-color: var(--neon-blue) !important;
+	border-color: var(--text-color) !important;
+	--highlight-glow-color: var(--neon-blue);
 }
 
 /* True Neutral gets Yellow */
 .alignment-cell.highlighted[data-alignment="TN"] {
-    background-color: var(--neon-yellow) !important;
-    border-color: var(--panel-bg) !important; /* Darker border for yellow */
-    --highlight-glow-color: var(--neon-yellow);
+	background-color: var(--neon-yellow) !important;
+	border-color: var(--panel-bg) !important; /* Darker border for yellow */
+	--highlight-glow-color: var(--neon-yellow);
 }
 
 .alignment-cell.highlighted[data-alignment="LE"],
 .alignment-cell.highlighted[data-alignment="NE"],
 .alignment-cell.highlighted[data-alignment="CE"] {
-    background-color: var(--neon-pink) !important;
-    border-color: var(--text-color) !important;
-    --highlight-glow-color: var(--neon-pink);
+	background-color: var(--neon-pink) !important;
+	border-color: var(--text-color) !important;
+	--highlight-glow-color: var(--neon-pink);
 }
 
 /* --- NEW: Avatar Carousel Styles (Basic) --- */
 .avatar-carousel-container {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center items horizontally */
-    margin-top: 5px;
-    margin-bottom: 10px;
-    position: relative; /* For positioning arrows */
-    width: 150px; /* Adjust width as needed */
-    height: 100px; /* Adjust height as needed */
-    margin-left: auto; /* Center container if parent allows */
-    margin-right: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center; /* Center items horizontally */
+	margin-top: 5px;
+	margin-bottom: 10px;
+	position: relative; /* For positioning arrows */
+	width: 150px; /* Adjust width as needed */
+	height: 100px; /* Adjust height as needed */
+	margin-left: auto; /* Center container if parent allows */
+	margin-right: auto;
 }
 
 .avatar-carousel-image {
-    width: 80px; /* Size of the avatar */
-    height: 80px;
-    background-size: cover;
-    background-position: center;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: background-image 0.3s ease-in-out;
+	width: 80px; /* Size of the avatar */
+	height: 80px;
+	background-size: cover;
+	background-position: center;
+	border: 2px solid #ccc;
+	border-radius: 50%;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: background-image 0.3s ease-in-out;
 }
 
 .avatar-carousel-button {
-    background: none;
-    border: none;
-    font-size: 2em;
-    cursor: pointer;
-    padding: 0 10px;
-    color: #555;
-    line-height: 1; /* Adjust vertical alignment */
+	background: none;
+	border: none;
+	font-size: 2em;
+	cursor: pointer;
+	padding: 0 10px;
+	color: #555;
+	line-height: 1; /* Adjust vertical alignment */
 }
 
 .avatar-carousel-button:hover {
-    color: #000;
+	color: #000;
 }
 
 .avatar-carousel-button.disabled {
-    color: #ccc;
-    cursor: not-allowed;
+	color: #ccc;
+	cursor: not-allowed;
 }
 
 .avatar-taken-message {
-    color: red;
-    font-size: 0.8em;
-    text-align: center;
-    margin-top: 2px;
-    height: 1em; /* Reserve space */
+	color: red;
+	font-size: 0.8em;
+	text-align: center;
+	margin-top: 2px;
+	height: 1em; /* Reserve space */
 }
 
 /* --- Accessibility Helper Class --- */
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }
 
 /* --- Responsive Design --- */
 
 /* Medium screens (tablets, smaller laptops) */
 @media (max-width: 768px) {
-    body {
-        padding: 15px;
-        font-size: 13px;
-    }
+	body {
+		padding: 15px;
+		font-size: 13px;
+	}
 
-    h1 { font-size: 2em; }
-    .subtitle { font-size: 1em; }
-    h2 { font-size: 1.6em; }
-    h3 { font-size: 1.3em; }
-    h4 { font-size: 1.1em; }
-    h5 { font-size: 1em; }
+	h1 {
+		font-size: 2em;
+	}
+	.subtitle {
+		font-size: 1em;
+	}
+	h2 {
+		font-size: 1.6em;
+	}
+	h3 {
+		font-size: 1.3em;
+	}
+	h4 {
+		font-size: 1.1em;
+	}
+	h5 {
+		font-size: 1em;
+	}
 
-    #setup-area, #game-area, #winner-area {
-        padding: 15px;
-    }
+	#setup-area,
+	#game-area,
+	#winner-area {
+		padding: 15px;
+	}
 
-    #deck-selection-area {
-        gap: 8px 12px;
-    }
-    .deck-label { font-size: 0.9em; }
+	#deck-selection-area {
+		gap: 8px 12px;
+	}
+	.deck-label {
+		font-size: 0.9em;
+	}
 
-    #alignment-chart-grid { max-width: 220px; }
-    .alignment-cell { font-size: 1.1em; padding: 8px 4px; }
+	#alignment-chart-grid {
+		max-width: 220px;
+	}
+	.alignment-cell {
+		font-size: 1.1em;
+		padding: 8px 4px;
+	}
 
-    #prompt-list-clickable { gap: 10px; }
-    .prompt-choice {
-        font-size: 1.1em; /* Adjusted from 1.1em (no change needed here, but good to review) */
-        padding: 12px 10px;
-        min-width: 160px; /* Adjusted from 160px */
-        max-width: 200px; /* Adjusted from 200px */
-        min-height: 90px; /* Adjusted from 90px */
-    }
+	#prompt-list-clickable {
+		gap: 10px;
+	}
+	.prompt-choice {
+		font-size: 1.1em; /* Adjusted from 1.1em (no change needed here, but good to review) */
+		padding: 12px 10px;
+		min-width: 160px; /* Adjusted from 160px */
+		max-width: 200px; /* Adjusted from 200px */
+		min-height: 90px; /* Adjusted from 90px */
+	}
 
-    #sketch-timer { gap: 8px 12px; }
-    #timer-display { font-size: 1.8em; padding: 4px 8px; }
-    #sketch-timer button { font-size: 0.8em; padding: 5px 10px; }
+	#sketch-timer {
+		gap: 8px 12px;
+	}
+	#timer-display {
+		font-size: 1.8em;
+		padding: 4px 8px;
+	}
+	#sketch-timer button {
+		font-size: 0.8em;
+		padding: 5px 10px;
+	}
 
-    #winner-button-container { gap: 8px; }
-    button.winner-button { font-size: 0.9em; padding: 7px 12px; }
+	#winner-button-container {
+		gap: 8px;
+	}
+	button.winner-button {
+		font-size: 0.9em;
+		padding: 7px 12px;
+	}
 
-    .token-award-choice { font-size: 0.85em; padding: 3px 6px; margin-right: 8px; }
+	.token-award-choice {
+		font-size: 0.85em;
+		padding: 3px 6px;
+		margin-right: 8px;
+	}
 
-    .avatar-preview { width: 35px; height: 35px; }
-    .avatar-display-small { width: 20px; height: 20px; }
-    .tutorial-box { padding: 20px; }
-    .tutorial-box p { font-size: 1em; }
+	.avatar-preview {
+		width: 35px;
+		height: 35px;
+	}
+	.avatar-display-small {
+		width: 20px;
+		height: 20px;
+	}
+	.tutorial-box {
+		padding: 20px;
+	}
+	.tutorial-box p {
+		font-size: 1em;
+	}
 }
 
 /* Small screens (mobile phones) */
 @media (max-width: 480px) {
-    body {
-        padding: 10px;
-        font-size: 12px;
-    }
+	body {
+		padding: 10px;
+		font-size: 12px;
+	}
 
-    h1 { font-size: 1.8em; }
-    .subtitle { font-size: 0.9em; }
-    h2 { font-size: 1.4em; }
-    h3 { font-size: 1.2em; }
-    h4 { font-size: 1em; }
-    h5 { font-size: 0.9em; }
+	h1 {
+		font-size: 1.8em;
+	}
+	.subtitle {
+		font-size: 0.9em;
+	}
+	h2 {
+		font-size: 1.4em;
+	}
+	h3 {
+		font-size: 1.2em;
+	}
+	h4 {
+		font-size: 1em;
+	}
+	h5 {
+		font-size: 0.9em;
+	}
 
-    #setup-area, #game-area, #winner-area {
-        padding: 10px;
-        box-shadow: 3px 3px 0px var(--neon-pink);
-    }
+	#setup-area,
+	#game-area,
+	#winner-area {
+		padding: 10px;
+		box-shadow: 3px 3px 0px var(--neon-pink);
+	}
 
-    .setup-control-group {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 8px;
-    }
-    .setup-control-group label,
-    .setup-control-group input,
-    .setup-control-group span,
-    .setup-control-group button {
-        margin: 0;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    input[type="number"] { width: 100%; }
+	.setup-control-group {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 8px;
+	}
+	.setup-control-group label,
+	.setup-control-group input,
+	.setup-control-group span,
+	.setup-control-group button {
+		margin: 0;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	input[type="number"] {
+		width: 100%;
+	}
 
-    .player-name-entry {
-        min-width: unset; /* Allow shrinking below 200px */
-        max-width: 100%;
-    }
+	.player-name-entry {
+		min-width: unset; /* Allow shrinking below 200px */
+		max-width: 100%;
+	}
 
-    #deck-selection-area {
-        gap: 6px 10px;
-        padding: 10px;
-    }
-    .deck-label { font-size: 0.8em; padding: 4px 6px; }
+	#deck-selection-area {
+		gap: 6px 10px;
+		padding: 10px;
+	}
+	.deck-label {
+		font-size: 0.8em;
+		padding: 4px 6px;
+	}
 
-    button {
-        font-size: 0.9em;
-        padding: 8px 12px;
-    }
+	button {
+		font-size: 0.9em;
+		padding: 8px 12px;
+	}
 
-    #alignment-chart-grid {
-        max-width: 90%; /* Use percentage for better fit */
-        gap: 3px;
-        padding: 3px;
-    }
-    .alignment-cell {
-        font-size: 0.9em; /* Slightly smaller font */
-        padding: 5px 2px; /* Adjust padding */
-        min-height: 35px; /* Ensure cells have some height */
-        line-height: 1.2;
-    }
+	#alignment-chart-grid {
+		max-width: 90%; /* Use percentage for better fit */
+		gap: 3px;
+		padding: 3px;
+	}
+	.alignment-cell {
+		font-size: 0.9em; /* Slightly smaller font */
+		padding: 5px 2px; /* Adjust padding */
+		min-height: 35px; /* Ensure cells have some height */
+		line-height: 1.2;
+	}
 
-    #prompt-list-clickable {
-        flex-direction: column; /* Stack prompts vertically */
-        align-items: center;
-        gap: 10px; /* Increased gap slightly */
-    }
-    .prompt-choice {
-        font-size: 1em; /* Keep font size readable */
-        padding: 12px 10px; /* More padding */
-        min-width: 90%;
-        max-width: 90%;
-        min-height: 75px; /* Slightly taller */
-        line-height: 1.3;
-    }
+	#prompt-list-clickable {
+		flex-direction: column; /* Stack prompts vertically */
+		align-items: center;
+		gap: 10px; /* Increased gap slightly */
+	}
+	.prompt-choice {
+		font-size: 1em; /* Keep font size readable */
+		padding: 12px 10px; /* More padding */
+		min-width: 90%;
+		max-width: 90%;
+		min-height: 75px; /* Slightly taller */
+		line-height: 1.3;
+	}
 
-    #sketch-timer {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-    #timer-slider { width: 100%; margin: 5px 0; }
-    #timer-display { font-size: 1.6em; text-align: center; order: 0; } /* Move display up */
-    .timer-label { text-align: center; }
-    #sketch-timer button { width: 100%; margin: 0; order: 3; }
+	#sketch-timer {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 10px;
+	}
+	#timer-slider {
+		width: 100%;
+		margin: 5px 0;
+	}
+	#timer-display {
+		font-size: 1.6em;
+		text-align: center;
+		order: 0;
+	} /* Move display up */
+	.timer-label {
+		text-align: center;
+	}
+	#sketch-timer button {
+		width: 100%;
+		margin: 0;
+		order: 3;
+	}
 
-    #winner-button-container {
-        flex-direction: column;
-        gap: 8px;
-    }
-    button.winner-button { width: 100%; }
+	#winner-button-container {
+		flex-direction: column;
+		gap: 8px;
+	}
+	button.winner-button {
+		width: 100%;
+	}
 
-    .player-token-row {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px; /* Add gap between name and choices */
-    }
-    .token-choices-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px 8px; /* Adjust gap */
-    }
-    .token-award-choice {
-        font-size: 0.8em;
-        margin-right: 0; /* Remove margin, use gap */
-        padding: 4px 7px; /* Slightly more padding */
-    }
+	.player-token-row {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 5px; /* Add gap between name and choices */
+	}
+	.token-choices-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px 8px; /* Adjust gap */
+	}
+	.token-award-choice {
+		font-size: 0.8em;
+		margin-right: 0; /* Remove margin, use gap */
+		padding: 4px 7px; /* Slightly more padding */
+	}
 
-    #scoreboard-list li {
-        font-size: 1.1em;
-        padding-left: 18px; /* More space for '>' */
-        margin-bottom: 10px; /* More space between players */
-    }
-    #scoreboard-list li::before {
-        left: 3px; /* Adjust position */
-    }
-    .token-display {
-        margin-left: 8px; /* Adjust spacing */
-        display: block; /* Put tokens on new line */
-        margin-top: 3px;
-        font-size: 0.75em; /* Slightly smaller token text */
-    }
-    .steal-button, .steal-target-button {
-        margin-left: 0; /* Align with token display */
-        margin-top: 5px;
-        display: inline-block; /* Ensure it doesn't take full width */
-    }
-    .steal-target-area {
-        margin-top: 5px;
-        padding: 5px;
-        background-color: rgba(0,0,0,0.2);
-        border-radius: 3px;
-    }
-    .steal-target-area span { /* Style the "Steal from:" text */
-        display: block;
-        margin-bottom: 5px;
-        font-size: 0.9em;
-    }
-    .steal-target-area button { /* Style buttons inside */
-        margin: 2px !important;
-        padding: 3px 6px !important;
-        font-size: 0.75em !important;
-    }
+	#scoreboard-list li {
+		font-size: 1.1em;
+		padding-left: 18px; /* More space for '>' */
+		margin-bottom: 10px; /* More space between players */
+	}
+	#scoreboard-list li::before {
+		left: 3px; /* Adjust position */
+	}
+	.token-display {
+		margin-left: 8px; /* Adjust spacing */
+		display: block; /* Put tokens on new line */
+		margin-top: 3px;
+		font-size: 0.75em; /* Slightly smaller token text */
+	}
+	.steal-button,
+	.steal-target-button {
+		margin-left: 0; /* Align with token display */
+		margin-top: 5px;
+		display: inline-block; /* Ensure it doesn't take full width */
+	}
+	.steal-target-area {
+		margin-top: 5px;
+		padding: 5px;
+		background-color: rgba(0, 0, 0, 0.2);
+		border-radius: 3px;
+	}
+	.steal-target-area span {
+		/* Style the "Steal from:" text */
+		display: block;
+		margin-bottom: 5px;
+		font-size: 0.9em;
+	}
+	.steal-target-area button {
+		/* Style buttons inside */
+		margin: 2px !important;
+		padding: 3px 6px !important;
+		font-size: 0.75em !important;
+	}
 
-    .avatar-selection-area {
-        flex-direction: row;
-        align-items: stretch;
-    }
-    .avatar-display-small { width: 18px; height: 18px; }
+	.avatar-selection-area {
+		flex-direction: row;
+		align-items: stretch;
+	}
+	.avatar-display-small {
+		width: 18px;
+		height: 18px;
+	}
 
-    .tutorial-box { padding: 15px; }
-    .tutorial-navigation {
-        justify-content: center;
-    }
-    .tutorial-navigation button {
-        flex-basis: 45%; /* Two buttons per row approx */
-    }
-    #tutorial-step-indicator {
-        width: 100%;
-        text-align: center;
-        order: -1; /* Move step indicator to top */
-        margin-bottom: 10px;
-    }
-    .game-header {
-        padding-right: 0; /* Remove padding */
-        padding-top: 110px; /* Add padding at top to push content below avatar */
-        min-height: auto; /* Reset min-height */
-        text-align: center; /* Center header content */
-    }
-    #judge-avatar-display {
-        width: 100px; /* Even smaller avatar */
-        height: 100px;
-        position: absolute; /* Keep absolute */
-        top: 10px;
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Correct centering */
-        right: auto; /* Override right positioning */
-    }
-     .game-header h2 {
-        margin-top: 10px; /* Add space below avatar */
-    }
-    #initiate-steal-button {
-        margin-left: auto; /* Center button */
-        margin-right: auto;
-        max-width: 180px;
-    }
+	.tutorial-box {
+		padding: 15px;
+	}
+	.tutorial-navigation {
+		justify-content: center;
+	}
+	.tutorial-navigation button {
+		flex-basis: 45%; /* Two buttons per row approx */
+	}
+	#tutorial-step-indicator {
+		width: 100%;
+		text-align: center;
+		order: -1; /* Move step indicator to top */
+		margin-bottom: 10px;
+	}
+	.game-header {
+		padding-right: 0; /* Remove padding */
+		padding-top: 110px; /* Add padding at top to push content below avatar */
+		min-height: auto; /* Reset min-height */
+		text-align: center; /* Center header content */
+	}
+	#judge-avatar-display {
+		width: 100px; /* Even smaller avatar */
+		height: 100px;
+		position: absolute; /* Keep absolute */
+		top: 10px;
+		left: 50%; /* Center horizontally */
+		transform: translateX(-50%); /* Correct centering */
+		right: auto; /* Override right positioning */
+	}
+	.game-header h2 {
+		margin-top: 10px; /* Add space below avatar */
+	}
+	#initiate-steal-button {
+		margin-left: auto; /* Center button */
+		margin-right: auto;
+		max-width: 180px;
+	}
 }
 
 /* --- Player Avatars --- */
 .avatar-selection-area {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center items */
-    gap: 10px; /* Space between buttons and preview */
-    margin-top: 8px; /* Space above avatar area */
+	display: flex;
+	align-items: center;
+	justify-content: center; /* Center items */
+	gap: 10px; /* Space between buttons and preview */
+	margin-top: 8px; /* Space above avatar area */
 }
 
 .avatar-preview {
-    background-size: cover;
-    background-position: center;
-    border: 3px solid var(--neon-blue); /* Match judge avatar border */
-    border-radius: 50%;
-    box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.5); /* Inner glow */
-    transition: border-color 0.2s, box-shadow 0.2s;
-    background-color: var(--panel-bg); /* Fallback background */
-    flex-shrink: 0; /* Prevent preview from shrinking */
+	background-size: cover;
+	background-position: center;
+	border: 3px solid var(--neon-blue); /* Match judge avatar border */
+	border-radius: 50%;
+	box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.5); /* Inner glow */
+	transition: border-color 0.2s, box-shadow 0.2s;
+	background-color: var(--panel-bg); /* Fallback background */
+	flex-shrink: 0; /* Prevent preview from shrinking */
 }
 
 /* NEW: Style for taken avatar */
 .avatar-preview.avatar-taken {
-    border-color: var(--neon-pink);
-    box-shadow: inset 0 0 8px rgba(255, 0, 255, 0.7), 0 0 8px var(--neon-pink);
+	border-color: var(--neon-pink);
+	box-shadow: inset 0 0 8px rgba(255, 0, 255, 0.7), 0 0 8px var(--neon-pink);
 }
 
 /* NEW: Avatar cycle button styles */
 .avatar-cycle-button {
-    font-family: var(--pixel-font);
-    font-size: 1.5em; /* Make arrows larger */
-    padding: 0 8px; /* Adjust padding */
-    background-color: transparent;
-    color: var(--neon-blue);
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    transition: color 0.2s, transform 0.1s;
-    line-height: 1;
-    flex-shrink: 0; /* Prevent button from shrinking */
+	font-family: var(--pixel-font);
+	font-size: 1.5em; /* Make arrows larger */
+	padding: 0 8px; /* Adjust padding */
+	background-color: transparent;
+	color: var(--neon-blue);
+	border: none;
+	box-shadow: none;
+	cursor: pointer;
+	transition: color 0.2s, transform 0.1s;
+	line-height: 1;
+	flex-shrink: 0; /* Prevent button from shrinking */
 }
 
 .avatar-cycle-button:hover {
-    color: var(--neon-yellow);
-    transform: scale(1.2);
-    background-color: transparent; /* Ensure no background on hover */
-    box-shadow: none; /* Ensure no shadow on hover */
+	color: var(--neon-yellow);
+	transform: scale(1.2);
+	background-color: transparent; /* Ensure no background on hover */
+	box-shadow: none; /* Ensure no shadow on hover */
 }
 .avatar-cycle-button:active {
-    transform: scale(1.1);
-    color: var(--neon-green);
+	transform: scale(1.1);
+	color: var(--neon-green);
 }
 
 /* Remove avatar-select styles if not used */
@@ -1743,442 +1915,465 @@ button.winner-button.selected:hover {
 
 /* Style for avatar on scoreboard */
 #scoreboard-list .avatar-display-small {
-     width: 36px; /* Increased size */
-     height: 36px; /* Increased size */
-     display: inline-block;
-     vertical-align: middle;
-     margin-right: 8px;
-     border: 2px solid var(--neon-blue); /* Match other avatars */
-     background-color: var(--dark-grey);
-     background-size: cover;
-     background-position: center;
-     border-radius: 2px;
+	width: 36px; /* Increased size */
+	height: 36px; /* Increased size */
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 8px;
+	border: 2px solid var(--neon-blue); /* Match other avatars */
+	background-color: var(--dark-grey);
+	background-size: cover;
+	background-position: center;
+	border-radius: 2px;
 }
 
 /* --- Token Animations --- */
 @keyframes tokenGainPulse {
-    0% { transform: scale(1); box-shadow: 0 0 0px var(--neon-yellow); }
-    100% { transform: scale(1); box-shadow: 0 0 0px var(--neon-yellow); }
+	0% {
+		transform: scale(1);
+		box-shadow: 0 0 0px var(--neon-yellow);
+	}
+	100% {
+		transform: scale(1);
+		box-shadow: 0 0 0px var(--neon-yellow);
+	}
 }
 
 .token-gain-animation {
-    animation: tokenGainPulse 0.6s ease-in-out;
+	animation: tokenGainPulse 0.6s ease-in-out;
 }
 
 @keyframes tokenStealFly {
-    0% { transform: translate(0, 0) scale(1); opacity: 1; }
-    50% { transform: translate(20px, -30px) scale(1.3); opacity: 0.8; }
-    100% { transform: translate(40px, -60px) scale(0.5); opacity: 0; }
+	0% {
+		transform: translate(0, 0) scale(1);
+		opacity: 1;
+	}
+	50% {
+		transform: translate(20px, -30px) scale(1.3);
+		opacity: 0.8;
+	}
+	100% {
+		transform: translate(40px, -60px) scale(0.5);
+		opacity: 0;
+	}
 }
 
 .token-steal-animation {
-    /* Apply this to a temporary element created during steal */
-    position: absolute; /* Relative to the scoreboard list item */
-    /* Style like a token icon */
-    width: 16px;
-    height: 16px;
-    background-color: var(--neon-pink); /* Or use an image */
-    border-radius: 50%;
-    z-index: 10;
-    animation: tokenStealFly 0.8s ease-out forwards;
+	/* Apply this to a temporary element created during steal */
+	position: absolute; /* Relative to the scoreboard list item */
+	/* Style like a token icon */
+	width: 16px;
+	height: 16px;
+	background-color: var(--neon-pink); /* Or use an image */
+	border-radius: 50%;
+	z-index: 10;
+	animation: tokenStealFly 0.8s ease-out forwards;
 }
 
 /* --- Tutorial Styles --- */
 .tutorial-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.85);
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	box-sizing: border-box;
 }
 
 .tutorial-box {
-    background-color: var(--panel-bg);
-    border: 3px solid var(--neon-blue);
-    box-shadow: 5px 5px 0px var(--neon-pink);
-    padding: 25px;
-    max-width: 600px;
-    width: 100%;
-    color: var(--text-color);
-    font-family: var(--readable-font);
-    border-radius: 5px;
+	background-color: var(--panel-bg);
+	border: 3px solid var(--neon-blue);
+	box-shadow: 5px 5px 0px var(--neon-pink);
+	padding: 25px;
+	max-width: 600px;
+	width: 100%;
+	color: var(--text-color);
+	font-family: var(--readable-font);
+	border-radius: 5px;
 }
 
 .tutorial-box h3 {
-    margin-top: 0;
-    font-family: var(--pixel-font);
-    text-align: center;
+	margin-top: 0;
+	font-family: var(--pixel-font);
+	text-align: center;
 }
 
 .tutorial-box p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
+	font-size: 1.1em;
+	line-height: 1.6;
+	margin-bottom: 20px;
 }
 
 .tutorial-navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    flex-wrap: wrap;
-    gap: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 20px;
+	flex-wrap: wrap;
+	gap: 10px;
 }
 
 .tutorial-navigation span {
-    font-family: var(--pixel-font);
-    color: var(--light-grey);
-    font-size: 0.9em;
+	font-family: var(--pixel-font);
+	color: var(--light-grey);
+	font-size: 0.9em;
 }
 
 .tutorial-navigation button {
-    font-size: 0.9em;
+	font-size: 0.9em;
 }
 
 #tutorial-skip {
-    background-color: var(--medium-grey);
+	background-color: var(--medium-grey);
 }
 #tutorial-skip:hover {
-    background-color: var(--light-grey);
+	background-color: var(--light-grey);
 }
 
 /* Highlight element for tutorial */
 .tutorial-highlight {
-    position: relative;
-    z-index: 1001; /* Above overlay background, below tutorial box */
-    box-shadow: 0 0 0 4px var(--neon-yellow), 0 0 15px 4px var(--neon-yellow); /* Yellow highlight */
-    border-radius: 3px;
-    transition: box-shadow 0.3s ease-in-out;
+	position: relative;
+	z-index: 1001; /* Above overlay background, below tutorial box */
+	box-shadow: 0 0 0 4px var(--neon-yellow), 0 0 15px 4px var(--neon-yellow); /* Yellow highlight */
+	border-radius: 3px;
+	transition: box-shadow 0.3s ease-in-out;
 }
 
 #alignment-examples {
-    transform: scale(0.75); /* Scale down the examples box */
-    transform-origin: top center; /* Scale from the top center */
-    margin-top: -20px; /* Adjust margin to compensate for scaling if needed */
+	transform: scale(0.75); /* Scale down the examples box */
+	transform-origin: top center; /* Scale from the top center */
+	margin-top: -20px; /* Adjust margin to compensate for scaling if needed */
 }
 
 /* --- Modal Styles --- */
 .modal-overlay {
-    position: fixed; /* Stay in place */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-    display: flex; /* Use flexbox for centering */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Make sure it's on top */
-    opacity: 0; /* Start hidden */
-    transition: opacity 0.3s ease-in-out;
-    pointer-events: none; /* Don't interact when hidden */
+	position: fixed; /* Stay in place */
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+	display: flex; /* Use flexbox for centering */
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Make sure it's on top */
+	opacity: 0; /* Start hidden */
+	transition: opacity 0.3s ease-in-out;
+	pointer-events: none; /* Don't interact when hidden */
 }
 
 .modal-overlay.visible {
-    opacity: 1;
-    display: inline-block;
-    pointer-events: auto; /* Allow interaction when visible */
+	opacity: 1;
+	display: inline-block;
+	pointer-events: auto; /* Allow interaction when visible */
 }
 
 .modal-box {
-    background-color: var(--panel-bg, #1a1a2e); /* Use existing variable or fallback */
-    padding: 25px;
-    border: 3px solid var(--neon-blue, #00ffff);
-    border-radius: 8px;
-    box-shadow: 0 0 15px var(--neon-blue, #00ffff);
-    color: var(--text-color, #e0e0e0);
-    min-width: 300px;
-    max-width: 90%;
-    text-align: center;
-    transform: scale(0.9); /* Start slightly small */
-    transition: transform 0.3s ease-in-out;
+	background-color: var(
+		--panel-bg,
+		#1a1a2e
+	); /* Use existing variable or fallback */
+	padding: 25px;
+	border: 3px solid var(--neon-blue, #00ffff);
+	border-radius: 8px;
+	box-shadow: 0 0 15px var(--neon-blue, #00ffff);
+	color: var(--text-color, #e0e0e0);
+	min-width: 300px;
+	max-width: 90%;
+	text-align: center;
+	transform: scale(0.9); /* Start slightly small */
+	transition: transform 0.3s ease-in-out;
 }
 
 .modal-overlay.visible .modal-box {
-    transform: scale(1); /* Scale to full size when visible */
+	transform: scale(1); /* Scale to full size when visible */
 }
 
 #steal-modal-targets button {
-    display: block; /* Stack buttons vertically */
-    margin: 10px auto; /* Center buttons with space */
-    padding: 8px 15px;
-    min-width: 150px;
-    /* Inherit button styles or add specific ones */
-    font-family: var(--pixel-font);
-    background-color: var(--button-bg, #333);
-    color: var(--button-text, #fff);
-    border: 2px solid var(--neon-green, #39ff14);
-    cursor: pointer;
+	display: block; /* Stack buttons vertically */
+	margin: 10px auto; /* Center buttons with space */
+	padding: 8px 15px;
+	min-width: 150px;
+	/* Inherit button styles or add specific ones */
+	font-family: var(--pixel-font);
+	background-color: var(--button-bg, #333);
+	color: var(--button-text, #fff);
+	border: 2px solid var(--neon-green, #39ff14);
+	cursor: pointer;
 }
 
 #steal-modal-targets button:hover {
-     background-color: var(--button-hover-bg, #555);
-     box-shadow: 0 0 8px var(--neon-green, #39ff14);
+	background-color: var(--button-hover-bg, #555);
+	box-shadow: 0 0 8px var(--neon-green, #39ff14);
 }
 
 .modal-buttons {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 .token-award-choice.disabled-by-award {
-    color: var(--medium-grey) !important;
-    background-color: transparent !important;
-    border-color: var(--dark-grey) !important;
-    opacity: 0.5 !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
-    filter: grayscale(0.7) brightness(0.8);
+	color: var(--medium-grey) !important;
+	background-color: transparent !important;
+	border-color: var(--dark-grey) !important;
+	opacity: 0.5 !important;
+	cursor: not-allowed !important;
+	pointer-events: none !important;
+	filter: grayscale(0.7) brightness(0.8);
 }
 .token-award-choice.disabled-by-award .token-tooltip {
-    color: var(--medium-grey) !important;
-    opacity: 0.5 !important;
-    filter: grayscale(0.7) brightness(0.8);
+	color: var(--medium-grey) !important;
+	opacity: 0.5 !important;
+	filter: grayscale(0.7) brightness(0.8);
 }
 
 /* --- Steal Point Modal Styles --- */
 
 /* Use existing modal overlay styles if they cover this, otherwise add/adjust: */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(13, 5, 23, 0.85); /* Darker overlay using panel bg base */
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-    z-index: 1050; /* Ensure it's above other elements like tutorial */
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    padding: 15px;
-    box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(
+		13,
+		5,
+		23,
+		0.85
+	); /* Darker overlay using panel bg base */
+	display: none; /* Hidden by default */
+	justify-content: center;
+	align-items: center;
+	z-index: 1050; /* Ensure it's above other elements like tutorial */
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+	padding: 15px;
+	box-sizing: border-box;
 }
 
 .modal-overlay.visible {
-    display: flex; /* Use flex for centering */
-    opacity: 1;
+	display: flex; /* Use flex for centering */
+	opacity: 1;
 }
 
 /* Use existing modal box styles and enhance for steal modal */
 #steal-modal-box {
-    background: url("assets/images/ui/card_bg.png") center / cover no-repeat; /* Path is already correct */
-    color: var(--text-color);
-    width: 80%;
-    max-width: 500px;
-    padding: 20px;
-    border: 3px solid var(--neon-pink);
-    box-shadow: 0 0 20px var(--neon-pink);
-    border-radius: 10px;
-    position: relative;
-    transform: scale(0.95);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+	background: url("/assets/images/ui/card_bg.png") center / cover no-repeat; /* Path is already correct */
+	color: var(--text-color);
+	width: 80%;
+	max-width: 500px;
+	padding: 20px;
+	border: 3px solid var(--neon-pink);
+	box-shadow: 0 0 20px var(--neon-pink);
+	border-radius: 10px;
+	position: relative;
+	transform: scale(0.95);
+	opacity: 0;
+	transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .modal-overlay.visible #steal-modal-box {
-    transform: scale(1);
+	transform: scale(1);
 }
 
 #steal-modal-title {
-    font-family: var(--pixel-font);
-    color: var(--neon-yellow);
-    text-shadow: 2px 2px 0px var(--neon-pink);
-    font-size: 1.8em;
-    margin-top: 0;
-    margin-bottom: 15px;
-    text-transform: uppercase;
+	font-family: var(--pixel-font);
+	color: var(--neon-yellow);
+	text-shadow: 2px 2px 0px var(--neon-pink);
+	font-size: 1.8em;
+	margin-top: 0;
+	margin-bottom: 15px;
+	text-transform: uppercase;
 }
 
 #steal-modal-instruction {
-    font-family: var (--readable-font);
-    color: var(--neon-green);
-    font-size: 1.1em;
-    margin-bottom: 25px;
+	font-family: var (--readable-font);
+	color: var(--neon-green);
+	font-size: 1.1em;
+	margin-bottom: 25px;
 }
 
 .modal-close-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: none;
-    border: none;
-    font-family: var(--pixel-font);
-    font-size: 2em;
-    color: var(--neon-pink);
-    cursor: pointer;
-    padding: 0 5px;
-    line-height: 1;
-    text-shadow: 1px 1px 0 var(--panel-bg);
-    transition: color 0.2s, transform 0.2s;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background: none;
+	border: none;
+	font-family: var(--pixel-font);
+	font-size: 2em;
+	color: var(--neon-pink);
+	cursor: pointer;
+	padding: 0 5px;
+	line-height: 1;
+	text-shadow: 1px 1px 0 var(--panel-bg);
+	transition: color 0.2s, transform 0.2s;
 }
 
 .modal-close-button:hover {
-    color: var(--neon-yellow);
-    transform: scale(1.1);
+	color: var(--neon-yellow);
+	transform: scale(1.1);
 }
 
 .steal-targets-container {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping if many players */
-    justify-content: center;
-    gap: 20px; /* Space between player choices */
-    margin-bottom: 30px;
-    max-height: 30vh; /* Limit height and allow scrolling if needed */
-    overflow-y: auto;
-    padding: 5px; /* Padding inside the scroll area */
+	display: flex;
+	flex-wrap: wrap; /* Allow wrapping if many players */
+	justify-content: center;
+	gap: 20px; /* Space between player choices */
+	margin-bottom: 30px;
+	max-height: 30vh; /* Limit height and allow scrolling if needed */
+	overflow-y: auto;
+	padding: 5px; /* Padding inside the scroll area */
 }
 
 .steal-target-player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 10px;
-    border: 2px solid transparent; /* Placeholder for hover effect */
-    cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
-    min-width: 100px; /* Ensure minimum size */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	padding: 10px;
+	border: 2px solid transparent; /* Placeholder for hover effect */
+	cursor: pointer;
+	transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+	min-width: 100px; /* Ensure minimum size */
 }
 
 .steal-target-player:hover {
-    background-color: rgba(0, 255, 255, 0.1); /* Faint neon blue bg */
-    border-color: var(--neon-blue);
-    transform: translateY(-2px);
+	background-color: rgba(0, 255, 255, 0.1); /* Faint neon blue bg */
+	border-color: var(--neon-blue);
+	transform: translateY(-2px);
 }
 
 .steal-target-avatar {
-    width: 64px;
-    height: 64px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-    border: 3px solid var(--neon-blue);
-    box-shadow: 0 0 8px var(--neon-blue);
-    background-color: var(--dark-grey); /* Fallback */
+	width: 64px;
+	height: 64px;
+	background-size: cover;
+	background-position: center;
+	border-radius: 50%;
+	border: 3px solid var(--neon-blue);
+	box-shadow: 0 0 8px var(--neon-blue);
+	background-color: var(--dark-grey); /* Fallback */
 }
 
 .steal-target-name {
-    font-family: var(--pixel-font);
-    font-size: 1em;
-    color: var(--neon-green);
-    text-shadow: 1px 1px 0px #000;
-    max-width: 100px; /* Prevent long names breaking layout */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	font-family: var(--pixel-font);
+	font-size: 1em;
+	color: var(--neon-green);
+	text-shadow: 1px 1px 0px #000;
+	max-width: 100px; /* Prevent long names breaking layout */
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 /* Use existing modal-buttons class or add */
 .modal-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center; /* Center buttons */
-    gap: 15px;
+	margin-top: 20px;
+	display: flex;
+	justify-content: center; /* Center buttons */
+	gap: 15px;
 }
 
 /* Style cancel button specifically if needed, otherwise rely on base button styles */
 #steal-modal-cancel {
-    /* Example: Use a less prominent color */
-    background-color: var(--medium-grey);
-    color: var(--text-color);
-    border-color: var(--light-grey);
-    box-shadow: 3px 3px 0px var(--dark-grey);
+	/* Example: Use a less prominent color */
+	background-color: var(--medium-grey);
+	color: var(--text-color);
+	border-color: var(--light-grey);
+	box-shadow: 3px 3px 0px var(--dark-grey);
 }
 
 #steal-modal-cancel:hover {
-    background-color: var(--light-grey);
-    color: var(--panel-bg);
-    box-shadow: 3px 3px 0px var(--medium-grey);
+	background-color: var(--light-grey);
+	color: var(--panel-bg);
+	box-shadow: 3px 3px 0px var(--medium-grey);
 }
 
 /* NEW: Style for the initiate steal button */
 #initiate-steal-button {
-    /* Use base button styles but customize */
-    font-size: 0.9em;
-    padding: 6px 12px;
-    background-color: var(--neon-pink); /* Match steal theme */
-    color: var(--panel-bg);
-    border: 2px solid var(--text-color);
-    box-shadow: 3px 3px 0px var(--medium-grey);
-    text-transform: uppercase;
-    transition: all 0.1s ease-in-out;
-    margin-top: 10px; /* Space above button */
-    display: block; /* Make it a block element */
-    max-width: 250px; /* Limit width */
+	/* Use base button styles but customize */
+	font-size: 0.9em;
+	padding: 6px 12px;
+	background-color: var(--neon-pink); /* Match steal theme */
+	color: var(--panel-bg);
+	border: 2px solid var(--text-color);
+	box-shadow: 3px 3px 0px var(--medium-grey);
+	text-transform: uppercase;
+	transition: all 0.1s ease-in-out;
+	margin-top: 10px; /* Space above button */
+	display: block; /* Make it a block element */
+	max-width: 250px; /* Limit width */
 }
 
 #initiate-steal-button:hover {
-    background-color: var(--neon-yellow);
-    color: var(--panel-bg);
-    box-shadow: 3px 3px 0px var(--neon-pink);
-    transform: translateY(-2px);
+	background-color: var(--neon-yellow);
+	color: var(--panel-bg);
+	box-shadow: 3px 3px 0px var(--neon-pink);
+	transform: translateY(-2px);
 }
 
 #initiate-steal-button:disabled {
-    background-color: var(--dark-grey);
-    color: var(--medium-grey);
-    border-color: var(--medium-grey);
-    box-shadow: 1px 1px 0px var(--dark-grey);
-    cursor: not-allowed;
-    transform: none;
-    opacity: 0.7;
+	background-color: var(--dark-grey);
+	color: var(--medium-grey);
+	border-color: var(--medium-grey);
+	box-shadow: 1px 1px 0px var(--dark-grey);
+	cursor: not-allowed;
+	transform: none;
+	opacity: 0.7;
 }
 
 /* Responsive adjustments for game header */
 @media (max-width: 768px) {
-    .game-header {
-        padding-right: 130px; /* Adjust for smaller avatar */
-        min-height: 120px;
-    }
-    #judge-avatar-display {
-        width: 110px; /* Smaller avatar */
-        height: 110px;
-        top: 10px;
-        right: 10px;
-    }
-    #initiate-steal-button {
-        max-width: 180px;
-        font-size: 0.8em;
-        padding: 6px 10px;
-    }
+	.game-header {
+		padding-right: 130px; /* Adjust for smaller avatar */
+		min-height: 120px;
+	}
+	#judge-avatar-display {
+		width: 110px; /* Smaller avatar */
+		height: 110px;
+		top: 10px;
+		right: 10px;
+	}
+	#initiate-steal-button {
+		max-width: 180px;
+		font-size: 0.8em;
+		padding: 6px 10px;
+	}
 }
 
 @media (max-width: 480px) {
-    .game-header {
-        padding-right: 0; /* Remove padding */
-        padding-top: 110px; /* Add padding at top to push content below avatar */
-        min-height: auto; /* Reset min-height */
-        text-align: center; /* Center header content */
-    }
-    #judge-avatar-display {
-        width: 90px; /* Even smaller avatar */
-        height: 90px;
-        position: absolute; /* Keep absolute */
-        top: 10px;
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Correct centering */
-        right: auto; /* Override right positioning */
-    }
-     .game-header h2 {
-        margin-top: 5px; /* Adjust space */
-        font-size: 1.3em;
-    }
-     .game-header p {
-        font-size: 1em;
-     }
-    #initiate-steal-button {
-        margin-left: auto; /* Center button */
-        margin-right: auto;
-        max-width: 160px;
-        font-size: 0.75em;
-    }
+	.game-header {
+		padding-right: 0; /* Remove padding */
+		padding-top: 110px; /* Add padding at top to push content below avatar */
+		min-height: auto; /* Reset min-height */
+		text-align: center; /* Center header content */
+	}
+	#judge-avatar-display {
+		width: 90px; /* Even smaller avatar */
+		height: 90px;
+		position: absolute; /* Keep absolute */
+		top: 10px;
+		left: 50%; /* Center horizontally */
+		transform: translateX(-50%); /* Correct centering */
+		right: auto; /* Override right positioning */
+	}
+	.game-header h2 {
+		margin-top: 5px; /* Adjust space */
+		font-size: 1.3em;
+	}
+	.game-header p {
+		font-size: 1em;
+	}
+	#initiate-steal-button {
+		margin-left: auto; /* Center button */
+		margin-right: auto;
+		max-width: 160px;
+		font-size: 0.75em;
+	}
 }
 
 /* ... rest of styles ... */

@@ -27,7 +27,7 @@ export class PlayerSetup extends HTMLElement {
 			availableAvatars: [],
 			selectedAvatars: [],
 			playerCount: 3,
-			avatarBasePath: "assets/images/avatars/",
+			avatarBasePath: "/assets/images/avatars/",
 		};
 
 		// Build component

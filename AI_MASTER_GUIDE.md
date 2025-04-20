@@ -152,8 +152,8 @@ When contributing to this repository:
 As a human contributor without deep programming experience, use this document along with the general README.md:
 
 - To **add new prompts**: Modify `data/decks.json`.
-- To **add new avatars**: Modify `data/avatars.json` and put images into `assets/images`.
-- To **add sounds**: Add to `data/sounds.json` and upload audio files into `assets/audio`.
+- To **add new avatars**: Modify `data/avatars.json` and put images into `/assets/images`.
+- To **add sounds**: Add to `data/sounds.json` and upload audio files into `/assets/audio`.
 
 You should not need to edit the JavaScript directly unless doing significant changes. When you do, clearly structured JSDoc comments will guide you.
 

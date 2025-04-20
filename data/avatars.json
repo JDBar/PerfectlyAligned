@@ -57,5 +57,5 @@
 		}
 	],
 	"defaultAvatar": "alienlady_avatar.png",
-	"basePath": "assets/images/avatars/"
+	"basePath": "/assets/images/avatars/"
 }

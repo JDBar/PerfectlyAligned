@@ -1,0 +1,233 @@
+/**
+ * Main CSS Stylesheet
+ * 
+ * Global styles and variables for the Perfectly Aligned game.
+ */
+
+/* CSS Variables */
+:root {
+	/* Fonts */
+	--pixel-font: "Press Start 2P", cursive;
+	--readable-font: "VT323", monospace;
+
+	/* Colors */
+	--bg-color: #0d0517;
+	--bg-secondary: #1a0a2e;
+	--text-color: #ffffff;
+	--accent-primary: #00ffff;
+	--accent-secondary: #ff00ff;
+	--accent-tertiary: #ffff00;
+	--accent-success: #39ff14;
+	--accent-warning: #ff9900;
+	--accent-danger: #ff3333;
+
+	/* Spacing */
+	--spacing-xs: 5px;
+	--spacing-sm: 10px;
+	--spacing-md: 20px;
+	--spacing-lg: 30px;
+	--spacing-xl: 50px;
+}
+
+/* Base Styles */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	font-family: var(--pixel-font);
+	line-height: 1.6;
+	overflow-x: hidden;
+	position: relative;
+}
+
+body::before {
+	content: "";
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		135deg,
+		rgba(10, 0, 20, 0.9) 0%,
+		rgba(0, 0, 0, 0.9) 100%
+	);
+	z-index: -1;
+}
+
+body::after {
+	content: "";
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: radial-gradient(rgba(255, 0, 255, 0.1) 2px, transparent 2px),
+		radial-gradient(rgba(0, 255, 255, 0.1) 2px, transparent 2px);
+	background-size: 50px 50px;
+	background-position: 0 0, 25px 25px;
+	z-index: -1;
+	pointer-events: none;
+}
+
+#app-container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+#game-container {
+	flex: 1;
+	padding: var(--spacing-md);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--pixel-font);
+	line-height: 1.4;
+	margin-bottom: var(--spacing-md);
+	color: var(--accent-primary);
+	text-shadow: 2px 2px 0px var(--accent-secondary);
+}
+
+p {
+	margin-bottom: var(--spacing-md);
+}
+
+a {
+	color: var(--accent-primary);
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+a:hover {
+	color: var(--accent-secondary);
+	text-decoration: underline;
+}
+
+/* Buttons */
+button {
+	background-color: var(--bg-secondary);
+	color: var(--accent-primary);
+	border: 2px solid var(--accent-primary);
+	padding: var(--spacing-sm) var(--spacing-md);
+	font-family: var(--pixel-font);
+	font-size: 1em;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
+}
+
+button:active {
+	transform: translateY(0);
+}
+
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: none;
+}
+
+/* Footer */
+footer {
+	background-color: rgba(10, 5, 20, 0.7);
+	padding: var(--spacing-md);
+	text-align: center;
+	font-size: 0.8em;
+	border-top: 1px solid var(--accent-primary);
+}
+
+footer .credits {
+	margin-top: var(--spacing-xs);
+	color: var(--accent-secondary);
+}
+
+/* Loading spinner */
+.loading-spinner {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	border: 3px solid rgba(0, 255, 255, 0.3);
+	border-radius: 50%;
+	border-top-color: var(--accent-primary);
+	animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+	:root {
+		--spacing-md: 15px;
+		--spacing-lg: 25px;
+	}
+
+	body {
+		font-size: 0.9em;
+	}
+
+	h1 {
+		font-size: 1.8em;
+	}
+
+	h2 {
+		font-size: 1.5em;
+	}
+
+	button {
+		padding: 8px 15px;
+	}
+}
+
+@media (max-width: 480px) {
+	:root {
+		--spacing-sm: 8px;
+		--spacing-md: 12px;
+	}
+
+	body {
+		font-size: 0.8em;
+	}
+
+	h1 {
+		font-size: 1.5em;
+	}
+
+	h2 {
+		font-size: 1.3em;
+	}
+
+	button {
+		padding: 6px 12px;
+		font-size: 0.9em;
+	}
+
+	footer {
+		padding: var(--spacing-sm);
+		font-size: 0.7em;
+	}
+}
