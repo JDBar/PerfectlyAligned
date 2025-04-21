@@ -1,7 +1,7 @@
 /**
  * Game screens/states
  */
-export const Screen = {
+export const Screens = {
 	SETUP: "setup",
 	TUTORIAL: "tutorial",
 	ALIGNMENT: "alignment",
@@ -10,7 +10,17 @@ export const Screen = {
 	VOTING: "voting",
 	RESULTS: "results",
 } as const;
-export type Screens = (typeof Screen)[keyof typeof Screen];
+export type Screen = (typeof Screens)[keyof typeof Screens];
+
+/**
+ * Card deck options
+ */
+export const Decks = {
+	CORE: "Core Mix",
+	CREATIVE: "Creative & Pop",
+	TABOO: "Hypothetical & Taboo (17+)",
+} as const;
+export type Deck = (typeof Decks)[keyof typeof Decks];
 
 /**
  * Player definition
@@ -23,29 +33,19 @@ export interface Player {
 }
 
 /**
- * Card deck options
- */
-export const Deck = {
-	CORE: "Core Mix",
-	CREATIVE: "Creative & Pop",
-	TABOO: "Hypothetical & Taboo (17+)",
-} as const;
-export type Decks = (typeof Deck)[keyof typeof Deck];
-
-/**
  * Game settings
  */
 export interface Configuration {
 	players: Player[];
-	cardDecks: Decks[];
+	cardDecks: Deck[];
 	drawingTimeSeconds: number;
 }
 
 /**
  * Game state
  */
-export interface GameState {
-	currentScreen: Screens;
+export interface State {
+	currentScreen: Screen;
 	settings: Configuration;
 	currentRound?: number;
 	totalRounds?: number;

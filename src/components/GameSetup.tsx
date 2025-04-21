@@ -1,12 +1,22 @@
 import React, { ReactNode } from "react";
 import styles from "./GameSetup.module.scss";
 
+/**
+ * Props for the GameSetup component
+ */
 interface GameSetupProps {
 	onShowTutorial: () => void;
 	children?: ReactNode;
 }
 
-const GameSetup: React.FC<GameSetupProps> = ({ onShowTutorial, children }) => {
+/**
+ * GameSetup displays the game title, subtitle, and tutorial button
+ * along with the children components (typically LobbySetup)
+ */
+export const GameSetup: React.FC<GameSetupProps> = ({
+	onShowTutorial,
+	children,
+}) => {
 	return (
 		<div className={styles.container}>
 			<header className={styles.header}>
@@ -27,5 +37,3 @@ const GameSetup: React.FC<GameSetupProps> = ({ onShowTutorial, children }) => {
 		</div>
 	);
 };
-
-export default GameSetup;
