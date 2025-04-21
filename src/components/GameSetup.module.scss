@@ -1,0 +1,46 @@
+@use "../styles/variables.scss" as vars;
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: vars.$spacing-xl;
+	min-height: 100vh;
+}
+
+.header {
+	margin-bottom: vars.$spacing-xl;
+	text-align: center;
+}
+
+.title {
+	@include vars.pixel-text;
+	font-size: 3rem;
+	color: vars.$text-primary;
+	margin-bottom: vars.$spacing-md;
+	text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+	@include vars.pixel-text;
+	font-size: 1rem;
+	color: vars.$text-secondary;
+	margin-bottom: vars.$spacing-xl;
+}
+
+.tutorialButton {
+	margin-bottom: vars.$spacing-xl * 2;
+}
+
+.setupTitle {
+	@include vars.pixel-text;
+	font-size: 2rem;
+	color: vars.$text-primary;
+	margin-bottom: vars.$spacing-xl;
+}
+
+.playerSetup {
+	width: 100%;
+	max-width: 800px;
+}

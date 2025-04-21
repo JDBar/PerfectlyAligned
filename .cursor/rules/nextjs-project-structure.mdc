@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Next.js Project Structure
+This project follows a specific directory structure:
+
+- `src/app`: Next.js App Router files (page.tsx, layout.tsx)
+- `src/components`: React components
+- `src/hooks`: React hooks
+- `src/lib`: Utility functions and game logic
+- `src/styles`: Global styles and SCSS variables
+- `src/data`: JSON data files for game prompts and content
+
+# Organization
+Always organize files in subfolders by business function/domain.

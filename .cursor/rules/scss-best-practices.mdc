@@ -1,0 +1,28 @@
+---
+description: 
+globs: *.scss
+alwaysApply: false
+---
+# SCSS Module Best Practices
+
+When working with SCSS modules:
+
+- Always use `@use` instead of `@import` for importing SCSS modules
+- Place `@use` statements before any other statements, including `@import url()`
+- Use namespaces when importing modules: `@use '../styles/variables.scss' as vars;`
+- Reference variables and mixins using namespace: `vars.$variable-name` and `@include vars.mixin-name`
+- Never use global variables without namespace
+- Do not use the `prependData` option in Next.js config for SCSS imports
+
+## Example of correct SCSS usage
+
+```scss
+@use '../styles/variables.scss' as vars;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.myClass {
+  color: vars.$text-primary;
+  font-size: vars.$base-font-size;
+  @include vars.pixel-text;
+}
+```

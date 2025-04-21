@@ -1,0 +1,44 @@
+// Colors
+$background-color: #160038; // Deep purple background
+$text-primary: #ffff00; // Bright yellow for main text
+$text-secondary: #00ff00; // Bright green for subheadings
+$text-accent: #ff00ff; // Magenta for accents/highlights
+$button-bg: #ffffff; // White background for buttons
+$button-text: #000000; // Black text for buttons
+$border-color: #00ffff; // Cyan for borders
+
+// Typography
+$pixel-font: "Press Start 2P", monospace;
+$base-font-size: 16px;
+
+// Layout
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+// Mixins
+@mixin pixel-text {
+	font-family: $pixel-font;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+@mixin pixel-border {
+	border: 2px solid $border-color;
+	padding: $spacing-md;
+}
+
+@mixin pixel-button {
+	@include pixel-text;
+	background-color: $button-bg;
+	color: $button-text;
+	border: 2px solid $button-text;
+	padding: $spacing-md $spacing-lg;
+	cursor: pointer;
+	text-align: center;
+
+	&:hover {
+		background-color: darken($button-bg, 10%);
+	}
+}

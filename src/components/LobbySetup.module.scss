@@ -1,0 +1,74 @@
+@use "../styles/variables.scss" as vars;
+
+.container {
+	@include vars.pixel-border;
+	border-color: vars.$text-accent;
+	border-width: 2px;
+	border-style: dashed;
+	padding: vars.$spacing-lg;
+	margin-bottom: vars.$spacing-xl;
+}
+
+.title {
+	color: vars.$text-accent;
+	font-size: 1.5rem;
+	margin-bottom: vars.$spacing-lg;
+	text-transform: uppercase;
+}
+
+.playerCount {
+	display: flex;
+	align-items: center;
+	margin-bottom: vars.$spacing-xl;
+}
+
+.playerCountText {
+	margin-right: vars.$spacing-lg;
+}
+
+.numberButton {
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 vars.$spacing-sm;
+
+	&.active {
+		background-color: vars.$text-accent;
+		color: vars.$background-color;
+	}
+}
+
+.enterButton {
+	background-color: vars.$text-accent;
+	color: vars.$background-color;
+	margin-top: vars.$spacing-lg;
+}
+
+.cardOptions {
+	margin-top: vars.$spacing-xl;
+	border: 2px dotted vars.$text-secondary;
+	padding: vars.$spacing-lg;
+}
+
+.cardOptionsTitle {
+	color: vars.$text-secondary;
+	font-size: 1.2rem;
+	margin-bottom: vars.$spacing-lg;
+}
+
+.deckOption {
+	border: 2px solid vars.$text-primary;
+	margin-bottom: vars.$spacing-md;
+	padding: vars.$spacing-md;
+	cursor: pointer;
+
+	&.creative {
+		color: #00ffff;
+	}
+
+	&.taboo {
+		color: vars.$text-accent;
+	}
+}

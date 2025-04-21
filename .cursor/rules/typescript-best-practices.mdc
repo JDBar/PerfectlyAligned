@@ -1,0 +1,47 @@
+---
+description: 
+globs: *.tsx,*.ts
+alwaysApply: false
+---
+# TypeScript Standards
+When working with TypeScript in this project:
+
+- ALWAYS use JSDoc to document the business purpose of a component or function.
+- Always create a TypeScript interface for component props
+- Include `children?: ReactNode` in props interface when a component might have children
+- Use named exports for components, not default exports
+- Keep related components in their own module files
+- Prefer functional components with hooks over class components
+- Use proper typing for event handlers and state
+
+## Props Interface Example
+```tsx
+import React, { ReactNode } from 'react';
+
+interface ButtonProps {
+  onClick: () => void;
+  variant?: 'primary' | 'secondary';
+  disabled?: boolean;
+  children?: ReactNode;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  onClick,
+  variant = 'primary',
+  disabled = false,
+  children
+}) => {
+  // Component implementation
+};
+```
+
+# Imports
+Prefer import aliases. Prefer star-imports when importing 1st-party code.
+
+e.g.
+```tsx
+import * as Foo from "@/lib/Foo.ts";
+```
+
+# Const over Enums
+Never use enums. Use const objects.
