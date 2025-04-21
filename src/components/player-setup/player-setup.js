@@ -73,12 +73,10 @@ export class PlayerSetup extends ComponentBase {
 						decreaseBtn.disabled = true;
 					}
 
-					// Dispatch event for player count change
-					this.dispatchEvent(
-						new CustomEvent("player-count-changed", {
-							detail: { count: this.state.playerCount },
-						})
-					);
+					// Call the callback if provided (React-like props)
+					if (typeof this.onPlayerCountChanged === "function") {
+						this.onPlayerCountChanged(this.state.playerCount);
+					}
 				}
 			});
 
@@ -96,12 +94,10 @@ export class PlayerSetup extends ComponentBase {
 						increaseBtn.disabled = true;
 					}
 
-					// Dispatch event for player count change
-					this.dispatchEvent(
-						new CustomEvent("player-count-changed", {
-							detail: { count: this.state.playerCount },
-						})
-					);
+					// Call the callback if provided (React-like props)
+					if (typeof this.onPlayerCountChanged === "function") {
+						this.onPlayerCountChanged(this.state.playerCount);
+					}
 				}
 			});
 
@@ -387,43 +383,6 @@ export class PlayerSetup extends ComponentBase {
 			}
 			return false;
 		}
-
-		// TODO: Disabled this for now since we're missing avatar images.
-		// I also don't think this is very important to have.
-
-		// // Check for duplicate avatars
-		// const avatarIds = new Set();
-		// const duplicateAvatars = [];
-
-		// for (let i = 0; i < this.state.playerCount; i++) {
-		// 	const avatarId = this.state.selectedAvatars[i];
-		// 	if (avatarIds.has(avatarId)) {
-		// 		duplicateAvatars.push(i);
-		// 	} else {
-		// 		avatarIds.add(avatarId);
-		// 	}
-		// }
-
-		// if (duplicateAvatars.length > 0) {
-		// 	if (errorMessage) {
-		// 		errorMessage.textContent = "Players cannot use the same avatar";
-		// 		errorMessage.classList.add("visible");
-
-		// 		// Highlight the duplicates
-		// 		duplicateAvatars.forEach((playerIndex) => {
-		// 			const preview = this.shadowRoot.getElementById(
-		// 				`avatar-preview-${playerIndex}`
-		// 			);
-		// 			if (preview) {
-		// 				preview.classList.add("avatar-taken");
-		// 				setTimeout(() => {
-		// 					preview.classList.remove("avatar-taken");
-		// 				}, 2000);
-		// 			}
-		// 		});
-		// 	}
-		// 	return false;
-		// }
 
 		// All valid
 		if (errorMessage) {

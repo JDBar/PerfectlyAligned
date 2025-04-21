@@ -39,9 +39,6 @@ export class Scoreboard extends ComponentBase {
 	afterRender() {
 		// Initialize target score display
 		this.updateTargetScoreDisplay();
-
-		// Dispatch connected event
-		this.dispatchEvent(new CustomEvent("scoreboard-connected"));
 	}
 
 	/**

@@ -41,13 +41,7 @@ export class PromptCard extends ComponentBase {
 	 * Called after the component is rendered
 	 * Overrides the afterRender method from ComponentBase
 	 */
-	afterRender() {
-		// Add event listeners
-		this.addEventListeners();
-
-		// Dispatch connected event
-		this.dispatchEvent(new CustomEvent("prompt-card-connected"));
-	}
+	afterRender() {}
 
 	/**
 	 * Called when the element is removed from the DOM
@@ -174,13 +168,6 @@ export class PromptCard extends ComponentBase {
 		if (instructions) {
 			instructions.textContent = "Judge: Select one of the prompts below!";
 		}
-
-		// Dispatch event
-		this.dispatchEvent(
-			new CustomEvent("prompts-drawn", {
-				detail: { prompts },
-			})
-		);
 	}
 
 	/**
@@ -234,13 +221,6 @@ export class PromptCard extends ComponentBase {
 
 		// Update game state
 		GameState.setDisplayedPrompts(prompts);
-
-		// Dispatch event
-		this.dispatchEvent(
-			new CustomEvent("prompts-redrawn", {
-				detail: { prompts },
-			})
-		);
 	}
 
 	/**
@@ -278,12 +258,10 @@ export class PromptCard extends ComponentBase {
 			instructions.textContent = "Prompt locked in! Time to sketch!";
 		}
 
-		// Dispatch event
-		this.dispatchEvent(
-			new CustomEvent("prompt-selected", {
-				detail: { prompt: this.state.prompts[promptIndex], index: promptIndex },
-			})
-		);
+		// Call the callback if provided (React-like props)
+		if (typeof this.onPromptSelected === "function") {
+			this.onPromptSelected(this.state.prompts[promptIndex]);
+		}
 	}
 
 	/**

@@ -271,14 +271,10 @@ export class SketchTimer extends ComponentBase {
 	triggerEvent(event, data) {
 		if (!this.eventCallbacks[event]) return;
 
-		// Create and dispatch DOM event
-		this.dispatchEvent(
-			new CustomEvent(`timer-${event}`, {
-				detail: { seconds: this.timerTotalSeconds, data },
-				bubbles: true,
-				composed: true,
-			})
-		);
+		// Call parent component callback if provided (React-like props system)
+		if (event === "end" && typeof this.onTimerEnded === "function") {
+			this.onTimerEnded();
+		}
 
 		// Call registered callbacks
 		this.eventCallbacks[event].forEach((callback) => {

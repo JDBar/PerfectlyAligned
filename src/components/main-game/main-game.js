@@ -36,6 +36,26 @@ export class MainGame extends ComponentBase {
 			roundActive: false,
 			timerRunning: false,
 		};
+
+		// Component references
+		this.playerSetup = null;
+		this.alignmentGrid = null;
+		this.promptCard = null;
+		this.sketchTimer = null;
+		this.scoreboard = null;
+		this.finalScoreboard = null;
+
+		// Bind methods for callbacks
+		this.handlePlayerCountChanged = this.handlePlayerCountChanged.bind(this);
+		this.handleAlignmentSelected = this.handleAlignmentSelected.bind(this);
+		this.handlePromptSelected = this.handlePromptSelected.bind(this);
+		this.handleTimerEnded = this.handleTimerEnded.bind(this);
+		this.handleStartGame = this.handleStartGame.bind(this);
+		this.handleEndGame = this.handleEndGame.bind(this);
+		this.handleNextRound = this.handleNextRound.bind(this);
+		this.handleConfirmWinner = this.handleConfirmWinner.bind(this);
+		this.handleNewGame = this.handleNewGame.bind(this);
+		this.handleResetGame = this.handleResetGame.bind(this);
 	}
 
 	/**
@@ -43,137 +63,73 @@ export class MainGame extends ComponentBase {
 	 * Overrides the afterRender method from ComponentBase
 	 */
 	afterRender() {
-		// Add event listeners
-		this.setupEventListeners();
-
-		// Dispatch connected event
-		this.dispatchEvent(new CustomEvent("main-game-connected"));
+		// Get component references and set up callbacks
+		this.initializeComponents();
+		this.setupButtons();
 	}
 
 	/**
-	 * Set up all event listeners for sub-components
-	 * @private
+	 * Initialize components and set up callbacks
 	 */
-	setupEventListeners() {
-		// Setup event listeners for child components
-		setTimeout(() => {
-			this.setupPlayerSetupListeners();
-			this.setupAlignmentGridListeners();
-			this.setupPromptCardListeners();
-			this.setupSketchTimerListeners();
-			this.setupScoreboardListeners();
-			this.setupButtonListeners();
-		}, 0);
+	initializeComponents() {
+		// Get component references
+		this.playerSetup = this.shadowRoot.getElementById("player-setup");
+		this.alignmentGrid = this.shadowRoot.getElementById("alignment-grid");
+		this.promptCard = this.shadowRoot.getElementById("prompt-card");
+		this.sketchTimer = this.shadowRoot.getElementById("sketch-timer");
+		this.scoreboard = this.shadowRoot.getElementById("scoreboard");
+		this.finalScoreboard = this.shadowRoot.getElementById("final-scoreboard");
+
+		// Set callbacks for components - React-like props passing
+		this.setComponentCallbacks();
 	}
 
 	/**
-	 * Setup listeners for player setup component
-	 * @private
+	 * Set callbacks on child components (React-like props passing)
 	 */
-	setupPlayerSetupListeners() {
-		const playerSetup = this.shadowRoot.getElementById("player-setup");
-		if (!playerSetup) return;
+	setComponentCallbacks() {
+		// Direct callback passing to components
+		if (this.playerSetup) {
+			// Define onPlayerCountChanged as a property on the component
+			this.playerSetup.onPlayerCountChanged = this.handlePlayerCountChanged;
+		}
 
-		// Listen for player count changes
-		playerSetup.addEventListener("player-count-changed", (event) => {
-			// Update any necessary game state based on player count
-			Logger.logInfo(`Player count changed to ${event.detail.count}`);
-		});
+		if (this.alignmentGrid) {
+			// Define onAlignmentSelected as a property on the component
+			this.alignmentGrid.onAlignmentSelected = this.handleAlignmentSelected;
+		}
+
+		if (this.promptCard) {
+			// Define onPromptSelected as a property on the component
+			this.promptCard.onPromptSelected = this.handlePromptSelected;
+		}
+
+		if (this.sketchTimer) {
+			// Define onTimerEnded as a property on the component
+			this.sketchTimer.onTimerEnded = this.handleTimerEnded;
+		}
 	}
 
 	/**
-	 * Setup listeners for alignment grid component
-	 * @private
+	 * Setup button event listeners
 	 */
-	setupAlignmentGridListeners() {
-		const alignmentGrid = this.shadowRoot.getElementById("alignment-grid");
-		if (!alignmentGrid) return;
-
-		// Listen for alignment selection
-		alignmentGrid.addEventListener("alignment-selected", (event) => {
-			const alignment = event.detail.alignment;
-
-			// Update sketch instructions with alignment and prompt
-			this.updateSketchPhaseWithAlignment(alignment);
-		});
-	}
-
-	/**
-	 * Setup listeners for prompt card component
-	 * @private
-	 */
-	setupPromptCardListeners() {
-		const promptCard = this.shadowRoot.getElementById("prompt-card");
-		if (!promptCard) return;
-
-		// Listen for prompt selection
-		promptCard.addEventListener("prompt-selected", (event) => {
-			const prompt = event.detail.prompt;
-
-			// Enable alignment grid if we have a prompt
-			const alignmentGrid = this.shadowRoot.getElementById("alignment-grid");
-			if (alignmentGrid) {
-				// Enable for judge roll
-				alignmentGrid.disabled = false;
-			}
-
-			// Update sketch instructions to prompt users to wait for alignment roll
-			if (prompt) {
-				this.updateSketchInstructions(
-					`<strong>Prompt chosen:</strong> ${prompt}<br><br>Waiting for the judge to roll the alignment...`
-				);
-			}
-		});
-	}
-
-	/**
-	 * Setup listeners for sketch timer component
-	 * @private
-	 */
-	setupSketchTimerListeners() {
-		const sketchTimer = this.shadowRoot.getElementById("sketch-timer");
-		if (!sketchTimer) return;
-
-		// Listen for timer ended event
-		sketchTimer.addEventListener("timer-ended", () => {
-			// Show judging phase, hide sketch phase
-			this.switchToJudgingPhase();
-		});
-	}
-
-	/**
-	 * Setup listeners for scoreboard component
-	 * @private
-	 */
-	setupScoreboardListeners() {
-		const scoreboard = this.shadowRoot.getElementById("scoreboard");
-		if (!scoreboard) return;
-
-		// No event listeners needed for scoreboard currently
-		// It's mostly driven by data updates from this component
-	}
-
-	/**
-	 * Setup listeners for game control buttons
-	 * @private
-	 */
-	setupButtonListeners() {
+	setupButtons() {
 		// Start game button
 		const startGameButton = this.shadowRoot.getElementById("start-game-button");
 		if (startGameButton) {
-			startGameButton.addEventListener("click", () => this.handleStartGame());
+			startGameButton.addEventListener("click", this.handleStartGame);
 		}
 
 		// End game button
 		const endGameButton = this.shadowRoot.getElementById("end-game-button");
 		if (endGameButton) {
-			endGameButton.addEventListener("click", () => this.handleEndGame());
+			endGameButton.addEventListener("click", this.handleEndGame);
 		}
 
 		// Next round button
 		const nextRoundButton = this.shadowRoot.getElementById("next-round-button");
 		if (nextRoundButton) {
-			nextRoundButton.addEventListener("click", () => this.handleNextRound());
+			nextRoundButton.addEventListener("click", this.handleNextRound);
 		}
 
 		// Confirm winner button
@@ -181,28 +137,67 @@ export class MainGame extends ComponentBase {
 			"confirm-winner-button"
 		);
 		if (confirmWinnerButton) {
-			confirmWinnerButton.addEventListener("click", () =>
-				this.handleConfirmWinner()
-			);
+			confirmWinnerButton.addEventListener("click", this.handleConfirmWinner);
 		}
 
 		// New game button
 		const newGameButton = this.shadowRoot.getElementById("new-game-button");
 		if (newGameButton) {
-			newGameButton.addEventListener("click", () => this.handleNewGame());
+			newGameButton.addEventListener("click", this.handleNewGame);
 		}
 
 		// Reset game button
 		const resetGameButton = this.shadowRoot.getElementById("reset-game-button");
 		if (resetGameButton) {
-			resetGameButton.addEventListener("click", () => this.handleResetGame());
+			resetGameButton.addEventListener("click", this.handleResetGame);
 		}
+	}
+
+	/**
+	 * Callback for player count change
+	 * @param {number} count - The new player count
+	 */
+	handlePlayerCountChanged(count) {
+		Logger.logInfo(`Player count changed to ${count}`);
+		// Any other logic needed when player count changes
+	}
+
+	/**
+	 * Callback for alignment selection
+	 * @param {string} alignment - The selected alignment
+	 */
+	handleAlignmentSelected(alignment) {
+		this.updateSketchPhaseWithAlignment(alignment);
+	}
+
+	/**
+	 * Callback for prompt selection
+	 * @param {string} prompt - The selected prompt
+	 */
+	handlePromptSelected(prompt) {
+		// Enable alignment grid if we have a prompt
+		if (this.alignmentGrid) {
+			this.alignmentGrid.disabled = false;
+		}
+
+		// Update sketch instructions
+		if (prompt) {
+			this.updateSketchInstructions(
+				`<strong>Prompt chosen:</strong> ${prompt}<br><br>Waiting for the judge to roll the alignment...`
+			);
+		}
+	}
+
+	/**
+	 * Callback for timer ended
+	 */
+	handleTimerEnded() {
+		this.switchToJudgingPhase();
 	}
 
 	/**
 	 * Switch to a different view
 	 * @param {string} viewName - Name of the view to switch to ('setup', 'play', 'results')
-	 * @private
 	 */
 	switchToView(viewName) {
 		// Hide all views
@@ -219,24 +214,23 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Handle start game button click
-	 * @private
 	 */
 	handleStartGame() {
-		// Get player setup component and validate inputs
-		const playerSetup = this.shadowRoot.getElementById("player-setup");
-		if (!playerSetup || !playerSetup.validateAllInputs()) {
+		// Validate player setup
+		if (!this.playerSetup || !this.playerSetup.validateAllInputs()) {
 			Logger.logWarning("Player setup is not valid");
 			return;
 		}
 
 		// Get player data
-		const playerData = playerSetup.getPlayerData();
+		const playerData = this.playerSetup.getPlayerData();
 		if (!playerData || playerData.length < 3) {
 			Logger.logWarning("Need at least 3 players to start");
 			return;
 		}
 
-		// Add players to game state
+		// Reset previous game state and add players
+		GameState.resetGame(false);
 		playerData.forEach((player) => {
 			GameState.addPlayer(player.name, player.avatar);
 		});
@@ -248,19 +242,17 @@ export class MainGame extends ComponentBase {
 		Deck.createActiveDeck(GameState.gameState.selectedDecks);
 
 		// Update scoreboard
-		const scoreboard = this.shadowRoot.getElementById("scoreboard");
-		if (scoreboard) {
-			scoreboard.setTokenTypes(Tokens.getTokenTypes());
-			scoreboard.updateScoreboard(
+		if (this.scoreboard) {
+			this.scoreboard.setTokenTypes(Tokens.getTokenTypes());
+			this.scoreboard.updateScoreboard(
 				GameState.gameState.players,
 				GameState.gameState.currentPlayerIndex
 			);
 		}
 
 		// Set up prompt card with initial judge
-		const promptCard = this.shadowRoot.getElementById("prompt-card");
-		if (promptCard) {
-			promptCard.setIsJudge(true, GameState.gameState.currentPlayerIndex);
+		if (this.promptCard) {
+			this.promptCard.setIsJudge(true, GameState.gameState.currentPlayerIndex);
 		}
 
 		// Update judge display
@@ -283,7 +275,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Updates the judge display with current judge name
-	 * @private
 	 */
 	updateJudgeDisplay() {
 		const judgeName = this.shadowRoot.getElementById("judge-name");
@@ -300,7 +291,6 @@ export class MainGame extends ComponentBase {
 	/**
 	 * Updates the sketch instructions text
 	 * @param {string} text - New instruction text
-	 * @private
 	 */
 	updateSketchInstructions(text) {
 		const instructionsText = this.shadowRoot.getElementById(
@@ -314,12 +304,10 @@ export class MainGame extends ComponentBase {
 	/**
 	 * Updates the sketch phase with the selected alignment and prompt
 	 * @param {string} alignment - Selected alignment code (e.g., "LG", "CE")
-	 * @private
 	 */
 	updateSketchPhaseWithAlignment(alignment) {
 		// Get current prompt
-		const promptCard = this.shadowRoot.getElementById("prompt-card");
-		const prompt = promptCard ? promptCard.getSelectedPrompt() : null;
+		const prompt = this.promptCard ? this.promptCard.getSelectedPrompt() : null;
 
 		if (!prompt) {
 			Logger.logWarning("No prompt selected when alignment was rolled");
@@ -335,9 +323,8 @@ export class MainGame extends ComponentBase {
 		this.updateSketchInstructions(fullPrompt);
 
 		// Start the timer
-		const sketchTimer = this.shadowRoot.getElementById("sketch-timer");
-		if (sketchTimer) {
-			sketchTimer.start();
+		if (this.sketchTimer) {
+			this.sketchTimer.start();
 			this.state.timerRunning = true;
 		}
 
@@ -347,7 +334,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Switch from sketch phase to judging phase
-	 * @private
 	 */
 	switchToJudgingPhase() {
 		// Hide sketch phase, show judging phase
@@ -371,14 +357,11 @@ export class MainGame extends ComponentBase {
 			"judging-instructions-text"
 		);
 		if (judgeInstructions) {
-			const promptCard = this.shadowRoot.getElementById("prompt-card");
-			const alignmentGrid = this.shadowRoot.getElementById("alignment-grid");
-
-			const prompt = promptCard
-				? promptCard.getSelectedPrompt()
+			const prompt = this.promptCard
+				? this.promptCard.getSelectedPrompt()
 				: "Unknown prompt";
-			const alignment = alignmentGrid
-				? alignmentGrid.getCurrentAlignment()
+			const alignment = this.alignmentGrid
+				? this.alignmentGrid.getCurrentAlignment()
 				: "Unknown alignment";
 
 			judgeInstructions.innerHTML = `
@@ -403,7 +386,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Populates the player selection list for the judge to select a winner
-	 * @private
 	 */
 	populatePlayerSelectionList() {
 		const playerSelectionList = this.shadowRoot.getElementById(
@@ -425,7 +407,7 @@ export class MainGame extends ComponentBase {
 			// Add avatar
 			const avatarDisplay = document.createElement("div");
 			avatarDisplay.className = "player-option-avatar";
-			avatarDisplay.style.backgroundImage = `url('assets/images/avatars/${player.avatar}')`;
+			avatarDisplay.style.backgroundImage = `url('/assets/images/avatars/${player.avatar}')`;
 
 			// Add name
 			const nameDisplay = document.createElement("div");
@@ -446,7 +428,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Populates the token award buttons
-	 * @private
 	 */
 	populateTokenAwardButtons() {
 		const tokenAwardButtons = this.shadowRoot.getElementById(
@@ -483,7 +464,6 @@ export class MainGame extends ComponentBase {
 	/**
 	 * Handles player selection for judging
 	 * @param {HTMLElement} playerOption - The selected player option element
-	 * @private
 	 */
 	handlePlayerSelection(playerOption) {
 		// Deselect all options
@@ -505,7 +485,6 @@ export class MainGame extends ComponentBase {
 	/**
 	 * Handles awarding a token to the selected player
 	 * @param {string} tokenType - Type of token to award
-	 * @private
 	 */
 	handleTokenAward(tokenType) {
 		// Get selected player
@@ -550,9 +529,8 @@ export class MainGame extends ComponentBase {
 		Audio.playSound("token_gain");
 
 		// Update scoreboard
-		const scoreboard = this.shadowRoot.getElementById("scoreboard");
-		if (scoreboard) {
-			scoreboard.updatePlayerTokens(
+		if (this.scoreboard) {
+			this.scoreboard.updatePlayerTokens(
 				actualPlayerIndex,
 				GameState.gameState.players[actualPlayerIndex].tokens
 			);
@@ -574,7 +552,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Handle confirm winner button click
-	 * @private
 	 */
 	handleConfirmWinner() {
 		// Get selected player
@@ -609,10 +586,9 @@ export class MainGame extends ComponentBase {
 		Audio.playSound("point_gain");
 
 		// Update scoreboard
-		const scoreboard = this.shadowRoot.getElementById("scoreboard");
-		if (scoreboard) {
+		if (this.scoreboard) {
 			const player = GameState.gameState.players[actualPlayerIndex];
-			scoreboard.updatePlayerScore(actualPlayerIndex, player.score, true);
+			this.scoreboard.updatePlayerScore(actualPlayerIndex, player.score, true);
 		}
 
 		// Check for game winner
@@ -641,7 +617,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Handle next round button click
-	 * @private
 	 */
 	handleNextRound() {
 		// Advance to next judge
@@ -656,26 +631,22 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Reset components for a new round
-	 * @private
 	 */
 	resetForNewRound() {
 		// Reset prompt card
-		const promptCard = this.shadowRoot.getElementById("prompt-card");
-		if (promptCard) {
-			promptCard.reset();
-			promptCard.setIsJudge(true, GameState.gameState.currentPlayerIndex);
+		if (this.promptCard) {
+			this.promptCard.reset();
+			this.promptCard.setIsJudge(true, GameState.gameState.currentPlayerIndex);
 		}
 
 		// Reset alignment grid
-		const alignmentGrid = this.shadowRoot.getElementById("alignment-grid");
-		if (alignmentGrid) {
-			alignmentGrid.disabled = true;
+		if (this.alignmentGrid) {
+			this.alignmentGrid.disabled = true;
 		}
 
 		// Reset sketch timer
-		const sketchTimer = this.shadowRoot.getElementById("sketch-timer");
-		if (sketchTimer) {
-			sketchTimer.reset();
+		if (this.sketchTimer) {
+			this.sketchTimer.reset();
 		}
 
 		// Switch back to sketch phase
@@ -708,7 +679,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Handle end game button click
-	 * @private
 	 */
 	handleEndGame() {
 		// Confirm with user
@@ -721,16 +691,14 @@ export class MainGame extends ComponentBase {
 		}
 
 		// Stop any active timer
-		const sketchTimer = this.shadowRoot.getElementById("sketch-timer");
-		if (sketchTimer && sketchTimer.isTimerRunning()) {
-			sketchTimer.stop();
+		if (this.sketchTimer && this.sketchTimer.isTimerRunning()) {
+			this.sketchTimer.stop();
 		}
 
 		// Switch to results view without declaring winner
-		const finalScoreboard = this.shadowRoot.getElementById("final-scoreboard");
-		if (finalScoreboard) {
-			finalScoreboard.setTokenTypes(Tokens.getTokenTypes());
-			finalScoreboard.updateScoreboard(
+		if (this.finalScoreboard) {
+			this.finalScoreboard.setTokenTypes(Tokens.getTokenTypes());
+			this.finalScoreboard.updateScoreboard(
 				GameState.gameState.players,
 				GameState.gameState.currentPlayerIndex
 			);
@@ -753,7 +721,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Handle new game button click
-	 * @private
 	 */
 	handleNewGame() {
 		// Reset game state but keep players
@@ -768,7 +735,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Handle reset game button click
-	 * @private
 	 */
 	handleResetGame() {
 		// Confirm with user
@@ -792,7 +758,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Reset all game UI elements
-	 * @private
 	 */
 	resetGameUI() {
 		// Reset state
@@ -805,30 +770,23 @@ export class MainGame extends ComponentBase {
 		};
 
 		// Reset player setup
-		const playerSetup = this.shadowRoot.getElementById("player-setup");
-		if (playerSetup) {
-			// Reset the component if it has a reset method
-			if (typeof playerSetup.reset === "function") {
-				playerSetup.reset();
-			}
+		if (this.playerSetup && typeof this.playerSetup.reset === "function") {
+			this.playerSetup.reset();
 		}
 
 		// Reset prompt card
-		const promptCard = this.shadowRoot.getElementById("prompt-card");
-		if (promptCard) {
-			promptCard.reset();
+		if (this.promptCard) {
+			this.promptCard.reset();
 		}
 
 		// Reset alignment grid
-		const alignmentGrid = this.shadowRoot.getElementById("alignment-grid");
-		if (alignmentGrid && typeof alignmentGrid.reset === "function") {
-			alignmentGrid.reset();
+		if (this.alignmentGrid && typeof this.alignmentGrid.reset === "function") {
+			this.alignmentGrid.reset();
 		}
 
 		// Reset sketch timer
-		const sketchTimer = this.shadowRoot.getElementById("sketch-timer");
-		if (sketchTimer) {
-			sketchTimer.reset();
+		if (this.sketchTimer) {
+			this.sketchTimer.reset();
 		}
 
 		// Reset sketch and judging phases
@@ -868,7 +826,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Update the round display elements
-	 * @private
 	 */
 	updateRoundDisplay() {
 		// Update round number
@@ -881,9 +838,8 @@ export class MainGame extends ComponentBase {
 		this.updateJudgeDisplay();
 
 		// Update scoreboard
-		const scoreboard = this.shadowRoot.getElementById("scoreboard");
-		if (scoreboard) {
-			scoreboard.updateScoreboard(
+		if (this.scoreboard) {
+			this.scoreboard.updateScoreboard(
 				GameState.gameState.players,
 				GameState.gameState.currentPlayerIndex
 			);
@@ -892,7 +848,6 @@ export class MainGame extends ComponentBase {
 
 	/**
 	 * Handle game end when a winner is determined
-	 * @private
 	 */
 	handleGameEnd() {
 		// Play win sound
@@ -905,10 +860,9 @@ export class MainGame extends ComponentBase {
 		}
 
 		// Update final scoreboard
-		const finalScoreboard = this.shadowRoot.getElementById("final-scoreboard");
-		if (finalScoreboard) {
-			finalScoreboard.setTokenTypes(Tokens.getTokenTypes());
-			finalScoreboard.updateScoreboard(
+		if (this.finalScoreboard) {
+			this.finalScoreboard.setTokenTypes(Tokens.getTokenTypes());
+			this.finalScoreboard.updateScoreboard(
 				GameState.gameState.players,
 				GameState.gameState.currentPlayerIndex
 			);

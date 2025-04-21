@@ -204,13 +204,6 @@ export class AlignmentGrid extends ComponentBase {
 
 		// End rolling state
 		this.state.isRolling = false;
-
-		// Dispatch event
-		this.dispatchEvent(
-			new CustomEvent("alignment-rolled", {
-				detail: { alignment },
-			})
-		);
 	}
 
 	/**
@@ -303,12 +296,10 @@ export class AlignmentGrid extends ComponentBase {
 		// Show examples
 		this.showAlignmentExample(alignment);
 
-		// Dispatch event
-		this.dispatchEvent(
-			new CustomEvent("alignment-selected", {
-				detail: { alignment },
-			})
-		);
+		// Call the callback if provided (React-like props)
+		if (typeof this.onAlignmentSelected === "function") {
+			this.onAlignmentSelected(alignment);
+		}
 	}
 
 	/**
