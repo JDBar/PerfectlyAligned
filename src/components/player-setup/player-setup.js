@@ -169,19 +169,15 @@ export class PlayerSetup extends ComponentBase {
 		entry.className = "player-name-entry";
 		entry.dataset.playerIndex = index;
 
-		// Create label
-		const label = document.createElement("label");
-		label.textContent = `Player ${index + 1} Name:`;
-		label.htmlFor = `player-name-${index}`;
-		entry.appendChild(label);
-
 		// Create input
 		const input = document.createElement("input");
 		input.type = "text";
 		input.id = `player-name-${index}`;
 		input.name = `player-name-${index}`;
-		input.maxLength = 10;
-		input.placeholder = "Max 10 chars";
+		input.classList.add("player-name-input");
+		input.maxLength = 16;
+		input.placeholder = `Max ${input.maxLength} chars`;
+		input.defaultValue = `Player ${index + 1}`;
 		input.required = true;
 		input.dataset.playerIndex = index;
 		entry.appendChild(input);
@@ -230,7 +226,7 @@ export class PlayerSetup extends ComponentBase {
 		input.addEventListener("input", (e) => this.validatePlayerName(e.target));
 
 		// Set initial avatar
-		this.setInitialAvatar(index);
+		this.setInitialAvatar(index, avatar);
 
 		return entry;
 	}
@@ -240,34 +236,23 @@ export class PlayerSetup extends ComponentBase {
 	 * @param {number} playerIndex - Player index
 	 * @private
 	 */
-	setInitialAvatar(playerIndex) {
+	setInitialAvatar(playerIndex, avatarPreview) {
 		if (this.state.availableAvatars.length === 0) return;
 
-		// Choose an avatar that isn't already selected
-		let avatarIndex = playerIndex % this.state.availableAvatars.length;
-		let attempts = 0;
-		const maxAttempts = this.state.availableAvatars.length;
-
-		while (
-			attempts < maxAttempts &&
-			this.state.selectedAvatars.includes(
-				this.state.availableAvatars[avatarIndex].id
-			)
-		) {
-			avatarIndex = (avatarIndex + 1) % this.state.availableAvatars.length;
-			attempts++;
-		}
-
-		const avatar = this.state.availableAvatars[avatarIndex];
+		const avatar =
+			this.state.availableAvatars[
+				playerIndex % this.state.availableAvatars.length
+			];
 		this.state.selectedAvatars[playerIndex] = avatar.id;
 
 		// Update preview
 		const preview = this.shadowRoot.getElementById(
 			`avatar-preview-${playerIndex}`
 		);
-		if (preview) {
-			preview.style.backgroundImage = `url('${this.state.avatarBasePath}${avatar.filename}')`;
-			preview.dataset.avatarId = avatar.id;
+
+		if (avatarPreview) {
+			avatarPreview.style.backgroundImage = `url('${this.state.avatarBasePath}${avatar.filename}')`;
+			avatarPreview.dataset.avatarId = avatar.id;
 		}
 	}
 
@@ -403,52 +388,48 @@ export class PlayerSetup extends ComponentBase {
 			return false;
 		}
 
-		// Check for duplicate avatars
-		const avatarIds = new Set();
-		const duplicateAvatars = [];
+		// TODO: Disabled this for now since we're missing avatar images.
+		// I also don't think this is very important to have.
 
-		for (let i = 0; i < this.state.playerCount; i++) {
-			const avatarId = this.state.selectedAvatars[i];
-			if (avatarIds.has(avatarId)) {
-				duplicateAvatars.push(i);
-			} else {
-				avatarIds.add(avatarId);
-			}
-		}
+		// // Check for duplicate avatars
+		// const avatarIds = new Set();
+		// const duplicateAvatars = [];
 
-		if (duplicateAvatars.length > 0) {
-			if (errorMessage) {
-				errorMessage.textContent = "Players cannot use the same avatar";
-				errorMessage.classList.add("visible");
+		// for (let i = 0; i < this.state.playerCount; i++) {
+		// 	const avatarId = this.state.selectedAvatars[i];
+		// 	if (avatarIds.has(avatarId)) {
+		// 		duplicateAvatars.push(i);
+		// 	} else {
+		// 		avatarIds.add(avatarId);
+		// 	}
+		// }
 
-				// Highlight the duplicates
-				duplicateAvatars.forEach((playerIndex) => {
-					const preview = this.shadowRoot.getElementById(
-						`avatar-preview-${playerIndex}`
-					);
-					if (preview) {
-						preview.classList.add("avatar-taken");
-						setTimeout(() => {
-							preview.classList.remove("avatar-taken");
-						}, 2000);
-					}
-				});
-			}
-			return false;
-		}
+		// if (duplicateAvatars.length > 0) {
+		// 	if (errorMessage) {
+		// 		errorMessage.textContent = "Players cannot use the same avatar";
+		// 		errorMessage.classList.add("visible");
+
+		// 		// Highlight the duplicates
+		// 		duplicateAvatars.forEach((playerIndex) => {
+		// 			const preview = this.shadowRoot.getElementById(
+		// 				`avatar-preview-${playerIndex}`
+		// 			);
+		// 			if (preview) {
+		// 				preview.classList.add("avatar-taken");
+		// 				setTimeout(() => {
+		// 					preview.classList.remove("avatar-taken");
+		// 				}, 2000);
+		// 			}
+		// 		});
+		// 	}
+		// 	return false;
+		// }
 
 		// All valid
 		if (errorMessage) {
 			errorMessage.textContent = "";
 			errorMessage.classList.remove("visible");
 		}
-
-		// Dispatch player-setup-complete event when validation passes
-		this.dispatchEvent(
-			new CustomEvent("player-setup-complete", {
-				detail: { players: this.getPlayerData() },
-			})
-		);
 
 		return true;
 	}

@@ -74,21 +74,6 @@ export class MainGame extends ComponentBase {
 		const playerSetup = this.shadowRoot.getElementById("player-setup");
 		if (!playerSetup) return;
 
-		// Listen for player-setup-complete event
-		playerSetup.addEventListener("player-setup-complete", (event) => {
-			const playerData = event.detail.players;
-
-			// Add players to game state
-			if (Array.isArray(playerData) && playerData.length >= 3) {
-				// Enable start game button
-				const startGameButton =
-					this.shadowRoot.getElementById("start-game-button");
-				if (startGameButton) {
-					startGameButton.disabled = false;
-				}
-			}
-		});
-
 		// Listen for player count changes
 		playerSetup.addEventListener("player-count-changed", (event) => {
 			// Update any necessary game state based on player count
@@ -250,6 +235,11 @@ export class MainGame extends ComponentBase {
 			Logger.logWarning("Need at least 3 players to start");
 			return;
 		}
+
+		// Add players to game state
+		playerData.forEach((player) => {
+			GameState.addPlayer(player.name, player.avatar);
+		});
 
 		// Set up initial game state
 		GameState.setGameStarted(true);
