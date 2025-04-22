@@ -29,6 +29,7 @@ const eslintConfig = [
 			"react/display-name": "warn",
 		},
 
+		// This allows the "react/display-name" rule to work for MobX components wrapped with `observer`.
 		settings: {
 			componentWrapperFunctions: ["observer"],
 		},
