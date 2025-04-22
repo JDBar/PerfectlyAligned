@@ -80,8 +80,7 @@ export class GameMaster {
 	removePlayer(playerId?: string) {
 		// Prevent removing players below the min limit
 		if (this.players.length <= GameMaster.PLAYER_COUNT.MIN) {
-			console.warn("Cannot remove more players, minimum limit reached.");
-			return;
+			throw new Error("Cannot remove more players, minimum limit reached.");
 		}
 
 		if (!playerId && this.players.length > 0) {
