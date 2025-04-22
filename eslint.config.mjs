@@ -33,6 +33,24 @@ const eslintConfig = [
 			componentWrapperFunctions: ["observer"],
 		},
 	},
+
+	// Override for Next.js-specific files to disable MobX rules
+	{
+		files: [
+			"**/app/**/page.tsx",
+			"**/app/**/layout.tsx",
+			"**/app/**/loading.tsx",
+			"**/app/**/error.tsx",
+			"**/app/**/not-found.tsx",
+			"**/app/**/route.ts",
+			"**/pages/**/*.tsx",
+		],
+		rules: {
+			// Disable MobX-specific rules for Next.js files
+			"mobx/missing-observer": "off",
+			"mobx/exhaustive-make-observable": "off",
+		},
+	},
 ];
 
 export default eslintConfig;
