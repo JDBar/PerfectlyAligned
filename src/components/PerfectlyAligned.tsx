@@ -10,7 +10,7 @@ import { LobbySetup } from "./LobbySetup";
  * Main game component that manages UI state (screens) and renders different views.
  * It observes the GameMaster instance for changes to core game state.
  */
-const PerfectlyAlignedComponent: React.FC = () => {
+export const PerfectlyAligned: React.FC = observer(function PerfectlyAligned() {
 	// Get the GameMaster instance from context
 	const gameMaster = useGameMaster();
 
@@ -71,7 +71,4 @@ const PerfectlyAlignedComponent: React.FC = () => {
 	};
 
 	return <div className={styles.gameContainer}>{renderCurrentScreen()}</div>;
-};
-
-// Wrap the component with observer to make it reactive to MobX state changes
-export const PerfectlyAligned = observer(PerfectlyAlignedComponent);
+});

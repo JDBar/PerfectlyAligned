@@ -13,6 +13,7 @@ interface GameSetupProps {
  * GameSetup displays the game title, subtitle, and tutorial button
  * along with the children components (typically LobbySetup)
  */
+// eslint-disable-next-line mobx/missing-observer
 export const GameSetup: React.FC<GameSetupProps> = ({
 	onShowTutorial,
 	children,

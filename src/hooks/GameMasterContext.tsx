@@ -10,6 +10,7 @@ const GameMasterContext = createContext<GameMaster | null>(null);
 /**
  * Provider component that makes the GameMaster instance available to all children
  */
+// eslint-disable-next-line mobx/missing-observer
 export const GameMasterProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
