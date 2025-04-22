@@ -1,35 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
 import styles from "./PerfectlyAligned.module.scss";
-import { useGameMaster } from "@/hooks/useGameMaster";
 import * as Game from "@/lib/game/types";
+import { useGameMaster } from "@/hooks/GameMasterContext";
 import { GameSetup } from "./GameSetup";
 import { LobbySetup } from "./LobbySetup";
 
 /**
- * Main game component that manages the game state and renders different screens
+ * Main game component that manages UI state (screens) and renders different views.
+ * It observes the GameMaster instance for changes to core game state.
  */
-export const PerfectlyAligned: React.FC = () => {
-	const GM = useGameMaster();
+const PerfectlyAlignedComponent: React.FC = () => {
+	// Get the GameMaster instance from context
+	const gameMaster = useGameMaster();
 
-	// Render the appropriate screen based on current game state
+	// UI state managed by React
+	const [currentScreen, setCurrentScreen] = useState<Game.Screen>(
+		Game.Screens.SETUP
+	);
+
+	// Screen navigation functions
+	const navigateTo = (screen: Game.Screen) => {
+		setCurrentScreen(screen);
+	};
+
+	const handleShowTutorial = () => {
+		navigateTo(Game.Screens.TUTORIAL);
+	};
+
+	const handleStartGame = () => {
+		if (gameMaster.startGame()) {
+			navigateTo(Game.Screens.DRAWING);
+		}
+	};
+
+	// Render the appropriate screen based on current UI state
 	const renderCurrentScreen = () => {
-		switch (GM.state.currentScreen) {
+		switch (currentScreen) {
 			case Game.Screens.SETUP:
 				return (
-					<GameSetup onShowTutorial={GM.showTutorial}>
+					<GameSetup onShowTutorial={handleShowTutorial}>
 						<LobbySetup
-							minPlayers={GM.PLAYER_COUNT.MIN}
-							maxPlayers={GM.PLAYER_COUNT.MAX}
-							defaultPlayers={GM.PLAYER_COUNT.DEFAULT}
-							players={GM.state.settings.players}
-							onAddPlayer={GM.addPlayer}
-							onRemovePlayer={GM.removePlayer}
-							onToggleCardDeck={GM.toggleCardDeck}
 							onEnterPlayerNames={() => {
-								// This would open a modal or navigate to a name entry screen
+								// TODO: Make a component for managing player names/avatars in LobbySetup instead.
 								console.log("Enter player names clicked");
 							}}
-							selectedCardDecks={GM.state.settings.cardDecks}
+							onStartGame={handleStartGame}
 						/>
 					</GameSetup>
 				);
@@ -37,7 +53,7 @@ export const PerfectlyAligned: React.FC = () => {
 				return (
 					<div>
 						<h1>Tutorial Screen (Placeholder)</h1>
-						<button onClick={() => GM.navigateTo(Game.Screens.SETUP)}>
+						<button onClick={() => navigateTo(Game.Screens.SETUP)}>
 							Back to Setup
 						</button>
 					</div>
@@ -49,6 +65,7 @@ export const PerfectlyAligned: React.FC = () => {
 			case Game.Screens.RESULTS:
 				return <div>Results Screen (Placeholder)</div>;
 			default:
+				console.error(`Unhandled screen: ${currentScreen}`);
 				return <div>Unknown Screen</div>;
 		}
 	};
@@ -56,4 +73,5 @@ export const PerfectlyAligned: React.FC = () => {
 	return <div className={styles.gameContainer}>{renderCurrentScreen()}</div>;
 };
 
-export default PerfectlyAligned;
+// Wrap the component with observer to make it reactive to MobX state changes
+export const PerfectlyAligned = observer(PerfectlyAlignedComponent);

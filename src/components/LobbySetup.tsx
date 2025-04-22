@@ -1,39 +1,31 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 import styles from "./LobbySetup.module.scss";
-import * as Game from "@/lib/game/types";
+import * as GameTypes from "@/lib/game/types";
+import { useGameMaster } from "@/hooks/GameMasterContext";
+import { GameMaster } from "@/lib/game/GameMaster";
 
 /**
  * Props for the LobbySetup component
  */
 interface LobbySetupProps {
-	minPlayers: number;
-	maxPlayers: number;
-	defaultPlayers: number;
-	players: Game.Player[];
-	onAddPlayer: () => void;
-	onRemovePlayer: () => void;
-	onToggleCardDeck: (deck: Game.Deck) => void;
 	onEnterPlayerNames: () => void;
-	selectedCardDecks: Game.Deck[];
+	onStartGame: () => void;
 }
 
 /**
  * LobbySetup component for configuring players and card decks
  */
-export const LobbySetup: React.FC<LobbySetupProps> = ({
-	minPlayers,
-	maxPlayers,
-	players,
-	onAddPlayer,
-	onRemovePlayer,
-	onToggleCardDeck,
+const LobbySetupComponent: React.FC<LobbySetupProps> = ({
 	onEnterPlayerNames,
-	selectedCardDecks,
+	onStartGame,
 }) => {
-	const playerCount = players.length;
+	const gameMaster = useGameMaster();
+	const playerCount = gameMaster.players.length;
+	const { MIN: minPlayers, MAX: maxPlayers } = GameMaster.PLAYER_COUNT;
 
-	const isDeckSelected = (deck: Game.Deck): boolean => {
-		return selectedCardDecks.includes(deck);
+	const isDeckSelected = (deck: GameTypes.Deck): boolean => {
+		return gameMaster.cardDecks.includes(deck);
 	};
 
 	return (
@@ -46,7 +38,7 @@ export const LobbySetup: React.FC<LobbySetupProps> = ({
 				</span>
 				<button
 					className={styles.numberButton}
-					onClick={onRemovePlayer}
+					onClick={() => gameMaster.removePlayer()}
 					disabled={playerCount <= minPlayers}
 				>
 					-
@@ -56,16 +48,32 @@ export const LobbySetup: React.FC<LobbySetupProps> = ({
 				</button>
 				<button
 					className={styles.numberButton}
-					onClick={onAddPlayer}
+					onClick={() => gameMaster.addPlayer()}
 					disabled={playerCount >= maxPlayers}
 				>
 					+
 				</button>
 			</div>
 
-			<button className={styles.enterButton} onClick={onEnterPlayerNames}>
-				Enter Player Names
-			</button>
+			<div className={styles.playerList}>
+				{gameMaster.players.map((player, index) => (
+					<div key={player.id} className={styles.playerItem}>
+						<span className={styles.playerName}>
+							{player.name || `Player ${index + 1}`}
+						</span>
+					</div>
+				))}
+			</div>
+
+			<div className={styles.buttonGroup}>
+				<button className={styles.enterButton} onClick={onEnterPlayerNames}>
+					Enter Player Names
+				</button>
+
+				<button className={styles.startGameButton} onClick={onStartGame}>
+					Start Game
+				</button>
+			</div>
 
 			<div className={styles.cardOptions}>
 				<h4 className={styles.cardOptionsTitle}>
@@ -74,31 +82,34 @@ export const LobbySetup: React.FC<LobbySetupProps> = ({
 
 				<div
 					className={`${styles.deckOption} ${
-						isDeckSelected(Game.Decks.CORE) ? styles.active : ""
+						isDeckSelected(GameTypes.Decks.CORE) ? styles.active : ""
 					}`}
-					onClick={() => onToggleCardDeck(Game.Decks.CORE)}
+					onClick={() => gameMaster.toggleCardDeck(GameTypes.Decks.CORE)}
 				>
-					{Game.Decks.CORE}
+					{GameTypes.Decks.CORE}
 				</div>
 
 				<div
 					className={`${styles.deckOption} ${styles.creative} ${
-						isDeckSelected(Game.Decks.CREATIVE) ? styles.active : ""
+						isDeckSelected(GameTypes.Decks.CREATIVE) ? styles.active : ""
 					}`}
-					onClick={() => onToggleCardDeck(Game.Decks.CREATIVE)}
+					onClick={() => gameMaster.toggleCardDeck(GameTypes.Decks.CREATIVE)}
 				>
-					{Game.Decks.CREATIVE}
+					{GameTypes.Decks.CREATIVE}
 				</div>
 
 				<div
 					className={`${styles.deckOption} ${styles.taboo} ${
-						isDeckSelected(Game.Decks.TABOO) ? styles.active : ""
+						isDeckSelected(GameTypes.Decks.TABOO) ? styles.active : ""
 					}`}
-					onClick={() => onToggleCardDeck(Game.Decks.TABOO)}
+					onClick={() => gameMaster.toggleCardDeck(GameTypes.Decks.TABOO)}
 				>
-					{Game.Decks.TABOO}
+					{GameTypes.Decks.TABOO}
 				</div>
 			</div>
 		</div>
 	);
 };
+
+// Wrap with observer to make the component reactive to MobX state changes
+export const LobbySetup = observer(LobbySetupComponent);

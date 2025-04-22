@@ -40,10 +40,22 @@
 	}
 }
 
+.buttonGroup {
+	display: flex;
+	flex-wrap: wrap;
+	gap: vars.$spacing-md;
+	margin-bottom: vars.$spacing-xl;
+}
+
 .enterButton {
 	background-color: vars.$text-accent;
 	color: vars.$background-color;
-	margin-top: vars.$spacing-lg;
+}
+
+.startGameButton {
+	background-color: #00cc00; // Green color for start button
+	color: vars.$background-color;
+	font-weight: bold;
 }
 
 .cardOptions {
