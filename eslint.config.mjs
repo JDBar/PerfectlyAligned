@@ -27,6 +27,16 @@ const eslintConfig = [
 
 			// Display name is required for React components
 			"react/display-name": "warn",
+
+			// Allow unused variables if they start with underscore
+			"@typescript-eslint/no-unused-vars": [
+				"warn",
+				{
+					argsIgnorePattern: "^_",
+					varsIgnorePattern: "^_",
+					caughtErrorsIgnorePattern: "^_",
+				},
+			],
 		},
 
 		// This allows the "react/display-name" rule to work for MobX components wrapped with `observer`.

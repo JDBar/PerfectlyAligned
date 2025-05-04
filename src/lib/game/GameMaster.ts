@@ -1,5 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import { configure } from "mobx";
+import { v4 as uuidv4 } from "uuid";
+import * as Game from "@/lib/game/types";
+import { identity, enforceKeys } from "@/lib/type-utils";
 
 configure({
 	enforceActions: "always",
@@ -7,9 +10,6 @@ configure({
 	observableRequiresReaction: true,
 	// reactionRequiresObservable: true,
 });
-
-import { v4 as uuidv4 } from "uuid";
-import * as Game from "@/lib/game/types";
 
 /**
  * Manages the core game state and logic for Perfectly Aligned.
@@ -65,8 +65,7 @@ export class GameMaster {
 	addPlayer(name?: string, avatar?: string) {
 		// Prevent adding more players than the max limit
 		if (this.players.length >= GameMaster.PLAYER_COUNT.MAX) {
-			console.warn("Cannot add more players, maximum limit reached.");
-			return;
+			throw new GameMasterError(GameMasterError.CODE.PLAYER_MAX_REACHED);
 		}
 		const newPlayer: Game.Player = {
 			id: uuidv4(),
@@ -80,7 +79,7 @@ export class GameMaster {
 	removePlayer(playerId?: string) {
 		// Prevent removing players below the min limit
 		if (this.players.length <= GameMaster.PLAYER_COUNT.MIN) {
-			throw new Error("Cannot remove more players, minimum limit reached.");
+			throw new GameMasterError(GameMasterError.CODE.PLAYER_MIN_REACHED);
 		}
 
 		if (!playerId && this.players.length > 0) {
@@ -115,9 +114,7 @@ export class GameMaster {
 	startGame() {
 		// Ensure minimum player count is met
 		if (this.players.length < GameMaster.PLAYER_COUNT.MIN) {
-			console.error("Cannot start game with fewer than minimum players.");
-			// Optionally, show an error message to the user here
-			return false;
+			throw new GameMasterError(GameMasterError.CODE.NOT_ENOUGH_PLAYERS);
 		}
 
 		this.gameInProgress = true;
@@ -133,5 +130,27 @@ export class GameMaster {
 		this.currentRound = undefined;
 		this.totalRounds = undefined;
 		this.promptCard = undefined;
+	}
+}
+
+export class GameMasterError extends Error {
+	static readonly CODE = identity({
+		PLAYER_MIN_REACHED: "PLAYER_MIN_REACHED",
+		PLAYER_MAX_REACHED: "PLAYER_MAX_REACHED",
+		NOT_ENOUGH_PLAYERS: "NOT_ENOUGH_PLAYERS",
+	} as const);
+
+	static readonly MESSAGE = enforceKeys<keyof typeof GameMasterError.CODE>()({
+		PLAYER_MIN_REACHED: "Cannot remove more players, minimum limit reached.",
+		PLAYER_MAX_REACHED: "Cannot add more players, maximum limit reached.",
+		NOT_ENOUGH_PLAYERS: "Cannot start game with fewer than minimum players.",
+	} as const);
+
+	readonly code: keyof typeof GameMasterError.CODE;
+
+	constructor(errorCode: keyof typeof GameMasterError.CODE) {
+		super(GameMasterError.MESSAGE[errorCode]);
+		this.name = "GameMasterError";
+		this.code = errorCode;
 	}
 }
